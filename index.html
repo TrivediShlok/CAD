@@ -9,6 +9,38 @@
 
     <body>
         <div class="container">
+            <div class="elements-container">
+                <div class="elements-area">
+                    <h1>📦 Components</h1>
+                    <div class="control-group">
+                        <label for="input-width" class="input-label"
+                            >Width (mm):</label
+                        >
+                        <input
+                            type="number"
+                            id="input-width"
+                            class="dimension-input"
+                            value="400"
+                            min="1"
+                            step="1"
+                        />
+                        <label for="input-length" class="input-label"
+                            >Length (mm):</label
+                        >
+                        <input
+                            type="number"
+                            id="input-length"
+                            class="dimension-input"
+                            value="400"
+                            min="1"
+                            step="1"
+                        />
+                    </div>
+                </div>
+                <div class="elements-detail">
+                    <h1>⚙ Inspector</h1>
+                </div>
+            </div>
             <div id="canvas-container">
                 <div class="canvas-controls">
                     <button id="btn-orbit" class="control-btn active">
@@ -21,44 +53,396 @@
                 </div>
                 <canvas id="three-canvas"></canvas>
             </div>
-            <div class="elements-container">
-                <div class="elements-area">
-                    <h1>📦 Components</h1>
-                    <div class="control-group">
-                        <label for="input-width" class="input-label"
-                            >Width (mm):</label
-                        >
-                        <input
-                            type="number"
-                            id="input-width"
-                            class="dimension-input"
-                            value="4"
-                            min="1"
-                            step="1"
-                        />
-                        <label for="input-length" class="input-label"
-                            >Length (mm):</label
-                        >
-                        <input
-                            type="number"
-                            id="input-length"
-                            class="dimension-input"
-                            value="7"
-                            min="1"
-                            step="1"
-                        />
-                    </div>
-                </div>
-                <div class="elements-detail">
-                    <h1>⚙ Inspector</h1>
-                </div>
-            </div>
         </div>
 
         <script src="three.min.js"></script>
         <script src="OrbitControls.js"></script>
 
         <script>
+            const componentData = {
+                Active: {
+                    ic: {
+                        ic_microcontroller_atmega: {
+                            id: "ACT_IC_01",
+                            name: "ATmega328P Microcontroller (DIP-28)",
+                            width: 6,
+                            length: 14,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0x1a1a1a",
+                                roughness: 0.6,
+                                metalness: 0.1,
+                                height: 1.5,
+                            },
+                        },
+                        ic_opamp_lm741: {
+                            id: "ACT_IC_02",
+                            name: "LM741 Operational Amplifier (DIP-8)",
+                            width: 5,
+                            length: 5,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0x2b2b2b",
+                                roughness: 0.5,
+                                metalness: 0.1,
+                                height: 1.2,
+                            },
+                        },
+                        ic_logic_74hc08: {
+                            id: "ACT_IC_03",
+                            name: "74HC08 Quad AND Gate (SOIC-14)",
+                            width: 5,
+                            length: 10,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0x111111",
+                                roughness: 0.6,
+                                metalness: 0.1,
+                                height: 1.4,
+                            },
+                        },
+                        ic_timer_ne555: {
+                            id: "ACT_IC_04",
+                            name: "NE555 Precision Timer (PDIP-8)",
+                            width: 5,
+                            length: 6,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0x222222",
+                                roughness: 0.6,
+                                metalness: 0.1,
+                                height: 1.3,
+                            },
+                        },
+                    },
+                    regulators: {
+                        reg_linear_7805: {
+                            id: "ACT_REG_01",
+                            name: "LM7805 5V Linear Regulator (TO-220)",
+                            width: 6,
+                            length: 6,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0x333333",
+                                roughness: 0.4,
+                                metalness: 0.5,
+                                height: 2.5,
+                            },
+                        },
+                        reg_adjustable_lm317: {
+                            id: "ACT_REG_02",
+                            name: "LM317 Adjustable Regulator",
+                            width: 5,
+                            length: 5,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0x444444",
+                                roughness: 0.4,
+                                metalness: 0.6,
+                                height: 2.3,
+                            },
+                        },
+                        reg_buck_lm2596: {
+                            id: "ACT_REG_03",
+                            name: "LM2596 Step-Down Switching Regulator",
+                            width: 12,
+                            length: 12,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0x1e1e1e",
+                                roughness: 0.5,
+                                metalness: 0.3,
+                                height: 4.0,
+                            },
+                        },
+                        reg_ldo_ams1117: {
+                            id: "ACT_REG_04",
+                            name: "AMS1117 3.3V LDO Regulator (SOT-223)",
+                            width: 4,
+                            length: 5,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0x2a2a2a",
+                                roughness: 0.3,
+                                metalness: 0.4,
+                                height: 1.2,
+                            },
+                        },
+                    },
+                    sensors: {
+                        sensor_imu_mpu6050: {
+                            id: "ACT_SEN_01",
+                            name: "MPU6050 Accelerometer/Gyroscope Module",
+                            width: 10,
+                            length: 10,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0x004080",
+                                roughness: 0.5,
+                                metalness: 0.2,
+                                height: 1.0,
+                            },
+                        },
+                        sensor_temp_lm35: {
+                            id: "ACT_SEN_02",
+                            name: "LM35 Precision Centigrade Temperature Sensor",
+                            width: 4,
+                            length: 4,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0x666666",
+                                roughness: 0.5,
+                                metalness: 0.1,
+                                height: 2.0,
+                            },
+                        },
+                        sensor_light_ldr: {
+                            id: "ACT_SEN_03",
+                            name: "Photoresistor LDR Sensor Module",
+                            width: 5,
+                            length: 8,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0x8b2500",
+                                roughness: 0.7,
+                                metalness: 0.0,
+                                height: 1.5,
+                            },
+                        },
+                        sensor_baro_bmp280: {
+                            id: "ACT_SEN_04",
+                            name: "BMP280 Barometric Pressure Sensor",
+                            width: 8,
+                            length: 8,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0x005533",
+                                roughness: 0.4,
+                                metalness: 0.3,
+                                height: 1.1,
+                            },
+                        },
+                    },
+                },
+                passive: {
+                    resistor: {
+                        resistor_axial_quarter_w: {
+                            id: "PAS_RES_01",
+                            name: "Through-Hole Resistor 1/4W",
+                            width: 2,
+                            length: 6,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0x007bff",
+                                roughness: 0.4,
+                                metalness: 0.0,
+                                height: 1.0,
+                            },
+                        },
+                        resistor_axial_two_w: {
+                            id: "PAS_RES_02",
+                            name: "Ceramic Power Resistor 2W",
+                            width: 4,
+                            length: 10,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0x8c7b60",
+                                roughness: 0.7,
+                                metalness: 0.0,
+                                height: 2.0,
+                            },
+                        },
+                        resistor_smd_0805: {
+                            id: "PAS_RES_03",
+                            name: "SMD Resistor 0805 Package",
+                            width: 1,
+                            length: 2,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0x111111",
+                                roughness: 0.5,
+                                metalness: 0.1,
+                                height: 0.4,
+                            },
+                        },
+                        resistor_network_bourns: {
+                            id: "PAS_RES_04",
+                            name: "Bussed Resistor Network Array",
+                            width: 2,
+                            length: 12,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0x3a3a3a",
+                                roughness: 0.6,
+                                metalness: 0.1,
+                                height: 2.2,
+                            },
+                        },
+                    },
+                    capacitor: {
+                        cap_electrolytic_radial: {
+                            id: "PAS_CAP_01",
+                            name: "Electrolytic Radial Capacitor 10uF",
+                            width: 4,
+                            length: 4,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0x555555",
+                                roughness: 0.3,
+                                metalness: 0.6,
+                                height: 5.0,
+                            },
+                        },
+                        cap_ceramic_disc: {
+                            id: "PAS_CAP_02",
+                            name: "Ceramic Disc Capacitor 100nF",
+                            width: 2,
+                            length: 2,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0xd2b48c",
+                                roughness: 0.8,
+                                metalness: 0.0,
+                                height: 3.0,
+                            },
+                        },
+                        cap_smd_tantalum: {
+                            id: "PAS_CAP_03",
+                            name: "SMD Tantalum Capacitor Case-A",
+                            width: 2,
+                            length: 3,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0xcc9900",
+                                roughness: 0.5,
+                                metalness: 0.0,
+                                height: 1.2,
+                            },
+                        },
+                        cap_film_poly: {
+                            id: "PAS_CAP_04",
+                            name: "Polyester Film Capacitor 400V",
+                            width: 5,
+                            length: 8,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0x8b0000",
+                                roughness: 0.4,
+                                metalness: 0.1,
+                                height: 4.0,
+                            },
+                        },
+                    },
+                    inductor: {
+                        inductor_power_shielded: {
+                            id: "PAS_IND_01",
+                            name: "Shielded Power Inductor 22uH",
+                            width: 6,
+                            length: 6,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0x4f4f4f",
+                                roughness: 0.6,
+                                metalness: 0.3,
+                                height: 3.5,
+                            },
+                        },
+                        inductor_toroidal: {
+                            id: "PAS_IND_02",
+                            name: "Toroidal Core Inductor Filter",
+                            width: 8,
+                            length: 8,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0xcd7f32",
+                                roughness: 0.5,
+                                metalness: 0.7,
+                                height: 4.5,
+                            },
+                        },
+                        inductor_ferrite_bead: {
+                            id: "PAS_IND_03",
+                            name: "Axial Ferrite Bead Inductor",
+                            width: 2,
+                            length: 4,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0x222222",
+                                roughness: 0.8,
+                                metalness: 0.1,
+                                height: 1.5,
+                            },
+                        },
+                        inductor_smd_wirewound: {
+                            id: "PAS_IND_04",
+                            name: "SMD Wirewound Inductor 1008",
+                            width: 2,
+                            length: 3,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0x778899",
+                                roughness: 0.4,
+                                metalness: 0.4,
+                                height: 1.0,
+                            },
+                        },
+                    },
+                    oscillators: {
+                        crystal_hc49_axial: {
+                            id: "PAS_OSC_01",
+                            name: "16MHz Quartz Crystal (HC-49S)",
+                            width: 3,
+                            length: 7,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0xcccccc",
+                                roughness: 0.2,
+                                metalness: 0.9,
+                                height: 2.2,
+                            },
+                        },
+                        oscillator_tcxo: {
+                            id: "PAS_OSC_02",
+                            name: "Temperature Compensated Crystal (TCXO)",
+                            width: 5,
+                            length: 7,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0xdddddd",
+                                roughness: 0.3,
+                                metalness: 0.8,
+                                height: 1.8,
+                            },
+                        },
+                        oscillator_resonator_ceramic: {
+                            id: "PAS_OSC_03",
+                            name: "Ceramic Resonator 8MHz with Caps",
+                            width: 2,
+                            length: 5,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0x008080",
+                                roughness: 0.7,
+                                metalness: 0.0,
+                                height: 2.5,
+                            },
+                        },
+                        oscillator_rtc_crystal: {
+                            id: "PAS_OSC_04",
+                            name: "32.768kHz Real-Time Clock Crystal Cylindrical",
+                            width: 2,
+                            length: 4,
+                            geometry: "BoxGeometry",
+                            meshProps: {
+                                color: "0xb0c4de",
+                                roughness: 0.2,
+                                metalness: 0.9,
+                                height: 1.0,
+                            },
+                        },
+                    },
+                },
+            };
             const scene = new THREE.Scene();
             const container = document.querySelector("#canvas-container");
             const width = container.clientWidth;
@@ -188,7 +572,6 @@
 
             ctxTop.fillStyle = "#004d1a";
             ctxTop.fillRect(0, 0, 512, 896);
-            // Small label at top-left edge
             ctxTop.font = "Bold 16px monospace";
             ctxTop.fillStyle = "rgba(255, 255, 255, 0.8)";
             ctxTop.textAlign = "left";
@@ -197,7 +580,6 @@
 
             ctxBottom.fillStyle = "#004d1a";
             ctxBottom.fillRect(0, 0, 512, 896);
-            // Small label at bottom-right edge
             ctxBottom.font = "Bold 16px monospace";
             ctxBottom.fillStyle = "rgba(255, 255, 255, 0.8)";
             ctxBottom.textAlign = "right";
@@ -255,7 +637,10 @@
             controle.dampingFactor = 0.4;
 
             btnTop.addEventListener("click", () => {
-                controle.enabled = false;
+                controle.enableZoom = true;
+
+                controle.enableRotate = false;
+                controle.enablePan = false;
                 const maxDim = Math.max(inputWidth.value, inputLength.value);
                 const fovInRadians = (camera.fov * Math.PI) / 180;
                 let cameraZ = maxDim / (2 * Math.tan(fovInRadians / 2));
@@ -278,11 +663,14 @@
             });
 
             btnBottom.addEventListener("click", () => {
-                controle.enabled = false;
+                controle.enableZoom = true;
+
+                controle.enableRotate = false;
+                controle.enablePan = false;
                 const maxDim = Math.max(inputWidth.value, inputLength.value);
                 const fovInRadians = (camera.fov * Math.PI) / 180;
                 let cameraZ = maxDim / (2 * Math.tan(fovInRadians / 2));
-                camera.position.set(0, -cameraZ * 1.5, 0);
+                camera.position.set(0, -cameraZ * 1.3, 0);
                 btnTop.classList.remove("active");
                 btnOrbit.classList.remove("active");
                 btnBottom.classList.add("active");
@@ -401,6 +789,36 @@
                 );
             }
 
+            // function spawnComponent(
+            //     gridX,
+            //     gridZ,
+            //     compWidth,
+            //     compLength,
+            //     colorHex,
+            // ) {
+            //     if (!placeComponent(gridX, gridZ, compWidth, compLength)) {
+            //         return;
+            //     }
+            //     const compGeo = new THREE.BoxGeometry(
+            //         compWidth,
+            //         0.4,
+            //         compLength,
+            //     );
+            //     const compMat = new THREE.MeshStandardMaterial({
+            //         color: colorHex,
+            //         roughness: 0.5,
+            //     });
+            //     const compMesh = new THREE.Mesh(compGeo, compMat);
+            //     const worldPos = gridToWorld(
+            //         gridX,
+            //         gridZ,
+            //         compWidth,
+            //         compLength,
+            //     );
+            //     compMesh.position.copy(worldPos);
+            //     scene.add(compMesh);
+            // }
+
             function spawnComponent(
                 gridX,
                 gridZ,
@@ -421,6 +839,13 @@
                     roughness: 0.5,
                 });
                 const compMesh = new THREE.Mesh(compGeo, compMat);
+                compMesh.userData = {
+                    gridX: gridX,
+                    gridZ: gridZ,
+                    width: compWidth,
+                    length: compLength,
+                };
+                spawnedComponents.push(compMesh);
                 const worldPos = gridToWorld(
                     gridX,
                     gridZ,
@@ -430,6 +855,26 @@
                 compMesh.position.copy(worldPos);
                 scene.add(compMesh);
             }
+
+            let isEraseMode = false;
+            const btnErase = document.createElement("button");
+            btnErase.id = "btn-erase";
+            btnErase.className = "control-btn";
+            btnErase.textContent = "Eraser Mode";
+            document.querySelector(".canvas-controls").appendChild(btnErase);
+            let spawnedComponents = [];
+            btnErase.addEventListener("click", () => {
+                isEraseMode = !isEraseMode;
+                if (isEraseMode) {
+                    btnErase.classList.add("active");
+                    btnTop.classList.remove("active");
+                    btnOrbit.classList.remove("active");
+                    btnBottom.classList.remove("active");
+                } else {
+                    btnErase.classList.remove("active");
+                    btnOrbit.classList.add("active");
+                }
+            });
 
             document
                 .querySelector("#three-canvas")
@@ -445,22 +890,68 @@
                         new THREE.Vector2(mouseX, mouseY),
                         camera,
                     );
-                    const intersects = raycaster.intersectObject(pcbBase);
-
-                    if (intersects.length > 0) {
-                        const hitPoint = intersects[0].point;
-                        const currentWidth = parseFloat(inputWidth.value);
-                        const currentLength = parseFloat(inputLength.value);
-                        const localX = hitPoint.x + currentWidth / 2;
-                        const localZ = hitPoint.z + currentLength / 2;
-                        const gridX = Math.floor(localX);
-                        const gridZ = Math.floor(localZ);
-                        console.log(`Clicked Grid Cell: (${gridX}, ${gridZ})`);
-                        spawnComponent(gridX, gridZ, 1, 2, 0xff0000);
+                    if (isEraseMode) {
+                        const intersects =
+                            raycaster.intersectObjects(spawnedComponents);
+                        if (intersects.length > 0) {
+                            const clickedComponent = intersects[0].object;
+                            const info = clickedComponent.userData;
+                            for (
+                                let x = info.gridX;
+                                x < info.gridX + info.width;
+                                x++
+                            ) {
+                                for (
+                                    let z = info.gridZ;
+                                    z < info.gridZ + info.length;
+                                    z++
+                                ) {
+                                    pcbGrid[x][z] = 0;
+                                }
+                            }
+                            scene.remove(clickedComponent);
+                            clickedComponent.geometry.dispose();
+                            clickedComponent.material.dispose();
+                            spawnedComponents = spawnedComponents.filter(
+                                (mesh) => mesh !== clickedComponent,
+                            );
+                            console.log(
+                                "Component vaporized and database space cleared!",
+                            );
+                        }
+                    } else {
+                        const intersects = raycaster.intersectObject(pcbBase);
+                        if (intersects.length > 0) {
+                            const hitPoint = intersects[0].point;
+                            const currentWidth = parseFloat(inputWidth.value);
+                            const currentLength = parseFloat(inputLength.value);
+                            const localX = hitPoint.x + currentWidth / 2;
+                            const localZ = hitPoint.z + currentLength / 2;
+                            const gridX = Math.floor(localX);
+                            const gridZ = Math.floor(localZ);
+                            console.log(
+                                `Clicked Grid Cell: (${gridX}, ${gridZ})`,
+                            );
+                            spawnComponent(gridX, gridZ, 1, 2, 0xff0000);
+                        }
                     }
                 });
+            //     const intersects = raycaster.intersectObject(pcbBase);
 
-                console.log(pcbGrid);
+            //     if (intersects.length > 0) {
+            //         const hitPoint = intersects[0].point;
+            //         const currentWidth = parseFloat(inputWidth.value);
+            //         const currentLength = parseFloat(inputLength.value);
+            //         const localX = hitPoint.x + currentWidth / 2;
+            //         const localZ = hitPoint.z + currentLength / 2;
+            //         const gridX = Math.floor(localX);
+            //         const gridZ = Math.floor(localZ);
+            //         console.log(`Clicked Grid Cell: (${gridX}, ${gridZ})`);
+            //         spawnComponent(gridX, gridZ, 1, 2, 0xff0000);
+            //     }
+            // });
+
+            console.log(pcbGrid);
 
             function animate() {
                 requestAnimationFrame(animate);
