@@ -1,657 +1,570 @@
-<!-- <!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Three.js — Offline 3D Scene</title>
-        <link rel="stylesheet" href="style.css" />
-    </head>
-
-    <body>
-        <div class="container">
-            <div class="elements-container">
-                <div class="elements-area">
-                    <h1> Components</h1>
-                    <div class="control-group">
-                        <label for="input-width" class="input-label"
-                            >Width (mm):</label
-                        >
-                        <input
-                            type="number"
-                            id="input-width"
-                            class="dimension-input"
-                            value="400"
-                            min="1"
-                            step="1"
-                        />
-                        <label for="input-length" class="input-label"
-                            >Length (mm):</label
-                        >
-                        <input
-                            type="number"
-                            id="input-length"
-                            class="dimension-input"
-                            value="400"
-                            min="1"
-                            step="1"
-                        />
-                    </div>
-                </div>
-                <div class="elements-detail">
-                    <h1>⚙ Inspector</h1>
-                </div>
-            </div>
-            <div id="canvas-container">
-                <div class="canvas-controls">
-                    <button id="btn-orbit" class="control-btn active">
-                        Free Orbit
-                    </button>
-                    <button id="btn-top" class="control-btn">Top View</button>
-                    <button id="btn-bottom" class="control-btn">
-                        Bottom View
-                    </button>
-                </div>
-                <canvas id="three-canvas"></canvas>
-            </div>
-        </div>
-
-        <script src="three.min.js"></script>
-        <script src="OrbitControls.js"></script>
-
-        <script>
-            compList=fetch("./cmplist.json").then(res=>{
-                return res.json()
-            }).then((data)=>{
-                console.log(data.items)
-            })
-            const scene = new THREE.Scene();
-            const container = document.querySelector("#canvas-container");
-            const width = container.clientWidth;
-            const height = container.clientHeight;
-            const btnTop = document.getElementById("btn-top");
-            const btnBottom = document.getElementById("btn-bottom");
-            const btnOrbit = document.getElementById("btn-orbit");
-            const inputWidth = document.getElementById("input-width");
-            const inputLength = document.getElementById("input-length");
-            let newWidth = parseFloat(inputWidth.value);
-            let newLength = parseFloat(inputLength.value);
-
-            function updateBoardSize() {
-                newWidth = parseFloat(inputWidth.value);
-                newLength = parseFloat(inputLength.value);
-                console.log("hello from updatebordsize", newWidth);
-                initializeGridSystem(
-                    Math.floor(newWidth),
-                    Math.floor(newLength),
-                );
-                pcbBase.geometry.dispose();
-                const newBoardGeo = new THREE.BoxGeometry(
-                    newWidth,
-                    newLength,
-                    0.1,
-                );
-                pcbBase.geometry = newBoardGeo;
-                gridGeometry.dispose();
-                const newPoints = [];
-                const halfW = newWidth / 2;
-                const halfL = newLength / 2;
-                for (let x = -halfW; x <= halfW; x += 1) {
-                    newPoints.push(
-                        new THREE.Vector3(x, 0, -halfL),
-                        new THREE.Vector3(x, 0, halfL),
-                    );
-                }
-                for (let z = -halfL; z <= halfL; z += 1) {
-                    newPoints.push(
-                        new THREE.Vector3(-halfW, 0, z),
-                        new THREE.Vector3(halfW, 0, z),
-                    );
-                }
-                gridGeometry.setFromPoints(newPoints);
-                customTopGrid.position.y = pcbCenterY + thickness / 2 + 0.01;
-                customBottomGrid.position.y = pcbCenterY - thickness / 2 - 0.01;
-                const maxDim = Math.max(newWidth, newLength);
-                const fovInRadians = (camera.fov * Math.PI) / 180;
-                let cameraZ = maxDim / (2 * Math.tan(fovInRadians / 2));
-                camera.position.set(0, cameraZ * 1.2, 0);
-                controle.target.set(0, 0, 0);
-            }
-            inputWidth.addEventListener("input", updateBoardSize);
-            inputLength.addEventListener("input", updateBoardSize);
-            const camera = new THREE.PerspectiveCamera(
-                75,
-                width / height,
-                0.1,
-                1000,
-            );
-
-            const gridHelper = new THREE.GridHelper(
-                inputWidth.value,
-                inputLength.value,
-                0xffffff,
-                0xffffff,
-            );
-
-            const maxDim = Math.max(inputWidth.value, inputLength.value);
-            const fovInRadians = (camera.fov * Math.PI) / 180;
-            let cameraZ = maxDim / (2 * Math.tan(fovInRadians / 2));
-            camera.position.set(0, cameraZ * 1.2, 0);
-
-            const renderer = new THREE.WebGLRenderer({
-                canvas: document.querySelector("#three-canvas"),
-                antialias: true,
-                alpha: true,
-            });
-
-            renderer.setSize(container.clientWidth, container.clientHeight);
-
-            window.addEventListener("resize", () => {
-                const newwidth = container.clientWidth;
-                const newheight = container.clientHeight;
-
-                camera.aspect = newwidth / newheight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(newwidth, newheight);
-            });
-
-            const axishelper = new THREE.AxesHelper(5);
-            scene.add(axishelper);
-
-            scene.background = null;
-
-            const boardgeometry = new THREE.BoxGeometry(
-                inputWidth.value,
-                inputLength.value,
-                0.1,
-            );
-
-            const ambientlight = new THREE.AmbientLight(0xffffff, 2.2);
-            scene.add(ambientlight);
-
-            const directionallight = new THREE.DirectionalLight(0xffffff, 0.4);
-            directionallight.position.set(5, 10, 7);
-            scene.add(directionallight);
-
-            const textCanvas = document.createElement("canvas");
-            textCanvas.width = 512;
-            textCanvas.height = 512;
-            const ctx = textCanvas.getContext("2d");
-            ctx.font = "Bold 40px Arial";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillStyle = "#FFFFFF";
-
-            const topCanvas = document.createElement("canvas");
-            const bottomCanvas = document.createElement("canvas");
-
-            topCanvas.width = 512;
-            topCanvas.height = 896;
-            bottomCanvas.width = 512;
-            bottomCanvas.height = 896;
-            const ctxTop = topCanvas.getContext("2d");
-            const ctxBottom = bottomCanvas.getContext("2d");
-
-            ctxTop.fillStyle = "#004d1a";
-            ctxTop.fillRect(0, 0, 512, 896);
-            ctxTop.font = "Bold 16px monospace";
-            ctxTop.fillStyle = "rgba(255, 255, 255, 0.8)";
-            ctxTop.textAlign = "left";
-            ctxTop.textBaseline = "top";
-            ctxTop.fillText("TOP", 5, 5);
-
-            ctxBottom.fillStyle = "#004d1a";
-            ctxBottom.fillRect(0, 0, 512, 896);
-            ctxBottom.font = "Bold 16px monospace";
-            ctxBottom.fillStyle = "rgba(255, 255, 255, 0.8)";
-            ctxBottom.textAlign = "right";
-            ctxBottom.textBaseline = "bottom";
-            ctxBottom.fillText("BOTTOM", 507, 891);
-
-            const topTexture = new THREE.CanvasTexture(topCanvas);
-            const bottomTexture = new THREE.CanvasTexture(bottomCanvas);
-
-            const sideMaterial = new THREE.MeshStandardMaterial({
-                color: 0x004d1a,
-                roughness: 0.2,
-                metalness: 0.1,
-                side: THREE.DoubleSide,
-            });
-            const topMaterial = new THREE.MeshStandardMaterial({
-                map: topTexture,
-                roughness: 0.2,
-                metalness: 0.1,
-                side: THREE.DoubleSide,
-            });
-
-            const bottomMaterial = new THREE.MeshStandardMaterial({
-                map: bottomTexture,
-                roughness: 0.2,
-                metalness: 0.1,
-                side: THREE.DoubleSide,
-            });
-
-            const pcbMaterials = [
-                sideMaterial, // Right Face (Index 0)
-                sideMaterial, // Left Face  (Index 1)
-                sideMaterial, // Top Face   (Index 2)
-                sideMaterial, // Bottom Face(Index 3)
-                topMaterial, // Front Face (Index 4)
-                bottomMaterial, // Back Face  (Index 5)
-            ];
-
-            const pcbBase = new THREE.Mesh(boardgeometry, pcbMaterials);
-
-            scene.add(pcbBase);
-
-            pcbBase.rotation.x = -Math.PI / 2;
-
-            camera.rotation.z = -Math.PI / 6;
-
-            pcbBase.position.y = -1;
-
-            const controle = new THREE.OrbitControls(
-                camera,
-                renderer.domElement,
-            );
-
-            controle.enableDamping = true;
-            controle.dampingFactor = 0.4;
-
-            btnTop.addEventListener("click", () => {
-                controle.enableZoom = true;
-
-                controle.enableRotate = false;
-                controle.enablePan = false;
-                const maxDim = Math.max(inputWidth.value, inputLength.value);
-                const fovInRadians = (camera.fov * Math.PI) / 180;
-                let cameraZ = maxDim / (2 * Math.tan(fovInRadians / 2));
-                camera.position.set(0, cameraZ * 1.2, 0);
-                controle.target.set(0, 0, 0);
-                btnTop.classList.add("active");
-                btnOrbit.classList.remove("active");
-                btnBottom.classList.remove("active");
-                camera.lookAt(0, 0, 0);
-                controle.target.set(0, 0, 0);
-                controle.update();
-            });
-
-            btnOrbit.addEventListener("click", () => {
-                controle.enabled = true;
-                camera.up.set(0, 1, 0);
-                btnTop.classList.remove("active");
-                btnOrbit.classList.add("active");
-                btnBottom.classList.remove("active");
-            });
-
-            btnBottom.addEventListener("click", () => {
-                controle.enableZoom = true;
-
-                controle.enableRotate = false;
-                controle.enablePan = false;
-                const maxDim = Math.max(inputWidth.value, inputLength.value);
-                const fovInRadians = (camera.fov * Math.PI) / 180;
-                let cameraZ = maxDim / (2 * Math.tan(fovInRadians / 2));
-                camera.position.set(0, -cameraZ * 1.3, 0);
-                btnTop.classList.remove("active");
-                btnOrbit.classList.remove("active");
-                btnBottom.classList.add("active");
-                camera.lookAt(0, 0, 0);
-                camera.rotation.z = Math.PI / 6;
-                controle.target.set(0, 0, 0);
-                controle.update();
-            });
-
-            const gridGeometry = new THREE.BufferGeometry();
-
-            const points = [];
-
-            const halfW = boardgeometry.parameters.width / 2;
-
-            const halfL = boardgeometry.parameters.height / 2;
-
-            const thickness = boardgeometry.parameters.depth;
-
-            const pcbCenterY = pcbBase.position.y;
-
-            for (let x = -halfW; x <= halfW; x += 1) {
-                points.push(new THREE.Vector3(x, 0, -halfL));
-
-                points.push(new THREE.Vector3(x, 0, halfL));
-            }
-
-            for (let z = -halfL; z <= halfL; z += 1) {
-                points.push(new THREE.Vector3(-halfW, 0, z));
-
-                points.push(new THREE.Vector3(halfW, 0, z));
-            }
-
-            gridGeometry.setFromPoints(points);
-
-            const gridMaterial = new THREE.LineBasicMaterial({
-                color: 0xffffff,
-                transparent: true,
-                opacity: 0.35,
-            });
-
-            const customTopGrid = new THREE.LineSegments(
-                gridGeometry,
-                gridMaterial,
-            );
-
-            const customBottomGrid = new THREE.LineSegments(
-                gridGeometry,
-                gridMaterial,
-            );
-
-            customTopGrid.position.y = pcbCenterY + thickness / 2 + 0.01;
-
-            customBottomGrid.position.y = pcbCenterY - thickness / 2 - 0.01;
-
-            scene.add(customTopGrid);
-
-            scene.add(customBottomGrid);
-
-            let pcbGrid = [];
-
-            function initializeGridSystem(width, length) {
-                pcbGrid = [];
-                for (let x = 0; x < width; x++) {
-                    pcbGrid[x] = [];
-                    for (let z = 0; z < length; z++) {
-                        pcbGrid[x][z] = 0;
-                    }
-                }
-            }
-            initializeGridSystem(inputWidth.value, inputLength.value);
-
-            function canPlaceComponent(startX, startZ, compWidth, compLength) {
-                for (let x = startX; x < startX + compWidth; x++) {
-                    for (let z = startZ; z < startZ + compLength; z++) {
-                        if (
-                            x < 0 ||
-                            x >= pcbGrid.length ||
-                            z < 0 ||
-                            z >= pcbGrid[0].length
-                        ) {
-                            return false;
-                        } else if (pcbGrid[x][z] !== 0) {
-                            return false;
-                        }
-                    }
-                }
-                return true;
-            }
-
-            function placeComponent(startX, startZ, compWidth, compLength) {
-                if (canPlaceComponent(startX, startZ, compWidth, compLength)) {
-                    for (let x = startX; x < startX + compWidth; x++) {
-                        for (let z = startZ; z < startZ + compLength; z++) {
-                            pcbGrid[x][z] = 1;
-                        }
-                    }
-                    console.log(
-                        "Component successfully locked into grid database!",
-                    );
-                    return true;
-                }
-                console.error(
-                    "Placement rejected: Collision or Out of Bounds!",
-                );
-                return false;
-            }
-
-            function gridToWorld(gridX, gridZ, compWidth, compLength) {
-                const worldX = gridX + compWidth / 2 - newWidth / 2;
-                const worldZ = gridZ + compLength / 2 - newLength / 2;
-                return new THREE.Vector3(
-                    worldX,
-                    pcbBase.position.y + 0.05,
-                    worldZ,
-                );
-            }
-
-            // function spawnComponent(
-            //     gridX,
-            //     gridZ,
-            //     compWidth,
-            //     compLength,
-            //     colorHex,
-            // ) {
-            //     if (!placeComponent(gridX, gridZ, compWidth, compLength)) {
-            //         return;
-            //     }
-            //     const compGeo = new THREE.BoxGeometry(
-            //         compWidth,
-            //         0.4,
-            //         compLength,
-            //     );
-            //     const compMat = new THREE.MeshStandardMaterial({
-            //         color: colorHex,
-            //         roughness: 0.5,
-            //     });
-            //     const compMesh = new THREE.Mesh(compGeo, compMat);
-            //     const worldPos = gridToWorld(
-            //         gridX,
-            //         gridZ,
-            //         compWidth,
-            //         compLength,
-            //     );
-            //     compMesh.position.copy(worldPos);
-            //     scene.add(compMesh);
-            // }
-
-            function spawnComponent(
-                gridX,
-                gridZ,
-                compWidth,
-                compLength,
-                colorHex,
-            ) {
-                if (!placeComponent(gridX, gridZ, compWidth, compLength)) {
-                    return;
-                }
-                const compGeo = new THREE.BoxGeometry(
-                    compWidth,
-                    0.4,
-                    compLength,
-                );
-                const compMat = new THREE.MeshStandardMaterial({
-                    color: colorHex,
-                    roughness: 0.5,
-                });
-                const compMesh = new THREE.Mesh(compGeo, compMat);
-                compMesh.userData = {
-                    gridX: gridX,
-                    gridZ: gridZ,
-                    width: compWidth,
-                    length: compLength,
-                };
-                spawnedComponents.push(compMesh);
-                const worldPos = gridToWorld(
-                    gridX,
-                    gridZ,
-                    compWidth,
-                    compLength,
-                );
-                compMesh.position.copy(worldPos);
-                scene.add(compMesh);
-            }
-
-            let isEraseMode = false;
-            const btnErase = document.createElement("button");
-            btnErase.id = "btn-erase";
-            btnErase.className = "control-btn";
-            btnErase.textContent = "Eraser Mode";
-            document.querySelector(".canvas-controls").appendChild(btnErase);
-            let spawnedComponents = [];
-            btnErase.addEventListener("click", () => {
-                isEraseMode = !isEraseMode;
-                if (isEraseMode) {
-                    btnErase.classList.add("active");
-                    btnTop.classList.remove("active");
-                    btnOrbit.classList.remove("active");
-                    btnBottom.classList.remove("active");
-                } else {
-                    btnErase.classList.remove("active");
-                    btnOrbit.classList.add("active");
-                }
-            });
-
-            document
-                .querySelector("#three-canvas")
-                .addEventListener("click", (event) => {
-                    const rect = renderer.domElement.getBoundingClientRect();
-                    const mouseX =
-                        ((event.clientX - rect.left) / rect.width) * 2 - 1;
-                    const mouseY =
-                        -((event.clientY - rect.top) / rect.height) * 2 + 1;
-
-                    const raycaster = new THREE.Raycaster();
-                    raycaster.setFromCamera(
-                        new THREE.Vector2(mouseX, mouseY),
-                        camera,
-                    );
-                    if (isEraseMode) {
-                        const intersects =
-                            raycaster.intersectObjects(spawnedComponents);
-                        if (intersects.length > 0) {
-                            const clickedComponent = intersects[0].object;
-                            const info = clickedComponent.userData;
-                            for (
-                                let x = info.gridX;
-                                x < info.gridX + info.width;
-                                x++
-                            ) {
-                                for (
-                                    let z = info.gridZ;
-                                    z < info.gridZ + info.length;
-                                    z++
-                                ) {
-                                    pcbGrid[x][z] = 0;
-                                }
-                            }
-                            scene.remove(clickedComponent);
-                            clickedComponent.geometry.dispose();
-                            clickedComponent.material.dispose();
-                            spawnedComponents = spawnedComponents.filter(
-                                (mesh) => mesh !== clickedComponent,
-                            );
-                            console.log(
-                                "Component vaporized and database space cleared!",
-                            );
-                        }
-                    } else {
-                        const intersects = raycaster.intersectObject(pcbBase);
-                        if (intersects.length > 0) {
-                            const hitPoint = intersects[0].point;
-                            const currentWidth = parseFloat(inputWidth.value);
-                            const currentLength = parseFloat(inputLength.value);
-                            const localX = hitPoint.x + currentWidth / 2;
-                            const localZ = hitPoint.z + currentLength / 2;
-                            const gridX = Math.floor(localX);
-                            const gridZ = Math.floor(localZ);
-                            console.log(
-                                `Clicked Grid Cell: (${gridX}, ${gridZ})`,
-                            );
-                            spawnComponent(gridX, gridZ, 1, 2, 0xff0000);
-                        }
-                    }
-                });
-            //     const intersects = raycaster.intersectObject(pcbBase);
-
-            //     if (intersects.length > 0) {
-            //         const hitPoint = intersects[0].point;
-            //         const currentWidth = parseFloat(inputWidth.value);
-            //         const currentLength = parseFloat(inputLength.value);
-            //         const localX = hitPoint.x + currentWidth / 2;
-            //         const localZ = hitPoint.z + currentLength / 2;
-            //         const gridX = Math.floor(localX);
-            //         const gridZ = Math.floor(localZ);
-            //         console.log(`Clicked Grid Cell: (${gridX}, ${gridZ})`);
-            //         spawnComponent(gridX, gridZ, 1, 2, 0xff0000);
-            //     }
-            // });
-
-            console.log(pcbGrid);
-
-            function animate() {
-                requestAnimationFrame(animate);
-                controle.update();
-                renderer.render(scene, camera);
-            }
-
-            animate();
-        </script>
-    </body>
-</html> -->
-
-
 <!doctype html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Three.js — Offline 3D Scene</title>
+        <title>PCB Circuit Designer</title>
         <link rel="stylesheet" href="style.css" />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                background: #1a1a2e;
+                color: #eaeaea;
+                height: 100vh;
+                overflow: hidden;
+                display: grid;
+                grid-template-columns: 340px minmax(0, 1fr);
+                grid-template-rows: auto minmax(0, 1fr);
+            }
+            .top-toolbar {
+                grid-column: 1 / -1;
+            }
+            
+            /* Top Toolbar */
+            .top-toolbar {
+                display: flex;
+                align-items: center;
+                gap: 24px;
+                padding: 10px 20px;
+                background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
+                border-bottom: 1px solid #0f3460;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+                flex-wrap: wrap;
+                z-index: 100;
+            }
+            .toolbar-section {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 0 16px;
+                border-right: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .toolbar-section:last-child {
+                border-right: none;
+            }
+            .toolbar-section-title {
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                color: #8899bb;
+                font-weight: 600;
+                margin-right: 8px;
+            }
+            
+            /* Toolbar Inputs */
+            .toolbar-input-group {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            .toolbar-input-group label {
+                font-size: 12px;
+                color: #ccc;
+                white-space: nowrap;
+            }
+            .toolbar-input-group input {
+                width: 70px;
+                padding: 6px 10px;
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                border-radius: 4px;
+                color: #fff;
+                font-size: 13px;
+                outline: none;
+            }
+            .toolbar-input-group input:focus {
+                border-color: #4dabf7;
+                box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.2);
+            }
+            
+            /* Toolbar Buttons */
+            .toolbar-btn {
+                padding: 8px 14px;
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                border-radius: 4px;
+                color: #eaeaea;
+                font-size: 12px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+            .toolbar-btn:hover {
+                background: rgba(255, 255, 255, 0.15);
+                border-color: rgba(255, 255, 255, 0.3);
+            }
+            .toolbar-btn.active {
+                background: #4dabf7;
+                border-color: #4dabf7;
+                color: #1a1a2e;
+                font-weight: 600;
+            }
+            .toolbar-btn.active:hover {
+                background: #74c0fc;
+            }
+            
+            /* Toolbar Toggle Buttons (for side/placement) */
+            .toolbar-toggle {
+                display: flex;
+                border-radius: 4px;
+                overflow: hidden;
+                border: 1px solid rgba(255, 255, 255, 0.15);
+            }
+            .toolbar-toggle .toolbar-btn {
+                border-radius: 0;
+                border: none;
+                border-right: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .toolbar-toggle .toolbar-btn:last-child {
+                border-right: none;
+            }
+            
+            /* Left Sidebar: Components (top) + Inspector/BOM (bottom) */
+            .sidebar {
+                grid-column: 1;
+                grid-row: 2;
+                min-height: 0;
+                min-width: 0;
+                display: grid;
+                /* Inspector row: at least 180px, at most 42% of sidebar height.
+                   This prevents it from growing and pushing the component list up. */
+                grid-template-rows: minmax(0, 1fr) minmax(180px, 42%);
+                background: #16213e;
+                border-right: 1px solid #0f3460;
+                overflow: hidden;
+            }
+
+            /* Components panel fills remaining sidebar space */
+            .components-panel {
+                min-height: 0;
+                min-width: 0;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+            }
+            .sidebar-header {
+                padding: 14px 16px;
+                border-bottom: 1px solid #0f3460;
+                background: rgba(0, 0, 0, 0.2);
+            }
+            .sidebar-header h2 {
+                font-size: 14px;
+                font-weight: 600;
+                color: #fff;
+                letter-spacing: 0.3px;
+            }
+            .component-search {
+                width: calc(100% - 32px);
+                padding: 10px 12px;
+                margin: 12px 16px 0;
+                background: rgba(255, 255, 255, 0.06);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 6px;
+                color: #fff;
+                font-size: 13px;
+                outline: none;
+            }
+            .component-search:focus {
+                border-color: #4dabf7;
+                box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.2);
+            }
+            .component-search::placeholder {
+                color: #667799;
+            }
+            .selected-banner {
+                width: calc(100% - 32px);
+                margin: 10px 16px 0;
+                padding: 10px 12px;
+                background: rgba(76, 175, 80, 0.15);
+                border: 1px solid rgba(76, 175, 80, 0.3);
+                border-radius: 6px;
+                font-size: 12px;
+                color: #81c784;
+                display: none;
+            }
+            .selected-banner.visible {
+                display: block;
+            }
+            .component-list-wrapper {
+                flex: 1;
+                overflow-y: auto;
+                padding: 8px 16px 16px;
+            }
+            .component-group-label {
+                font-size: 10px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: #8899bb;
+                padding: 8px 10px 4px;
+                margin-top: 8px;
+            }
+            .component-group-label:first-child {
+                margin-top: 0;
+            }
+            .component-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            .component-btn {
+                display: flex;
+                align-items: flex-start;
+                gap: 8px;
+                padding: 10px;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 6px;
+                color: #eaeaea;
+                font-size: 12px;
+                line-height: 1.35;
+                text-align: left;
+                cursor: pointer;
+                transition: all 0.15s ease;
+            }
+            .component-btn:hover {
+                background: rgba(255, 255, 255, 0.1);
+                border-color: rgba(255, 255, 255, 0.2);
+                transform: translateY(-1px);
+            }
+            .component-btn.selected {
+                background: rgba(76, 175, 80, 0.2);
+                border-color: #4caf50;
+                box-shadow: 0 0 0 1px #4caf50;
+            }
+            .component-btn .btn-label {
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+            .component-btn .btn-tooltip {
+                font-size: 10px;
+                color: #8899bb;
+                white-space: nowrap;
+                margin-top: 2px;
+            }
+            
+            /* Canvas Area - full right side */
+            .canvas-area {
+                grid-column: 2;
+                grid-row: 2;
+                min-width: 0;
+                min-height: 0;
+                position: relative;
+                overflow: hidden;
+                background: radial-gradient(ellipse at center, #1a1a3e 0%, #0d0d1a 100%);
+            }
+            #three-canvas {
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+            
+            /* Inspector/BOM: bottom of LEFT sidebar only.
+               Height is fully controlled by the sidebar grid row above —
+               no min/max-height needed here. */
+            .inspector-panel {
+                height: 100%;
+                min-height: 0;
+                background: #16213e;
+                border-top: 2px solid #0f3460;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+            }
+            .inspector-header {
+                padding: 0;
+                border-bottom: 1px solid #0f3460;
+                background: rgba(0, 0, 0, 0.25);
+                flex-shrink: 0;
+            }
+            /* Tab strip */
+            .inspector-tabs {
+                display: flex;
+                align-items: stretch;
+            }
+            .inspector-tab {
+                flex: 1;
+                padding: 10px 8px;
+                font-size: 11px;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.4px;
+                color: #8899bb;
+                background: transparent;
+                border: none;
+                border-bottom: 2px solid transparent;
+                cursor: pointer;
+                transition: color 0.15s, border-color 0.15s, background 0.15s;
+                text-align: center;
+            }
+            .inspector-tab:hover {
+                color: #cce;
+                background: rgba(255,255,255,0.04);
+            }
+            .inspector-tab.active {
+                color: #4dabf7;
+                border-bottom-color: #4dabf7;
+                background: rgba(77,171,247,0.06);
+            }
+            /* Tab panes */
+            .inspector-pane {
+                display: none;
+            }
+            .inspector-pane.active {
+                /* flex: 1 + min-height: 0 lets the pane fill the remaining
+                   panel height without overflowing its container */
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                min-height: 0;
+                overflow-y: auto;
+                padding: 10px 14px 12px;
+                font-size: 12px;
+                color: #bbb;
+            }
+            /* Info pane: key-value rows */
+            .info-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                padding: 5px 0;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+                gap: 8px;
+            }
+            .info-row:last-child { border-bottom: none; }
+            .info-key {
+                font-size: 10px;
+                text-transform: uppercase;
+                letter-spacing: 0.4px;
+                color: #8899bb;
+                flex-shrink: 0;
+            }
+            .info-val {
+                font-size: 12px;
+                color: #eaeaea;
+                font-weight: 500;
+                text-align: right;
+                word-break: break-word;
+            }
+            /* BOM summary badges */
+            .bom-badges {
+                display: flex;
+                gap: 8px;
+                margin-bottom: 10px;
+            }
+            .bom-badge {
+                flex: 1;
+                background: rgba(77,171,247,0.1);
+                border: 1px solid rgba(77,171,247,0.2);
+                border-radius: 6px;
+                padding: 6px 8px;
+                text-align: center;
+            }
+            .bom-badge-label {
+                font-size: 9px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                color: #8899bb;
+                display: block;
+                margin-bottom: 2px;
+            }
+            .bom-badge-value {
+                font-size: 18px;
+                font-weight: 700;
+                color: #4dabf7;
+                line-height: 1;
+            }
+            .bom-empty {
+                color: #667799;
+                font-style: italic;
+                text-align: center;
+                padding: 18px 0;
+                font-size: 12px;
+            }
+            /* BOM table — slim columns to fit 340px sidebar */
+            .bom-table-wrap {
+                overflow-x: auto;
+            }
+            .bom-table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 11px;
+                min-width: 0;
+            }
+            .bom-table th,
+            .bom-table td {
+                padding: 5px 6px;
+                text-align: left;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+                white-space: nowrap;
+            }
+            .bom-table th:first-child,
+            .bom-table td:first-child {
+                white-space: normal;
+                word-break: break-word;
+            }
+            .bom-table th {
+                color: #4dabf7;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                font-size: 9px;
+                position: sticky;
+                top: 0;
+                background: #16213e;
+                z-index: 1;
+            }
+            .bom-table td { color: #ddd; }
+            .bom-table tbody tr {
+                cursor: pointer;
+                transition: background 0.12s;
+            }
+            .bom-table tbody tr:hover td {
+                background: rgba(77,171,247,0.07);
+            }
+            .bom-table tbody tr.bom-row-active td {
+                background: rgba(77,171,247,0.14);
+                color: #fff;
+            }
+            .bom-table .col-qty {
+                text-align: center;
+                font-weight: 700;
+                color: #fff;
+                width: 34px;
+            }
+            .bom-table .col-side {
+                text-align: center;
+                text-transform: capitalize;
+                font-size: 10px;
+                color: #82c9ff;
+                width: 44px;
+            }
+            .bom-table .col-group {
+                color: #a0b4cc;
+                font-size: 10px;
+                width: 64px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 64px;
+            }
+            
+            /* Responsive */
+            @media (max-width: 1024px) {
+                body {
+                    grid-template-columns: 260px minmax(0, 1fr);
+                }
+                .toolbar-section {
+                    padding: 0 12px;
+                }
+            }
+            
+            /* Scrollbar styling */
+            ::-webkit-scrollbar {
+                width: 8px;
+                height: 8px;
+            }
+            ::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 4px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: rgba(255, 255, 255, 0.2);
+            }
+        </style>
     </head>
 
     <body>
-        <div class="container">
-            <div class="elements-container">
-                <div class="elements-area">
-                    <h1> Components</h1>
-                    <div class="control-group">
-                        <label for="input-width" class="input-label"
-                            >Width (mm):</label
-                        >
-                        <input
-                            type="number"
-                            id="input-width"
-                            class="dimension-input"
-                            value="400"
-                            min="1"
-                            step="1"
-                        />
-                        <label for="input-length" class="input-label"
-                            >Length (mm):</label
-                        >
-                        <input
-                            type="number"
-                            id="input-length"
-                            class="dimension-input"
-                            value="400"
-                            min="1"
-                            step="1"
-                        />
-                    </div>
-                    <input
-                        type="text"
-                        id="component-search"
-                        class="component-search"
-                        placeholder="Search components…"
-                    />
-                    <div id="selected-component-banner"></div>
-                    <div class="component-list-wrapper">
-                        <div id="component-list"></div>
-                    </div>
+        <!-- Top Toolbar -->
+        <div class="top-toolbar">
+            <!-- PCB Dimensions -->
+            <div class="toolbar-section">
+                <span class="toolbar-section-title">PCB Size</span>
+                <div class="toolbar-input-group">
+                    <label for="input-width">Width (mm):</label>
+                    <input type="number" id="input-width" class="dimension-input" value="100" min="1" step="1" />
                 </div>
-                <div class="elements-detail">
-                    <h1>⚙ Inspector</h1>
+                <div class="toolbar-input-group">
+                    <label for="input-length">Length (mm):</label>
+                    <input type="number" id="input-length" class="dimension-input" value="100" min="1" step="1" />
                 </div>
             </div>
-            <div id="canvas-container">
-                <div class="canvas-controls">
-                    <button id="btn-orbit" class="control-btn active">
-                        Free Orbit
-                    </button>
-                    <button id="btn-top" class="control-btn">Top View</button>
-                    <button id="btn-bottom" class="control-btn">
-                        Bottom View
-                    </button>
+            
+            <!-- Camera / View -->
+            <div class="toolbar-section">
+                <span class="toolbar-section-title">View</span>
+                <div class="toolbar-toggle">
+                    <button id="btn-orbit" class="toolbar-btn active" data-view="orbit">Free Orbit</button>
+                    <button id="btn-top" class="toolbar-btn" data-view="top">Top View</button>
+                    <button id="btn-bottom" class="toolbar-btn" data-view="bottom">Bottom View</button>
                 </div>
-                <canvas id="three-canvas"></canvas>
+            </div>
+            
+            <!-- Component Placement Side -->
+            <div class="toolbar-section">
+                <span class="toolbar-section-title">Placement</span>
+                <div class="toolbar-toggle">
+                    <button id="btn-place-top" class="toolbar-btn active" data-side="top">Top Side</button>
+                    <button id="btn-place-bottom" class="toolbar-btn" data-side="bottom">Bottom Side</button>
+                </div>
+            </div>
+            
+            <!-- Tools -->
+            <div class="toolbar-section">
+                <span class="toolbar-section-title">Tools</span>
+                <div class="toolbar-toggle">
+                    <button id="btn-select" class="toolbar-btn active" data-tool="select">Select</button>
+                    <button id="btn-erase" class="toolbar-btn" data-tool="erase">Eraser</button>
+                </div>
             </div>
         </div>
+
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <div class="components-panel">
+                <div class="sidebar-header">
+                    <h2>Components</h2>
+                </div>
+                <input type="text" id="component-search" class="component-search" placeholder="Search components…" />
+                <div id="selected-component-banner" class="selected-banner"></div>
+                <div class="component-list-wrapper">
+                    <div id="component-list"></div>
+                </div>
+            </div>
+
+            <!-- Inspector/BOM: bottom of left sidebar -->
+            <div class="inspector-panel" id="inspector-panel">
+                <div class="inspector-header">
+                    <div class="inspector-tabs">
+                        <button class="inspector-tab active" id="tab-info" onclick="switchTab('info')">⚙ Info</button>
+                        <button class="inspector-tab" id="tab-bom" onclick="switchTab('bom')">📋 BOM</button>
+                    </div>
+                </div>
+                <!-- Info pane -->
+                <div class="inspector-pane active" id="pane-info">
+                    <div class="bom-empty">Select a component from the list</div>
+                </div>
+                <!-- BOM pane -->
+                <div class="inspector-pane" id="pane-bom">
+                    <div class="bom-empty">No components placed on the PCB</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Canvas Area -->
+        <main class="canvas-area" id="canvas-container">
+            <canvas id="three-canvas"></canvas>
+        </main>
 
         <script src="three.min.js"></script>
         <script src="OrbitControls.js"></script>
@@ -662,17 +575,22 @@
             let selectedButtonEl = null;
 
             const componentListEl = document.getElementById("component-list");
-            const componentSearchEl = document.getElementById(
-                "component-search",
-            );
-            const selectedBannerEl = document.getElementById(
-                "selected-component-banner",
-            );
+            const componentSearchEl = document.getElementById("component-search");
+            const selectedBannerEl = document.getElementById("selected-component-banner");
 
             fetch("./cmplist.json")
                 .then((res) => res.json())
                 .then((data) => {
-                    componentData = data.items;
+                    // cmplist.json groups items as items: [[{...}, ...]]
+                    componentData = data.items.flat().map((c) => ({
+                        partname: c.Part_name,
+                        group: c["group name"],
+                        partNumber: c.Part_number,
+                        vendor: c.Vendor,
+                        "pcb footprint (width)": Math.max(1, Math.round(parseFloat(c.Json_attr && c.Json_attr["PCB Footprint (Width)"]) || 1)),
+                        "pcb footprint (length)": Math.max(1, Math.round(parseFloat(c.Json_attr && c.Json_attr["PCB Footprint (Length)"]) || 1)),
+                        "pcb footprint (height)": parseFloat(c.Json_attr && c.Json_attr["PCB Footprint (Height)"]) || 0.4,
+                    }));
                     renderComponentList(componentData);
                 })
                 .catch((err) => {
@@ -682,38 +600,30 @@
             componentSearchEl.addEventListener("input", () => {
                 const term = componentSearchEl.value.trim().toLowerCase();
                 const filtered = term
-                    ? componentData.filter((c) =>
-                          c.partname.toLowerCase().includes(term),
-                      )
+                    ? componentData.filter((c) => c.partname.toLowerCase().includes(term))
                     : componentData;
                 renderComponentList(filtered);
             });
 
-            // Deterministic color per part so each footprint is visually distinguishable,
-            // while active/passive groups keep a different tone family.
             function getComponentColor(comp) {
                 let hash = 0;
                 for (let i = 0; i < comp.partname.length; i++) {
                     hash = comp.partname.charCodeAt(i) + ((hash << 5) - hash);
                 }
-                const hue = Math.abs(hash) % 360;
-                const saturation = comp.group === "active" ? 70 : 40;
-                const lightness = comp.group === "active" ? 55 : 45;
-                const hslColor = new THREE.Color(
-                    `hsl(${hue}, ${saturation}%, ${lightness}%)`,
-                );
+                const hue = Math.abs(hash) % 250;
+                const saturation = /active/i.test(comp.group) ? 70 : 40;
+                const lightness = /active/i.test(comp.group) ? 55 : 45;
+                const hslColor = new THREE.Color(`hsl(${hue}, ${saturation}%, ${lightness}%)`);
                 return hslColor.getHex();
             }
 
             function selectComponent(comp, btnEl) {
                 selectedComponent = comp;
-                if (selectedButtonEl) {
-                    selectedButtonEl.classList.remove("selected");
-                }
+                if (selectedButtonEl) selectedButtonEl.classList.remove("selected");
                 btnEl.classList.add("selected");
                 selectedButtonEl = btnEl;
 
-                selectedBannerEl.style.display = "block";
+                selectedBannerEl.classList.add("visible");
                 selectedBannerEl.textContent =
                     "Selected: " +
                     comp.partname +
@@ -723,12 +633,11 @@
                     comp["pcb footprint (length)"] +
                     " mm)";
 
-                // Placing a component only makes sense in orbit/free mode,
-                // so drop out of erase mode if it's active.
-                if (isEraseMode) {
-                    isEraseMode = false;
-                    btnErase.classList.remove("active");
-                    btnOrbit.classList.add("active");
+                updateInspector();
+
+                // Switch to select tool when picking a component
+                if (currentTool === "erase") {
+                    setTool("select");
                 }
             }
 
@@ -771,23 +680,17 @@
                             comp["pcb footprint (height)"] +
                             " mm";
 
-                        const label = document.createElement("span");
-                        label.className = "btn-label";
-                        label.textContent = comp.partname;
-                        btn.appendChild(label);
+                        const nameEl = document.createElement("span");
+                        nameEl.className = "btn-label";
+                        nameEl.textContent = comp.partname;
+                        btn.appendChild(nameEl);
 
-                        if (
-                            selectedComponent &&
-                            selectedComponent.partname === comp.partname
-                        ) {
+                        if (selectedComponent && selectedComponent.partname === comp.partname) {
                             btn.classList.add("selected");
                             selectedButtonEl = btn;
                         }
 
-                        btn.addEventListener("click", () =>
-                            selectComponent(comp, btn),
-                        );
-
+                        btn.addEventListener("click", () => selectComponent(comp, btn));
                         grid.appendChild(btn);
                     });
 
@@ -795,6 +698,9 @@
                 });
             }
 
+            /* =========================================================
+               SCENE / CAMERA / RENDERER SETUP
+               ========================================================= */
             const scene = new THREE.Scene();
             const container = document.querySelector("#canvas-container");
             const width = container.clientWidth;
@@ -804,82 +710,62 @@
             const btnOrbit = document.getElementById("btn-orbit");
             const inputWidth = document.getElementById("input-width");
             const inputLength = document.getElementById("input-length");
-            let newWidth = parseFloat(inputWidth.value);
-            let newLength = parseFloat(inputLength.value);
+            let boardWidth = parseFloat(inputWidth.value);
+            let boardLength = parseFloat(inputLength.value);
+
+            /**
+             * Calculate the camera Z distance so the board fits in view.
+             * Uses the larger board dimension and camera FOV to compute distance.
+             */
+            function calculateCameraDistance(boardW, boardL) {
+                const maxDim = Math.max(boardW, boardL);
+                const fovInRadians = (camera.fov * Math.PI) / 180;
+                return maxDim / (2 * Math.tan(fovInRadians / 2));
+            }
 
             function updateBoardSize() {
-                newWidth = parseFloat(inputWidth.value);
-                newLength = parseFloat(inputLength.value);
-                console.log("hello from updatebordsize", newWidth);
-                initializeGridSystem(
-                    Math.floor(newWidth),
-                    Math.floor(newLength),
-                );
+                boardWidth = parseFloat(inputWidth.value);
+                boardLength = parseFloat(inputLength.value);
+                initializeGridSystem(Math.floor(boardWidth), Math.floor(boardLength));
                 pcbBase.geometry.dispose();
-                const newBoardGeo = new THREE.BoxGeometry(
-                    newWidth,
-                    newLength,
-                    0.1,
-                );
+                const newBoardGeo = new THREE.BoxGeometry(boardWidth, boardLength, 0.1);
                 pcbBase.geometry = newBoardGeo;
                 gridGeometry.dispose();
                 const newPoints = [];
-                const halfW = newWidth / 2;
-                const halfL = newLength / 2;
+                const halfW = boardWidth / 2;
+                const halfL = boardLength / 2;
                 for (let x = -halfW; x <= halfW; x += 1) {
-                    newPoints.push(
-                        new THREE.Vector3(x, 0, -halfL),
-                        new THREE.Vector3(x, 0, halfL),
-                    );
+                    newPoints.push(new THREE.Vector3(x, 0, -halfL), new THREE.Vector3(x, 0, halfL));
                 }
                 for (let z = -halfL; z <= halfL; z += 1) {
-                    newPoints.push(
-                        new THREE.Vector3(-halfW, 0, z),
-                        new THREE.Vector3(halfW, 0, z),
-                    );
+                    newPoints.push(new THREE.Vector3(-halfW, 0, z), new THREE.Vector3(halfW, 0, z));
                 }
                 gridGeometry.setFromPoints(newPoints);
                 customTopGrid.position.y = pcbCenterY + thickness / 2 + 0.01;
                 customBottomGrid.position.y = pcbCenterY - thickness / 2 - 0.01;
-                const maxDim = Math.max(newWidth, newLength);
-                const fovInRadians = (camera.fov * Math.PI) / 180;
-                let cameraZ = maxDim / (2 * Math.tan(fovInRadians / 2));
-                camera.position.set(0, cameraZ * 1.2, 0);
-                controle.target.set(0, 0, 0);
+
+                // Update camera position for current view mode
+                updateCameraForCurrentView();
             }
-            inputWidth.addEventListener("input", updateBoardSize);
-            inputLength.addEventListener("input", updateBoardSize);
-            const camera = new THREE.PerspectiveCamera(
-                75,
-                width / height,
-                0.1,
-                1000,
-            );
+            inputWidth.addEventListener("input", () => { saveState(); updateBoardSize(); });
+            inputLength.addEventListener("input", () => { saveState(); updateBoardSize(); });
 
-            const gridHelper = new THREE.GridHelper(
-                inputWidth.value,
-                inputLength.value,
-                0xffffff,
-                0xffffff,
-            );
+            const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
 
-            const maxDim = Math.max(inputWidth.value, inputLength.value);
-            const fovInRadians = (camera.fov * Math.PI) / 180;
-            let cameraZ = maxDim / (2 * Math.tan(fovInRadians / 2));
-            camera.position.set(0, cameraZ * 1.2, 0);
+            // Initial camera position
+            const initialCameraZ = calculateCameraDistance(boardWidth, boardLength);
+            camera.position.set(0, initialCameraZ * 1.2, 0);
 
             const renderer = new THREE.WebGLRenderer({
                 canvas: document.querySelector("#three-canvas"),
                 antialias: true,
                 alpha: true,
             });
-
             renderer.setSize(container.clientWidth, container.clientHeight);
 
             window.addEventListener("resize", () => {
                 const newwidth = container.clientWidth;
                 const newheight = container.clientHeight;
-
                 camera.aspect = newwidth / newheight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(newwidth, newheight);
@@ -887,34 +773,18 @@
 
             const axishelper = new THREE.AxesHelper(5);
             scene.add(axishelper);
-
             scene.background = null;
 
-            const boardgeometry = new THREE.BoxGeometry(
-                inputWidth.value,
-                inputLength.value,
-                0.1,
-            );
+            const boardgeometry = new THREE.BoxGeometry(boardWidth, boardLength, 0.1);
 
             const ambientlight = new THREE.AmbientLight(0xffffff, 2.2);
             scene.add(ambientlight);
-
             const directionallight = new THREE.DirectionalLight(0xffffff, 0.4);
             directionallight.position.set(5, 10, 7);
             scene.add(directionallight);
 
-            const textCanvas = document.createElement("canvas");
-            textCanvas.width = 512;
-            textCanvas.height = 512;
-            const ctx = textCanvas.getContext("2d");
-            ctx.font = "Bold 40px Arial";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillStyle = "#FFFFFF";
-
             const topCanvas = document.createElement("canvas");
             const bottomCanvas = document.createElement("canvas");
-
             topCanvas.width = 512;
             topCanvas.height = 896;
             bottomCanvas.width = 512;
@@ -953,7 +823,6 @@
                 metalness: 0.1,
                 side: THREE.DoubleSide,
             });
-
             const bottomMaterial = new THREE.MeshStandardMaterial({
                 map: bottomTexture,
                 roughness: 0.2,
@@ -962,100 +831,114 @@
             });
 
             const pcbMaterials = [
-                sideMaterial, // Right Face (Index 0)
-                sideMaterial, // Left Face  (Index 1)
-                sideMaterial, // Top Face   (Index 2)
-                sideMaterial, // Bottom Face(Index 3)
-                topMaterial, // Front Face (Index 4)
-                bottomMaterial, // Back Face  (Index 5)
+                sideMaterial,
+                sideMaterial,
+                sideMaterial,
+                sideMaterial,
+                topMaterial,
+                bottomMaterial,
             ];
 
             const pcbBase = new THREE.Mesh(boardgeometry, pcbMaterials);
-
             scene.add(pcbBase);
-
             pcbBase.rotation.x = -Math.PI / 2;
-
-            camera.rotation.z = -Math.PI / 6;
-
             pcbBase.position.y = -1;
 
-            const controle = new THREE.OrbitControls(
-                camera,
-                renderer.domElement,
-            );
+            // The original "angled" camera roll used for Free Orbit view.
+            // Kept as a named constant so we can always restore it.
+            const defaultCameraRoll = -Math.PI / 6;
+            camera.rotation.z = defaultCameraRoll;
 
+            const controle = new THREE.OrbitControls(camera, renderer.domElement);
             controle.enableDamping = true;
             controle.dampingFactor = 0.4;
 
-            btnTop.addEventListener("click", () => {
-                controle.enableZoom = true;
+            /* =========================================================
+               CAMERA VIEW MODES (Top / Bottom / Free Orbit)
+               --- BUG FIX: switching to Top/Bottom disabled rotate/pan
+               on the controls but Free Orbit never turned them back on.
+               ========================================================= */
+            let currentViewMode = "orbit"; // "orbit", "top", "bottom"
 
+            /**
+             * Update camera position based on current view mode and board size.
+             * Call this when board size changes or view mode changes.
+             */
+            function updateCameraForCurrentView() {
+                const cameraZ = calculateCameraDistance(boardWidth, boardLength);
+
+                if (currentViewMode === "top") {
+                    camera.position.set(0, cameraZ * 1.2, 0);
+                    camera.lookAt(0, 0, 0);
+                    camera.rotation.z = 0;
+                } else if (currentViewMode === "bottom") {
+                    camera.position.set(0, -cameraZ * 1.2, 0);
+                    camera.lookAt(0, 0, 0);
+                    camera.rotation.z = Math.PI;
+                } else {
+                    // Free orbit - restore default tilted position
+                    camera.position.set(0, cameraZ * 1.2, 0);
+                    camera.rotation.z = defaultCameraRoll;
+                }
+                controle.target.set(0, 0, 0);
+                controle.update();
+            }
+
+            function activateTopView() {
+                currentViewMode = "top";
+                controle.enableZoom = true;
                 controle.enableRotate = false;
                 controle.enablePan = false;
-                const maxDim = Math.max(inputWidth.value, inputLength.value);
-                const fovInRadians = (camera.fov * Math.PI) / 180;
-                let cameraZ = maxDim / (2 * Math.tan(fovInRadians / 2));
-                camera.position.set(0, cameraZ * 1.2, 0);
-                controle.target.set(0, 0, 0);
+                updateCameraForCurrentView();
                 btnTop.classList.add("active");
                 btnOrbit.classList.remove("active");
                 btnBottom.classList.remove("active");
-                camera.lookAt(0, 0, 0);
-                controle.target.set(0, 0, 0);
-                controle.update();
-            });
+            }
 
-            btnOrbit.addEventListener("click", () => {
-                controle.enabled = true;
-                camera.up.set(0, 1, 0);
-                btnTop.classList.remove("active");
-                btnOrbit.classList.add("active");
-                btnBottom.classList.remove("active");
-            });
-
-            btnBottom.addEventListener("click", () => {
+            function activateBottomView() {
+                currentViewMode = "bottom";
                 controle.enableZoom = true;
-
                 controle.enableRotate = false;
                 controle.enablePan = false;
-                const maxDim = Math.max(inputWidth.value, inputLength.value);
-                const fovInRadians = (camera.fov * Math.PI) / 180;
-                let cameraZ = maxDim / (2 * Math.tan(fovInRadians / 2));
-                camera.position.set(0, -cameraZ * 1.3, 0);
+                updateCameraForCurrentView();
                 btnTop.classList.remove("active");
                 btnOrbit.classList.remove("active");
                 btnBottom.classList.add("active");
-                camera.lookAt(0, 0, 0);
-                camera.rotation.z = Math.PI / 6;
-                controle.target.set(0, 0, 0);
-                controle.update();
-            });
+            }
 
+            function activateFreeOrbitView() {
+                currentViewMode = "orbit";
+                controle.enabled = true;
+                controle.enableRotate = true;
+                controle.enablePan = true;
+                controle.enableZoom = true;
+                camera.up.set(0, 1, 0);
+                updateCameraForCurrentView();
+                btnTop.classList.remove("active");
+                btnOrbit.classList.add("active");
+                btnBottom.classList.remove("active");
+            }
+
+            btnTop.addEventListener("click", activateTopView);
+            btnBottom.addEventListener("click", activateBottomView);
+            btnOrbit.addEventListener("click", activateFreeOrbitView);
+
+            /* =========================================================
+               GRID LINES (visual only)
+               ========================================================= */
             const gridGeometry = new THREE.BufferGeometry();
-
             const points = [];
-
             const halfW = boardgeometry.parameters.width / 2;
-
             const halfL = boardgeometry.parameters.height / 2;
-
             const thickness = boardgeometry.parameters.depth;
-
             const pcbCenterY = pcbBase.position.y;
 
             for (let x = -halfW; x <= halfW; x += 1) {
-                points.push(new THREE.Vector3(x, 0, -halfL));
-
-                points.push(new THREE.Vector3(x, 0, halfL));
+                points.push(new THREE.Vector3(x, 0, -halfL), new THREE.Vector3(x, 0, halfL));
             }
-
             for (let z = -halfL; z <= halfL; z += 1) {
-                points.push(new THREE.Vector3(-halfW, 0, z));
-
-                points.push(new THREE.Vector3(halfW, 0, z));
+                points.push(new THREE.Vector3(-halfW, 0, z), new THREE.Vector3(halfW, 0, z));
             }
-
             gridGeometry.setFromPoints(points);
 
             const gridMaterial = new THREE.LineBasicMaterial({
@@ -1063,47 +946,35 @@
                 transparent: true,
                 opacity: 0.35,
             });
-
-            const customTopGrid = new THREE.LineSegments(
-                gridGeometry,
-                gridMaterial,
-            );
-
-            const customBottomGrid = new THREE.LineSegments(
-                gridGeometry,
-                gridMaterial,
-            );
-
+            const customTopGrid = new THREE.LineSegments(gridGeometry, gridMaterial);
+            const customBottomGrid = new THREE.LineSegments(gridGeometry, gridMaterial);
             customTopGrid.position.y = pcbCenterY + thickness / 2 + 0.01;
-
             customBottomGrid.position.y = pcbCenterY - thickness / 2 - 0.01;
-
             scene.add(customTopGrid);
-
             scene.add(customBottomGrid);
 
+            /* =========================================================
+               PCB GRID DATABASE (single shared array for BOTH sides —
+               a top placement and a bottom placement at the same X/Z
+               both occupy the same pcbGrid cell)
+               ========================================================= */
             let pcbGrid = [];
 
-            function initializeGridSystem(width, length) {
+            function initializeGridSystem(gw, gl) {
                 pcbGrid = [];
-                for (let x = 0; x < width; x++) {
+                for (let x = 0; x < gw; x++) {
                     pcbGrid[x] = [];
-                    for (let z = 0; z < length; z++) {
+                    for (let z = 0; z < gl; z++) {
                         pcbGrid[x][z] = 0;
                     }
                 }
             }
-            initializeGridSystem(inputWidth.value, inputLength.value);
+            initializeGridSystem(Math.floor(boardWidth), Math.floor(boardLength));
 
             function canPlaceComponent(startX, startZ, compWidth, compLength) {
                 for (let x = startX; x < startX + compWidth; x++) {
                     for (let z = startZ; z < startZ + compLength; z++) {
-                        if (
-                            x < 0 ||
-                            x >= pcbGrid.length ||
-                            z < 0 ||
-                            z >= pcbGrid[0].length
-                        ) {
+                        if (x < 0 || x >= pcbGrid.length || z < 0 || z >= pcbGrid[0].length) {
                             return false;
                         } else if (pcbGrid[x][z] !== 0) {
                             return false;
@@ -1120,181 +991,526 @@
                             pcbGrid[x][z] = 1;
                         }
                     }
-                    console.log(
-                        "Component successfully locked into grid database!",
-                    );
+                    console.log("Component successfully locked into grid database!");
                     return true;
                 }
-                console.error(
-                    "Placement rejected: Collision or Out of Bounds!",
-                );
+                console.error("Placement rejected: Collision or Out of Bounds!");
                 return false;
             }
 
             function gridToWorld(gridX, gridZ, compWidth, compLength) {
-                const worldX = gridX + compWidth / 2 - newWidth / 2;
-                const worldZ = gridZ + compLength / 2 - newLength / 2;
-                return new THREE.Vector3(
-                    worldX,
-                    pcbBase.position.y + 0.05,
-                    worldZ,
-                );
+                const worldX = gridX + compWidth / 2 - boardWidth / 2;
+                const worldZ = gridZ + compLength / 2 - boardLength / 2;
+                return new THREE.Vector3(worldX, pcbBase.position.y + 0.05, worldZ);
             }
 
-            function spawnComponent(
-                gridX,
-                gridZ,
-                compWidth,
-                compLength,
-                colorHex,
-                compHeight,
-            ) {
-                if (!placeComponent(gridX, gridZ, compWidth, compLength)) {
-                    return;
+            /* =========================================================
+               TOP / BOTTOM PLACEMENT SIDE (Toolbar buttons)
+               ========================================================= */
+            let placementSide = "top";
+            const btnPlaceTop = document.getElementById("btn-place-top");
+            const btnPlaceBottom = document.getElementById("btn-place-bottom");
+
+            function setPlacementSide(side) {
+                placementSide = side;
+                btnPlaceTop.classList.toggle("active", side === "top");
+                btnPlaceBottom.classList.toggle("active", side === "bottom");
+            }
+
+            btnPlaceTop.addEventListener("click", () => setPlacementSide("top"));
+            btnPlaceBottom.addEventListener("click", () => setPlacementSide("bottom"));
+
+            // Works out where a component's mesh should sit on the Y axis
+            // depending on which side of the board it belongs to.
+            function getComponentYOffset(side, meshHeight) {
+                if (side === "bottom") {
+                    return pcbBase.position.y - meshHeight / 2 - 0.02;
                 }
-                const meshHeight =
-                    typeof compHeight === "number" ? compHeight : 0.4;
-                const compGeo = new THREE.BoxGeometry(
-                    compWidth,
-                    meshHeight,
-                    compLength,
-                );
-                const compMat = new THREE.MeshStandardMaterial({
-                    color: colorHex,
-                    roughness: 0.5,
-                });
+                return pcbBase.position.y + meshHeight / 2 + 0.02;
+            }
+
+            /* =========================================================
+               SPAWNING COMPONENTS
+               ========================================================= */
+            function spawnComponent(gridX, gridZ, compWidth, compLength, colorHex, compHeight, side) {
+                if (!placeComponent(gridX, gridZ, compWidth, compLength)) {
+                    return null;
+                }
+                const meshHeight = typeof compHeight === "number" ? compHeight : 0.4;
+                const compGeo = new THREE.BoxGeometry(compWidth, meshHeight, compLength);
+                const compMat = new THREE.MeshStandardMaterial({ color: colorHex, roughness: 0.5 });
                 const compMesh = new THREE.Mesh(compGeo, compMat);
+
                 compMesh.userData = {
                     gridX: gridX,
                     gridZ: gridZ,
                     width: compWidth,
                     length: compLength,
+                    meshHeight: meshHeight,
+                    side: side || "top",
+                    partname: selectedComponent ? selectedComponent.partname : "Unknown",
+                    group: selectedComponent ? selectedComponent.group : "unknown",
+                    colorHex: colorHex,
                 };
+
                 spawnedComponents.push(compMesh);
-                const worldPos = gridToWorld(
-                    gridX,
-                    gridZ,
-                    compWidth,
-                    compLength,
-                );
-                // Lift the component so it sits on top of the board surface
-                // rather than being centered halfway inside it.
-                worldPos.y = pcbBase.position.y + meshHeight / 2 + 0.02;
+                const worldPos = gridToWorld(gridX, gridZ, compWidth, compLength);
+                worldPos.y = getComponentYOffset(compMesh.userData.side, meshHeight);
                 compMesh.position.copy(worldPos);
                 scene.add(compMesh);
+
+                // Update BOM inspector
+                updateInspector();
+                return compMesh;
             }
 
+            /* =========================================================
+               TOOLS: Select / Eraser Mode (Toolbar buttons)
+               ========================================================= */
             let isEraseMode = false;
-            const btnErase = document.createElement("button");
-            btnErase.id = "btn-erase";
-            btnErase.className = "control-btn";
-            btnErase.textContent = "Eraser Mode";
-            document.querySelector(".canvas-controls").appendChild(btnErase);
+            let currentTool = "select"; // "select" or "erase"
+            const btnSelect = document.getElementById("btn-select");
+            const btnErase = document.getElementById("btn-erase");
             let spawnedComponents = [];
-            btnErase.addEventListener("click", () => {
-                isEraseMode = !isEraseMode;
-                if (isEraseMode) {
-                    btnErase.classList.add("active");
-                    btnTop.classList.remove("active");
-                    btnOrbit.classList.remove("active");
-                    btnBottom.classList.remove("active");
-                } else {
-                    btnErase.classList.remove("active");
-                    btnOrbit.classList.add("active");
+            let inspectedMesh = null; // placed component selected from the BOM
+
+            /* =========================================================
+               UNDO / REDO (two simple stacks of JSON snapshots)
+               ========================================================= */
+            let undoStack = [];
+            let redoStack = [];
+
+            // Convert the current board into a JSON string (a frozen snapshot).
+            function serialize() {
+                return JSON.stringify({
+                    width: boardWidth,
+                    length: boardLength,
+                    components: spawnedComponents.map((m) => ({
+                        gridX: m.userData.gridX,
+                        gridZ: m.userData.gridZ,
+                        width: m.userData.width,
+                        length: m.userData.length,
+                        meshHeight: m.userData.meshHeight,
+                        side: m.userData.side,
+                        partname: m.userData.partname,
+                        group: m.userData.group,
+                        colorHex: m.userData.colorHex,
+                    })),
+                });
+            }
+
+            // Call BEFORE every edit — it snapshots the state we can go back to.
+            function saveState() {
+                undoStack.push(serialize());
+                if (undoStack.length > 50) undoStack.shift();
+                redoStack = []; // a new edit clears the redo stack
+            }
+
+            // Rebuild the board from a saved JSON snapshot.
+            function loadState(json) {
+                const data = JSON.parse(json);
+
+                // Remove every existing component mesh
+                spawnedComponents.forEach((m) => {
+                    scene.remove(m);
+                    m.geometry.dispose();
+                    m.material.dispose();
+                });
+                spawnedComponents = [];
+                inspectedMesh = null;
+
+                // Restore board size (this also resets pcbGrid)
+                inputWidth.value = data.width;
+                inputLength.value = data.length;
+                updateBoardSize();
+
+                // Re-add each component from the snapshot
+                data.components.forEach((c) => {
+                    if (!placeComponent(c.gridX, c.gridZ, c.width, c.length)) return;
+                    const compGeo = new THREE.BoxGeometry(c.width, c.meshHeight, c.length);
+                    const compMat = new THREE.MeshStandardMaterial({ color: c.colorHex, roughness: 0.5 });
+                    const compMesh = new THREE.Mesh(compGeo, compMat);
+                    compMesh.userData = { ...c };
+                    spawnedComponents.push(compMesh);
+                    const worldPos = gridToWorld(c.gridX, c.gridZ, c.width, c.length);
+                    worldPos.y = getComponentYOffset(c.side, c.meshHeight);
+                    compMesh.position.copy(worldPos);
+                    scene.add(compMesh);
+                });
+
+                updateInspector();
+            }
+
+            function undo() {
+                if (undoStack.length === 0) return;
+                redoStack.push(serialize()); // current state goes to redo
+                loadState(undoStack.pop());
+            }
+
+            function redo() {
+                if (redoStack.length === 0) return;
+                undoStack.push(serialize()); // current state goes back to undo
+                loadState(redoStack.pop());
+            }
+
+            function setTool(tool) {
+                currentTool = tool;
+                isEraseMode = tool === "erase";
+                btnSelect.classList.toggle("active", tool === "select");
+                btnErase.classList.toggle("active", tool === "erase");
+                
+                // Update cursor
+                renderer.domElement.style.cursor = tool === "erase" ? "crosshair" : "default";
+            }
+
+            btnSelect.addEventListener("click", () => setTool("select"));
+            btnErase.addEventListener("click", () => setTool("erase"));
+
+            window.addEventListener("keydown", (event) => {
+                if (!event.ctrlKey) return;
+                if (event.key.toLowerCase() === "z" && !event.shiftKey) {
+                    event.preventDefault();
+                    undo();
+                } else if (event.key.toLowerCase() === "y" || (event.key.toLowerCase() === "z" && event.shiftKey)) {
+                    event.preventDefault();
+                    redo();
                 }
             });
 
-            document
-                .querySelector("#three-canvas")
-                .addEventListener("click", (event) => {
-                    const rect = renderer.domElement.getBoundingClientRect();
-                    const mouseX =
-                        ((event.clientX - rect.left) / rect.width) * 2 - 1;
-                    const mouseY =
-                        -((event.clientY - rect.top) / rect.height) * 2 + 1;
+            /* =========================================================
+               DRAG-AND-DROP FOR ALREADY-SPAWNED COMPONENTS
+               - Orbit is disabled the instant a component is grabbed and
+                 re-enabled on drop, so the camera stays perfectly steady.
+               ========================================================= */
+            let isDragging = false;
+            let draggedMesh = null;
+            let suppressNextClick = false;
 
-                    const raycaster = new THREE.Raycaster();
-                    raycaster.setFromCamera(
-                        new THREE.Vector2(mouseX, mouseY),
-                        camera,
-                    );
-                    if (isEraseMode) {
-                        const intersects =
-                            raycaster.intersectObjects(spawnedComponents);
-                        if (intersects.length > 0) {
-                            const clickedComponent = intersects[0].object;
-                            const info = clickedComponent.userData;
-                            for (
-                                let x = info.gridX;
-                                x < info.gridX + info.width;
-                                x++
-                            ) {
-                                for (
-                                    let z = info.gridZ;
-                                    z < info.gridZ + info.length;
-                                    z++
-                                ) {
-                                    pcbGrid[x][z] = 0;
-                                }
-                            }
-                            scene.remove(clickedComponent);
-                            clickedComponent.geometry.dispose();
-                            clickedComponent.material.dispose();
-                            spawnedComponents = spawnedComponents.filter(
-                                (mesh) => mesh !== clickedComponent,
-                            );
-                            console.log(
-                                "Component vaporized and database space cleared!",
-                            );
-                        }
-                    } else {
-                        if (!selectedComponent) {
-                            console.warn(
-                                "No component selected — pick one from the Components list first.",
-                            );
-                            return;
-                        }
-                        const intersects = raycaster.intersectObject(pcbBase);
-                        if (intersects.length > 0) {
-                            const hitPoint = intersects[0].point;
-                            const currentWidth = parseFloat(inputWidth.value);
-                            const currentLength = parseFloat(inputLength.value);
-                            const localX = hitPoint.x + currentWidth / 2;
-                            const localZ = hitPoint.z + currentLength / 2;
-                            const gridX = Math.floor(localX);
-                            const gridZ = Math.floor(localZ);
-                            console.log(
-                                `Clicked Grid Cell: (${gridX}, ${gridZ})`,
-                            );
-                            const compWidth =
-                                selectedComponent["pcb footprint (width)"];
-                            const compLength =
-                                selectedComponent["pcb footprint (length)"];
-                            const compHeight =
-                                selectedComponent["pcb footprint (height)"];
-                            const colorHex =
-                                getComponentColor(selectedComponent);
-                            spawnComponent(
-                                gridX,
-                                gridZ,
-                                compWidth,
-                                compLength,
-                                colorHex,
-                                compHeight,
-                            );
-                        }
+            function getPointerNDC(event) {
+                const rect = renderer.domElement.getBoundingClientRect();
+                return new THREE.Vector2(
+                    ((event.clientX - rect.left) / rect.width) * 2 - 1,
+                    -((event.clientY - rect.top) / rect.height) * 2 + 1,
+                );
+            }
+
+            function freeGridCells(info) {
+                for (let x = info.gridX; x < info.gridX + info.width; x++) {
+                    for (let z = info.gridZ; z < info.gridZ + info.length; z++) {
+                        pcbGrid[x][z] = 0;
+                    }
+                }
+            }
+
+            function startComponentDrag(event) {
+                if (isEraseMode) return; // erase mode keeps its own click flow
+
+                const raycaster = new THREE.Raycaster();
+                raycaster.setFromCamera(getPointerNDC(event), camera);
+                const hits = raycaster.intersectObjects(spawnedComponents);
+                if (hits.length === 0) return;
+
+                draggedMesh = hits[0].object;
+                saveState(); // remember position before the move
+                isDragging = true;
+                suppressNextClick = true;
+
+                freeGridCells(draggedMesh.userData);
+
+                controle.enabled = false; // orbit becomes steady while dragging
+                draggedMesh.material.emissive.set(0x225533);
+                renderer.domElement.style.cursor = "grabbing";
+                renderer.domElement.setPointerCapture(event.pointerId);
+                event.preventDefault();
+            }
+
+            function updateComponentDrag(event) {
+                if (!isDragging || !draggedMesh) return;
+
+                const raycaster = new THREE.Raycaster();
+                raycaster.setFromCamera(getPointerNDC(event), camera);
+                const hit = raycaster.intersectObject(pcbBase);
+                if (hit.length === 0) return;
+
+                const currentWidth = parseFloat(inputWidth.value);
+                const currentLength = parseFloat(inputLength.value);
+                const localX = hit[0].point.x + currentWidth / 2;
+                const localZ = hit[0].point.z + currentLength / 2;
+                const gridX = Math.floor(localX);
+                const gridZ = Math.floor(localZ);
+
+                const info = draggedMesh.userData;
+                if (canPlaceComponent(gridX, gridZ, info.width, info.length)) {
+                    const worldPos = gridToWorld(gridX, gridZ, info.width, info.length);
+                    worldPos.y = getComponentYOffset(info.side, info.meshHeight);
+                    draggedMesh.position.copy(worldPos);
+                    info.gridX = gridX;
+                    info.gridZ = gridZ;
+                }
+                // Off-board or overlapping cells are simply ignored — the
+                // component stays snapped at its last valid position.
+            }
+
+            function endComponentDrag(event) {
+                if (!isDragging || !draggedMesh) return;
+
+                const info = draggedMesh.userData;
+                placeComponent(info.gridX, info.gridZ, info.width, info.length);
+                draggedMesh.material.emissive.set(0x000000);
+
+                if (renderer.domElement.hasPointerCapture(event.pointerId)) {
+                    renderer.domElement.releasePointerCapture(event.pointerId);
+                }
+
+                isDragging = false;
+                draggedMesh = null;
+                controle.enabled = true; // orbit re-enabled after drop
+                renderer.domElement.style.cursor = currentTool === "erase" ? "crosshair" : "default";
+            }
+
+            renderer.domElement.addEventListener("pointerdown", startComponentDrag);
+            renderer.domElement.addEventListener("pointermove", updateComponentDrag);
+            renderer.domElement.addEventListener("pointerup", endComponentDrag);
+
+            /* =========================================================
+               INSPECTOR / BOM PANEL — Tab switching
+               ========================================================= */
+            const paneInfo = document.getElementById("pane-info");
+            const paneBom  = document.getElementById("pane-bom");
+            const tabInfo  = document.getElementById("tab-info");
+            const tabBom   = document.getElementById("tab-bom");
+            let activeTab  = "info";
+
+            function switchTab(tab) {
+                activeTab = tab;
+                tabInfo.classList.toggle("active", tab === "info");
+                tabBom.classList.toggle("active",  tab === "bom");
+                paneInfo.classList.toggle("active", tab === "info");
+                paneBom.classList.toggle("active",  tab === "bom");
+            }
+
+            /* =========================================================
+               BILL OF MATERIALS
+               ========================================================= */
+
+            function findComponentDetails(partname) {
+                return componentData.find((c) => c.partname === partname) || null;
+            }
+
+            function generateBillOfMaterials() {
+                const groups = new Map();
+                spawnedComponents.forEach((mesh) => {
+                    const info = mesh.userData;
+                    const key  = info.partname + "|" + info.side;
+                    if (!groups.has(key)) {
+                        groups.set(key, {
+                            partname: info.partname,
+                            group:    info.group || "N/A",
+                            side:     info.side  || "top",
+                            quantity: 0,
+                            details:  findComponentDetails(info.partname),
+                        });
+                    }
+                    groups.get(key).quantity += 1;
+                });
+                return Array.from(groups.values());
+            }
+
+            // Highlight one placed component on the PCB
+            function inspectPlacedComponent(mesh) {
+                inspectedMesh = mesh || null;
+                spawnedComponents.forEach((m) => {
+                    if (m.material.emissive) {
+                        m.material.emissive.set(m === inspectedMesh ? 0x224488 : 0x000000);
                     }
                 });
+                updateInspector();
+            }
 
-            console.log(pcbGrid);
+            /* --- Info pane renderer --- */
+            function renderInfoPane(comp) {
+                if (!comp) {
+                    paneInfo.innerHTML = '<div class="bom-empty">Select a component from the list</div>';
+                    return;
+                }
+                const rows = [
+                    ["Part",   comp.partname],
+                    ["Group",  comp.group],
+                    ["Width",  comp["pcb footprint (width)"]  !== undefined ? comp["pcb footprint (width)"]  + " mm" : "—"],
+                    ["Length", comp["pcb footprint (length)"] !== undefined ? comp["pcb footprint (length)"] + " mm" : "—"],
+                    ["Height", comp["pcb footprint (height)"] !== undefined ? comp["pcb footprint (height)"] + " mm" : "—"],
+                ];
+                paneInfo.innerHTML = rows.map(([k, v]) =>
+                    `<div class="info-row"><span class="info-key">${k}</span><span class="info-val">${v}</span></div>`
+                ).join("");
+            }
+
+            /* --- BOM pane renderer --- */
+            function renderBomPane() {
+                const bom = generateBillOfMaterials();
+
+                if (bom.length === 0) {
+                    paneBom.innerHTML = '<div class="bom-empty">No components placed on the PCB</div>';
+                    return;
+                }
+
+                // Count top/bottom
+                const topCount    = bom.filter(e => e.side === "top").reduce((s, e) => s + e.quantity, 0);
+                const bottomCount = bom.filter(e => e.side === "bottom").reduce((s, e) => s + e.quantity, 0);
+
+                let html = `
+                    <div class="bom-badges">
+                        <div class="bom-badge">
+                            <span class="bom-badge-label">Total</span>
+                            <span class="bom-badge-value">${spawnedComponents.length}</span>
+                        </div>
+                        <div class="bom-badge">
+                            <span class="bom-badge-label">Unique</span>
+                            <span class="bom-badge-value">${bom.length}</span>
+                        </div>
+                        <div class="bom-badge">
+                            <span class="bom-badge-label">Top</span>
+                            <span class="bom-badge-value">${topCount}</span>
+                        </div>
+                        <div class="bom-badge">
+                            <span class="bom-badge-label">Bot</span>
+                            <span class="bom-badge-value">${bottomCount}</span>
+                        </div>
+                    </div>
+                    <div class="bom-table-wrap">
+                    <table class="bom-table">
+                        <thead>
+                            <tr>
+                                <th>Part Name</th>
+                                <th class="col-group">Group</th>
+                                <th class="col-qty">Qty</th>
+                                <th class="col-side">Side</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                bom.forEach((entry) => {
+                    const isActive = inspectedMesh &&
+                        inspectedMesh.userData.partname === entry.partname &&
+                        inspectedMesh.userData.side     === entry.side;
+                    html += `
+                        <tr class="bom-row${isActive ? " bom-row-active" : ""}"
+                            data-partname="${entry.partname}" data-side="${entry.side}">
+                            <td>${entry.partname}</td>
+                            <td class="col-group" title="${entry.group}">${entry.group}</td>
+                            <td class="col-qty">${entry.quantity}</td>
+                            <td class="col-side">${entry.side}</td>
+                        </tr>
+                    `;
+                });
+
+                html += `</tbody></table></div>`;
+                paneBom.innerHTML = html;
+
+                // Row click → highlight on PCB & switch to info pane
+                paneBom.querySelectorAll(".bom-row").forEach((row) => {
+                    row.addEventListener("click", () => {
+                        const mesh = spawnedComponents.find(
+                            (m) => m.userData.partname === row.dataset.partname &&
+                                   m.userData.side     === row.dataset.side
+                        );
+                        if (mesh) {
+                            inspectPlacedComponent(mesh);
+                            switchTab("info");
+                        }
+                    });
+                });
+            }
+
+            /* --- Master update function --- */
+            function updateInspector() {
+                // Sync inspectedMesh validity
+                if (inspectedMesh && spawnedComponents.indexOf(inspectedMesh) === -1) {
+                    inspectedMesh = null;
+                }
+
+                // Info pane: show inspected placed-component OR selected library component
+                const infoComp = inspectedMesh
+                    ? findComponentDetails(inspectedMesh.userData.partname)
+                    : selectedComponent;
+                renderInfoPane(infoComp);
+
+                // BOM pane always refreshes
+                renderBomPane();
+
+                // Auto-switch to BOM tab when a component is placed (BOM non-empty)
+                if (spawnedComponents.length > 0 && activeTab === "info" && !selectedComponent && !inspectedMesh) {
+                    switchTab("bom");
+                }
+            }
+
+            /* =========================================================
+               CLICK: spawn a new component (or erase one)
+               ========================================================= */
+            document.querySelector("#three-canvas").addEventListener("click", (event) => {
+                if (suppressNextClick) {
+                    suppressNextClick = false;
+                    return;
+                }
+
+                const rect = renderer.domElement.getBoundingClientRect();
+                const mouseX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+                const mouseY = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+                const raycaster = new THREE.Raycaster();
+                raycaster.setFromCamera(new THREE.Vector2(mouseX, mouseY), camera);
+
+                if (currentTool === "erase") {
+                    const intersects = raycaster.intersectObjects(spawnedComponents);
+                    if (intersects.length > 0) {
+                        const clickedComponent = intersects[0].object;
+                        saveState();
+                        freeGridCells(clickedComponent.userData);
+                        scene.remove(clickedComponent);
+                        clickedComponent.geometry.dispose();
+                        clickedComponent.material.dispose();
+                        spawnedComponents = spawnedComponents.filter((mesh) => mesh !== clickedComponent);
+                        console.log("Component vaporized and database space cleared!");
+                        updateInspector();
+                    }
+                } else {
+                    if (!selectedComponent) {
+                        console.warn("No component selected — pick one from the Components list first.");
+                        return;
+                    }
+                    const intersects = raycaster.intersectObject(pcbBase);
+                    if (intersects.length > 0) {
+                        const hitPoint = intersects[0].point;
+                        const currentWidth = parseFloat(inputWidth.value);
+                        const currentLength = parseFloat(inputLength.value);
+                        const localX = hitPoint.x + currentWidth / 2;
+                        const localZ = hitPoint.z + currentLength / 2;
+                        const gridX = Math.floor(localX);
+                        const gridZ = Math.floor(localZ);
+
+                        const compWidth = selectedComponent["pcb footprint (width)"];
+                        const compLength = selectedComponent["pcb footprint (length)"];
+                        const compHeight = selectedComponent["pcb footprint (height)"];
+                        const colorHex = getComponentColor(selectedComponent);
+
+                        saveState();
+                        const placed = spawnComponent(gridX, gridZ, compWidth, compLength, colorHex, compHeight, placementSide);
+                        if (!placed) undoStack.pop(); // placement was rejected, discard the snapshot
+                    }
+                }
+            });
 
             function animate() {
                 requestAnimationFrame(animate);
                 controle.update();
                 renderer.render(scene, camera);
             }
-
             animate();
+
+            // Initialize inspector
+            updateInspector();
+            switchTab("info");
         </script>
     </body>
 </html>
