@@ -23,29 +23,38 @@
             }
             .top-toolbar {
                 grid-column: 1 / -1;
-            }
-            
-            /* Top Toolbar */
-            .top-toolbar {
                 display: flex;
                 align-items: center;
-                gap: 24px;
+                gap: 16px;
                 padding: 10px 20px;
                 background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
                 border-bottom: 1px solid #0f3460;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
                 flex-wrap: wrap;
+                row-gap: 10px;
                 z-index: 100;
             }
+            /* Dividers only make sense while the sections sit on one row —
+               drop them as soon as the toolbar wraps. */
             .toolbar-section {
                 display: flex;
                 align-items: center;
-                gap: 12px;
+                gap: 10px;
                 padding: 0 16px;
                 border-right: 1px solid rgba(255, 255, 255, 0.1);
             }
             .toolbar-section:last-child {
                 border-right: none;
+                padding-right: 0;
+            }
+            .toolbar-section:first-child {
+                padding-left: 0;
+            }
+            @media (max-width: 900px) {
+                .toolbar-section {
+                    border-right: none;
+                    padding: 0;
+                }
             }
             .toolbar-section-title {
                 font-size: 11px;
@@ -108,7 +117,7 @@
                 background: #74c0fc;
             }
             
-            /* Toolbar Toggle Buttons (for side/placement) */
+            /* Toolbar Toggle Buttons (segmented control) */
             .toolbar-toggle {
                 display: flex;
                 border-radius: 4px;
@@ -131,9 +140,10 @@
                 min-height: 0;
                 min-width: 0;
                 display: grid;
-                /* Inspector row: at least 180px, at most 42% of sidebar height.
-                   This prevents it from growing and pushing the component list up. */
-                grid-template-rows: minmax(0, 1fr) minmax(180px, 42%);
+                /* Inspector row: a floor plus a fraction of the sidebar. The 1fr row
+                   above it can shrink to 0, so short viewports squeeze the
+                   component list rather than overflowing the body. */
+                grid-template-rows: minmax(0, 1fr) minmax(140px, 40%);
                 background: #16213e;
                 border-right: 1px solid #0f3460;
                 overflow: hidden;
@@ -165,7 +175,8 @@
                 background: rgba(255, 255, 255, 0.06);
                 border: 1px solid rgba(255, 255, 255, 0.1);
                 border-radius: 6px;
-                color: #fff;
+                color: #131313;
+                font-weight: 600;
                 font-size: 13px;
                 outline: none;
             }
@@ -176,15 +187,20 @@
             .component-search::placeholder {
                 color: #667799;
             }
-            .selected-banner {
+            /* NOTE: style.css is a legacy sheet that still carries light-theme
+               rules for the older prototypes. It loads FIRST, so every rule
+               below must match or beat its specificity, or it silently wins. */
+            .selected-banner,
+            #selected-component-banner {
                 width: calc(100% - 32px);
                 margin: 10px 16px 0;
                 padding: 10px 12px;
                 background: rgba(76, 175, 80, 0.15);
-                border: 1px solid rgba(76, 175, 80, 0.3);
+                border: 1px solid rgba(76, 175, 80, 0.35);
                 border-radius: 6px;
                 font-size: 12px;
-                color: #81c784;
+                line-height: 1.4;
+                color: #a5d6a7;
                 display: none;
             }
             .selected-banner.visible {
@@ -195,14 +211,19 @@
                 overflow-y: auto;
                 padding: 8px 16px 16px;
             }
+            /* Beats style.css's light-theme .component-group-label, which still
+               paints a purple pill behind these dark-theme labels. */
             .component-group-label {
                 font-size: 10px;
                 font-weight: 700;
                 text-transform: uppercase;
                 letter-spacing: 0.08em;
-                color: #8899bb;
-                padding: 8px 10px 4px;
-                margin-top: 8px;
+                color: #7f93b8;
+                background: none;
+                padding: 10px 10px 6px;
+                margin: 12px 0 0;
+                border-radius: 0;
+                border-bottom: 1px solid rgba(127, 147, 184, 0.2);
             }
             .component-group-label:first-child {
                 margin-top: 0;
@@ -213,10 +234,13 @@
                 gap: 8px;
             }
             .component-btn {
+                position: relative;
                 display: flex;
+                flex-direction: column;
                 align-items: flex-start;
-                gap: 8px;
-                padding: 10px;
+                gap: 3px;
+                padding: 9px 10px;
+                min-height: 46px;
                 background: rgba(255, 255, 255, 0.05);
                 border: 1px solid rgba(255, 255, 255, 0.08);
                 border-radius: 6px;
@@ -231,23 +255,46 @@
                 background: rgba(255, 255, 255, 0.1);
                 border-color: rgba(255, 255, 255, 0.2);
                 transform: translateY(-1px);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
             }
             .component-btn.selected {
                 background: rgba(76, 175, 80, 0.2);
                 border-color: #4caf50;
                 box-shadow: 0 0 0 1px #4caf50;
             }
+            /* style.css renders a hover tooltip above the button, but the
+               list scrolls inside overflow:auto so that tooltip is clipped
+               for the top rows. Footprint is shown inline instead. */
+            .component-btn::before,
+            .component-btn::after {
+                content: none;
+            }
             .component-btn .btn-label {
                 display: -webkit-box;
                 -webkit-line-clamp: 2;
                 -webkit-box-orient: vertical;
                 overflow: hidden;
+                width: 100%;
             }
             .component-btn .btn-tooltip {
                 font-size: 10px;
-                color: #8899bb;
+                color: #7f93b8;
+                font-variant-numeric: tabular-nums;
                 white-space: nowrap;
-                margin-top: 2px;
+                margin-top: 0;
+            }
+            .component-btn.selected .btn-tooltip {
+                color: #a5d6a7;
+            }
+            /* style.css renders this dark navy — invisible on the dark
+               sidebar. Without it, a failed search shows no feedback. */
+            .component-empty-msg {
+                color: #8899bb;
+                font-size: 12px;
+                font-style: italic;
+                text-align: center;
+                padding: 24px 8px;
+                line-height: 1.5;
             }
             
             /* Canvas Area - full right side */
@@ -264,6 +311,157 @@
                 display: block;
                 width: 100%;
                 height: 100%;
+            }
+
+            /* =========================================================
+               COMPONENT PROPERTIES VIEWER
+               Sits inside .canvas-area (which is position:relative) and is
+               anchored to the right edge. It is hidden with display:none so it
+               never steals space from the canvas while closed.
+               ========================================================= */
+            .props-panel {
+                position: absolute;
+                top: 16px;
+                right: 16px;
+                bottom: 16px;
+                width: 340px;
+                max-width: calc(100% - 32px);
+                display: none;
+                flex-direction: column;
+                background: #16213e;
+                border: 1px solid #0f3460;
+                border-radius: 8px;
+                box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+                overflow: hidden;
+                z-index: 10;
+            }
+            .props-panel.visible {
+                display: flex;
+            }
+            .props-header {
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 12px 14px;
+                background: rgba(0, 0, 0, 0.25);
+                border-bottom: 1px solid #0f3460;
+                flex-shrink: 0;
+            }
+            .props-title-group {
+                flex: 1;
+                min-width: 0;
+            }
+            .props-title {
+                font-size: 13px;
+                font-weight: 700;
+                color: #fff;
+                line-height: 1.3;
+                word-break: break-word;
+            }
+            .props-subtitle {
+                font-size: 10px;
+                color: #8899bb;
+                text-transform: uppercase;
+                letter-spacing: 0.4px;
+                margin-top: 3px;
+                word-break: break-word;
+            }
+            .props-subtitle:empty {
+                display: none;
+            }
+            .props-close {
+                flex-shrink: 0;
+                width: 26px;
+                height: 26px;
+                padding: 0;
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                border-radius: 5px;
+                color: #eaeaea;
+                font-size: 17px;
+                line-height: 1;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: background 0.15s ease, border-color 0.15s ease;
+            }
+            .props-close:hover {
+                background: rgba(255, 90, 90, 0.25);
+                border-color: rgba(255, 90, 90, 0.5);
+                color: #fff;
+            }
+            /* Scrollable content area — the header and close button stay put. */
+            .props-body {
+                flex: 1;
+                min-height: 0;
+                overflow-y: auto;
+                overflow-x: hidden;
+                padding: 12px 14px 16px;
+            }
+            .props-section-title {
+                font-size: 10px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.6px;
+                color: #4dabf7;
+                margin: 16px 0 7px;
+                padding-bottom: 4px;
+                border-bottom: 1px solid rgba(77, 171, 247, 0.2);
+            }
+            .props-section-title:first-child {
+                margin-top: 0;
+            }
+            .props-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                gap: 10px;
+                padding: 4px 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                font-size: 11px;
+            }
+            /* Child rows of a nested object/array are indented one step. */
+            .props-row-nested {
+                padding-left: 14px;
+            }
+            /* Label-only row that names a nested object/array. */
+            .props-row-group {
+                justify-content: flex-start;
+                padding-bottom: 2px;
+                border-bottom: none;
+            }
+            .props-row-group .props-key {
+                max-width: 100%;
+                color: #cce;
+                font-weight: 700;
+                margin-top: 4px;
+            }
+            .props-key {
+                color: #8899bb;
+                flex-shrink: 1;
+                max-width: 52%;
+                word-break: break-word;
+            }
+            .props-val {
+                color: #eaeaea;
+                font-weight: 500;
+                text-align: right;
+                word-break: break-word;
+            }
+            .props-json {
+                margin: 0;
+                padding: 10px;
+                background: rgba(0, 0, 0, 0.35);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 6px;
+                color: #9fe0b0;
+                font-family: Consolas, Menlo, "Courier New", monospace;
+                font-size: 11px;
+                line-height: 1.5;
+                /* pre keeps the indentation from formatComponentJSON intact */
+                white-space: pre;
+                overflow-x: auto;
             }
             
             /* Inspector/BOM: bottom of LEFT sidebar only.
@@ -439,30 +637,37 @@
                 color: #fff;
                 width: 34px;
             }
-            .bom-table .col-side {
-                text-align: center;
-                text-transform: capitalize;
-                font-size: 10px;
-                color: #82c9ff;
-                width: 44px;
-            }
             .bom-table .col-group {
                 color: #a0b4cc;
                 font-size: 10px;
-                width: 64px;
+                width: 88px;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                max-width: 64px;
+                max-width: 88px;
             }
             
             /* Responsive */
             @media (max-width: 1024px) {
                 body {
-                    grid-template-columns: 260px minmax(0, 1fr);
+                    grid-template-columns: 280px minmax(0, 1fr);
                 }
-                .toolbar-section {
-                    padding: 0 12px;
+            }
+            @media (max-width: 720px) {
+                body {
+                    grid-template-columns: 220px minmax(0, 1fr);
+                }
+                .toolbar-input-group input {
+                    width: 58px;
+                }
+                .component-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+            /* Short viewports: give the inspector less of the sidebar. */
+            @media (max-height: 620px) {
+                .sidebar {
+                    grid-template-rows: minmax(0, 1fr) minmax(120px, 34%);
                 }
             }
             
@@ -507,15 +712,6 @@
                     <button id="btn-orbit" class="toolbar-btn active" data-view="orbit">Free Orbit</button>
                     <button id="btn-top" class="toolbar-btn" data-view="top">Top View</button>
                     <button id="btn-bottom" class="toolbar-btn" data-view="bottom">Bottom View</button>
-                </div>
-            </div>
-            
-            <!-- Component Placement Side -->
-            <div class="toolbar-section">
-                <span class="toolbar-section-title">Placement</span>
-                <div class="toolbar-toggle">
-                    <button id="btn-place-top" class="toolbar-btn active" data-side="top">Top Side</button>
-                    <button id="btn-place-bottom" class="toolbar-btn" data-side="bottom">Bottom Side</button>
                 </div>
             </div>
             
@@ -564,11 +760,31 @@
         <!-- Canvas Area -->
         <main class="canvas-area" id="canvas-container">
             <canvas id="three-canvas"></canvas>
+
+            <!-- Component Properties Viewer: shown on double-click of a placed
+                 component. It is a sibling of the canvas (never inside it), so it
+                 does not interfere with the Three.js viewport. -->
+            <aside class="props-panel" id="component-props-panel">
+                <div class="props-header">
+                    <div class="props-title-group">
+                        <div class="props-title" id="props-title">Component</div>
+                        <div class="props-subtitle" id="props-subtitle"></div>
+                    </div>
+                    <button
+                        type="button"
+                        class="props-close"
+                        id="props-close"
+                        title="Close (Esc)"
+                        aria-label="Close component properties"
+                    >&times;</button>
+                </div>
+                <div class="props-body" id="props-body"></div>
+            </aside>
         </main>
 
         <script src="three.min.js"></script>
         <script src="OrbitControls.js"></script>
-
+            
         <script>
             let componentData = [];
             let selectedComponent = null;
@@ -590,6 +806,11 @@
                         "pcb footprint (width)": Math.max(1, Math.round(parseFloat(c.Json_attr && c.Json_attr["PCB Footprint (Width)"]) || 1)),
                         "pcb footprint (length)": Math.max(1, Math.round(parseFloat(c.Json_attr && c.Json_attr["PCB Footprint (Length)"]) || 1)),
                         "pcb footprint (height)": parseFloat(c.Json_attr && c.Json_attr["PCB Footprint (Height)"]) || 0.4,
+                        // Keep the untouched record from cmplist.json. The fields
+                        // above are a trimmed view for placement; `raw` holds every
+                        // property (Sgp_name, Comp_cd, obj_id, Json_attr, ...) so the
+                        // properties viewer can show the complete JSON.
+                        raw: c,
                     }));
                     renderComponentList(componentData);
                 })
@@ -674,9 +895,9 @@
 
                         btn.dataset.tooltip =
                             comp["pcb footprint (width)"] +
-                            "×" +
+                            " × " +
                             comp["pcb footprint (length)"] +
-                            "×" +
+                            " × " +
                             comp["pcb footprint (height)"] +
                             " mm";
 
@@ -684,6 +905,11 @@
                         nameEl.className = "btn-label";
                         nameEl.textContent = comp.partname;
                         btn.appendChild(nameEl);
+
+                        const sizeEl = document.createElement("span");
+                        sizeEl.className = "btn-tooltip";
+                        sizeEl.textContent = btn.dataset.tooltip;
+                        btn.appendChild(sizeEl);
 
                         if (selectedComponent && selectedComponent.partname === comp.partname) {
                             btn.classList.add("selected");
@@ -954,9 +1180,8 @@
             scene.add(customBottomGrid);
 
             /* =========================================================
-               PCB GRID DATABASE (single shared array for BOTH sides —
-               a top placement and a bottom placement at the same X/Z
-               both occupy the same pcbGrid cell)
+               PCB GRID DATABASE (occupancy map, one cell per
+               placed component — prevents overlap/out-of-bounds)
                ========================================================= */
             let pcbGrid = [];
 
@@ -1005,34 +1230,17 @@
             }
 
             /* =========================================================
-               TOP / BOTTOM PLACEMENT SIDE (Toolbar buttons)
+               COMPONENT HEIGHT (all components sit on the top face)
                ========================================================= */
-            let placementSide = "top";
-            const btnPlaceTop = document.getElementById("btn-place-top");
-            const btnPlaceBottom = document.getElementById("btn-place-bottom");
-
-            function setPlacementSide(side) {
-                placementSide = side;
-                btnPlaceTop.classList.toggle("active", side === "top");
-                btnPlaceBottom.classList.toggle("active", side === "bottom");
-            }
-
-            btnPlaceTop.addEventListener("click", () => setPlacementSide("top"));
-            btnPlaceBottom.addEventListener("click", () => setPlacementSide("bottom"));
-
-            // Works out where a component's mesh should sit on the Y axis
-            // depending on which side of the board it belongs to.
-            function getComponentYOffset(side, meshHeight) {
-                if (side === "bottom") {
-                    return pcbBase.position.y - meshHeight / 2 - 0.02;
-                }
+            // Y position of a component mesh so it rests on the board surface.
+            function getComponentYOffset(meshHeight) {
                 return pcbBase.position.y + meshHeight / 2 + 0.02;
             }
 
             /* =========================================================
                SPAWNING COMPONENTS
                ========================================================= */
-            function spawnComponent(gridX, gridZ, compWidth, compLength, colorHex, compHeight, side) {
+            function spawnComponent(gridX, gridZ, compWidth, compLength, colorHex, compHeight) {
                 if (!placeComponent(gridX, gridZ, compWidth, compLength)) {
                     return null;
                 }
@@ -1047,7 +1255,6 @@
                     width: compWidth,
                     length: compLength,
                     meshHeight: meshHeight,
-                    side: side || "top",
                     partname: selectedComponent ? selectedComponent.partname : "Unknown",
                     group: selectedComponent ? selectedComponent.group : "unknown",
                     colorHex: colorHex,
@@ -1055,7 +1262,7 @@
 
                 spawnedComponents.push(compMesh);
                 const worldPos = gridToWorld(gridX, gridZ, compWidth, compLength);
-                worldPos.y = getComponentYOffset(compMesh.userData.side, meshHeight);
+                worldPos.y = getComponentYOffset(meshHeight);
                 compMesh.position.copy(worldPos);
                 scene.add(compMesh);
 
@@ -1091,7 +1298,6 @@
                         width: m.userData.width,
                         length: m.userData.length,
                         meshHeight: m.userData.meshHeight,
-                        side: m.userData.side,
                         partname: m.userData.partname,
                         group: m.userData.group,
                         colorHex: m.userData.colorHex,
@@ -1133,7 +1339,7 @@
                     compMesh.userData = { ...c };
                     spawnedComponents.push(compMesh);
                     const worldPos = gridToWorld(c.gridX, c.gridZ, c.width, c.length);
-                    worldPos.y = getComponentYOffset(c.side, c.meshHeight);
+                    worldPos.y = getComponentYOffset(c.meshHeight);
                     compMesh.position.copy(worldPos);
                     scene.add(compMesh);
                 });
@@ -1242,7 +1448,7 @@
                 const info = draggedMesh.userData;
                 if (canPlaceComponent(gridX, gridZ, info.width, info.length)) {
                     const worldPos = gridToWorld(gridX, gridZ, info.width, info.length);
-                    worldPos.y = getComponentYOffset(info.side, info.meshHeight);
+                    worldPos.y = getComponentYOffset(info.meshHeight);
                     draggedMesh.position.copy(worldPos);
                     info.gridX = gridX;
                     info.gridZ = gridZ;
@@ -1301,12 +1507,11 @@
                 const groups = new Map();
                 spawnedComponents.forEach((mesh) => {
                     const info = mesh.userData;
-                    const key  = info.partname + "|" + info.side;
+                    const key  = info.partname;
                     if (!groups.has(key)) {
                         groups.set(key, {
                             partname: info.partname,
                             group:    info.group || "N/A",
-                            side:     info.side  || "top",
                             quantity: 0,
                             details:  findComponentDetails(info.partname),
                         });
@@ -1354,10 +1559,6 @@
                     return;
                 }
 
-                // Count top/bottom
-                const topCount    = bom.filter(e => e.side === "top").reduce((s, e) => s + e.quantity, 0);
-                const bottomCount = bom.filter(e => e.side === "bottom").reduce((s, e) => s + e.quantity, 0);
-
                 let html = `
                     <div class="bom-badges">
                         <div class="bom-badge">
@@ -1368,14 +1569,6 @@
                             <span class="bom-badge-label">Unique</span>
                             <span class="bom-badge-value">${bom.length}</span>
                         </div>
-                        <div class="bom-badge">
-                            <span class="bom-badge-label">Top</span>
-                            <span class="bom-badge-value">${topCount}</span>
-                        </div>
-                        <div class="bom-badge">
-                            <span class="bom-badge-label">Bot</span>
-                            <span class="bom-badge-value">${bottomCount}</span>
-                        </div>
                     </div>
                     <div class="bom-table-wrap">
                     <table class="bom-table">
@@ -1384,7 +1577,6 @@
                                 <th>Part Name</th>
                                 <th class="col-group">Group</th>
                                 <th class="col-qty">Qty</th>
-                                <th class="col-side">Side</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -1392,15 +1584,13 @@
 
                 bom.forEach((entry) => {
                     const isActive = inspectedMesh &&
-                        inspectedMesh.userData.partname === entry.partname &&
-                        inspectedMesh.userData.side     === entry.side;
+                        inspectedMesh.userData.partname === entry.partname;
                     html += `
                         <tr class="bom-row${isActive ? " bom-row-active" : ""}"
-                            data-partname="${entry.partname}" data-side="${entry.side}">
+                            data-partname="${entry.partname}">
                             <td>${entry.partname}</td>
                             <td class="col-group" title="${entry.group}">${entry.group}</td>
                             <td class="col-qty">${entry.quantity}</td>
-                            <td class="col-side">${entry.side}</td>
                         </tr>
                     `;
                 });
@@ -1412,8 +1602,7 @@
                 paneBom.querySelectorAll(".bom-row").forEach((row) => {
                     row.addEventListener("click", () => {
                         const mesh = spawnedComponents.find(
-                            (m) => m.userData.partname === row.dataset.partname &&
-                                   m.userData.side     === row.dataset.side
+                            (m) => m.userData.partname === row.dataset.partname
                         );
                         if (mesh) {
                             inspectPlacedComponent(mesh);
@@ -1495,10 +1684,177 @@
                         const colorHex = getComponentColor(selectedComponent);
 
                         saveState();
-                        const placed = spawnComponent(gridX, gridZ, compWidth, compLength, colorHex, compHeight, placementSide);
+                        const placed = spawnComponent(gridX, gridZ, compWidth, compLength, colorHex, compHeight);
                         if (!placed) undoStack.pop(); // placement was rejected, discard the snapshot
+                        else lastPlaceTime = Date.now();
                     }
                 }
+            });
+
+            /* =========================================================
+               COMPONENT PROPERTIES VIEWER
+               Double-click a placed component to inspect it.
+               ========================================================= */
+            const propsPanelEl = document.getElementById("component-props-panel");
+            const propsTitleEl = document.getElementById("props-title");
+            const propsSubtitleEl = document.getElementById("props-subtitle");
+            const propsBodyEl = document.getElementById("props-body");
+            const propsCloseEl = document.getElementById("props-close");
+
+            // Remembers when the last component was placed, so a double-click
+            // that just created a component is not treated as "inspect this".
+            let lastPlaceTime = 0;
+
+            // Makes any value safe to inject into innerHTML.
+            function escapeHTML(value) {
+                return String(value)
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;");
+            }
+
+            // Pretty-prints any JSON value — objects, arrays and primitives
+            // all come back indented so nesting is easy to read.
+            function formatComponentJSON(value, indent) {
+                const spaces = typeof indent === "number" ? indent : 4;
+                try {
+                    const text = JSON.stringify(value, null, spaces);
+                    return text === undefined ? String(value) : text;
+                } catch (err) {
+                    return "/* Could not format this data: " + err.message + " */";
+                }
+            }
+
+            // Builds one "label : value" row.
+            function buildPropertyRow(key, value, isNested) {
+                let shown;
+                if (value === null) shown = "null";
+                else if (value === undefined) shown = "—";
+                else if (typeof value === "object") shown = JSON.stringify(value);
+                else shown = String(value);
+
+                return (
+                    '<div class="props-row' + (isNested ? " props-row-nested" : "") + '">' +
+                    '<span class="props-key">' + escapeHTML(key) + "</span>" +
+                    '<span class="props-val">' + escapeHTML(shown) + "</span>" +
+                    "</div>"
+                );
+            }
+
+            // Builds a label-only row for a nested object or array, so the
+            // container's own name (e.g. "Json_attr") is never lost — only its
+            // children are indented underneath it.
+            function buildGroupRow(key) {
+                return (
+                    '<div class="props-row props-row-group">' +
+                    '<span class="props-key">' + escapeHTML(key) + "</span>" +
+                    "</div>"
+                );
+            }
+
+            /* Turns a JSON value into readable rows. Objects and arrays get a
+               label row plus indented children, so nested data is shown rather
+               than hidden behind a collapsed string. */
+            function buildPropertyRows(value, depth, keyName) {
+                const isNested = depth > 0;
+
+                if (value !== null && typeof value === "object") {
+                    const keys = Object.keys(value);
+                    const isArray = Array.isArray(value);
+
+                    // Top level has no name of its own; nested ones do.
+                    let html = isNested ? buildGroupRow(keyName) : "";
+
+                    return (
+                        html +
+                        keys
+                            .map((key) => {
+                                // Array children read as parent[0], parent[1], ...
+                                // Object children are shown by their own key,
+                                // since the group row above already names them.
+                                const childName = isArray ? keyName + "[" + key + "]" : key;
+                                return buildPropertyRows(value[key], depth + 1, childName);
+                            })
+                            .join("")
+                    );
+                }
+
+                return buildPropertyRow(keyName, value, isNested);
+            }
+
+            /* Fills the panel with every property of a placed component and
+               shows it. `mesh` is the Three.js mesh that was clicked. */
+            function showComponentProperties(mesh) {
+                if (!mesh) return;
+
+                /* Use the complete original record from cmplist.json. The library
+                   entry keeps it on `.raw`; if that lookup fails we fall back to
+                   the trimmed entry, then to the data on the mesh itself. */
+                const libraryEntry = findComponentDetails(mesh.userData.partname);
+                const record = (libraryEntry && libraryEntry.raw) || libraryEntry || mesh.userData;
+
+                // Header label + reference, both read straight from the data.
+                const displayName = record.Part_name || mesh.userData.partname || "Component";
+                const reference = record.Part_number || "";
+                propsTitleEl.textContent = displayName;
+                propsSubtitleEl.textContent = reference ? "Ref: " + reference : "";
+
+                // Section 1 — every property, nested objects/arrays expanded.
+                let html = '<div class="props-section-title">Properties</div>';
+                html += buildPropertyRows(record, 0, "value");
+
+                // Section 2 — where this instance actually sits on the board.
+                html += '<div class="props-section-title">Placement</div>';
+                html += buildPropertyRow("Grid X", mesh.userData.gridX + " mm", false);
+                html += buildPropertyRow("Grid Z", mesh.userData.gridZ + " mm", false);
+                html += buildPropertyRow("Width", mesh.userData.width + " mm", false);
+                html += buildPropertyRow("Length", mesh.userData.length + " mm", false);
+                html += buildPropertyRow("Height", mesh.userData.meshHeight + " mm", false);
+
+                // Section 3 — the complete JSON, properly indented.
+                html += '<div class="props-section-title">Raw JSON</div>';
+                html += '<pre class="props-json">' + escapeHTML(formatComponentJSON(record)) + "</pre>";
+
+                propsBodyEl.innerHTML = html;
+                propsBodyEl.scrollTop = 0;
+                propsPanelEl.classList.add("visible");
+            }
+
+            // Hides the properties panel.
+            function closeComponentProperties() {
+                propsPanelEl.classList.remove("visible");
+            }
+
+            /* Raycasts the click against placed components only. Because the
+               bare PCB is never in `spawnedComponents`, a double-click on empty
+               board space finds no hit and simply closes the panel. */
+            function handleComponentDoubleClick(event) {
+                // A double-click on empty space that just placed a component is
+                // a placement, not an inspection request.
+                if (Date.now() - lastPlaceTime < 400) {
+                    closeComponentProperties();
+                    return;
+                }
+
+                const raycaster = new THREE.Raycaster();
+                raycaster.setFromCamera(getPointerNDC(event), camera);
+
+                const hits = raycaster.intersectObjects(spawnedComponents, false);
+                if (hits.length === 0) {
+                    closeComponentProperties();
+                    return;
+                }
+
+                showComponentProperties(hits[0].object);
+            }
+
+            renderer.domElement.addEventListener("dblclick", handleComponentDoubleClick);
+            propsCloseEl.addEventListener("click", closeComponentProperties);
+
+            // Escape closes the panel.
+            window.addEventListener("keydown", (event) => {
+                if (event.key === "Escape") closeComponentProperties();
             });
 
             function animate() {
