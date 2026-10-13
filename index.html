@@ -34,8 +34,7 @@
                 row-gap: 10px;
                 z-index: 100;
             }
-            /* Dividers only make sense while the sections sit on one row —
-               drop them as soon as the toolbar wraps. */
+             
             .toolbar-section {
                 display: flex;
                 align-items: center;
@@ -65,7 +64,6 @@
                 margin-right: 8px;
             }
             
-            /* Toolbar Inputs */
             .toolbar-input-group {
                 display: flex;
                 align-items: center;
@@ -91,7 +89,6 @@
                 box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.2);
             }
             
-            /* Toolbar Buttons */
             .toolbar-btn {
                 padding: 8px 14px;
                 background: rgba(255, 255, 255, 0.08);
@@ -117,7 +114,6 @@
                 background: #74c0fc;
             }
             
-            /* Toolbar Toggle Buttons (segmented control) */
             .toolbar-toggle {
                 display: flex;
                 border-radius: 4px;
@@ -133,23 +129,19 @@
                 border-right: none;
             }
             
-            /* Left Sidebar: Components (top) + Inspector/BOM (bottom) */
             .sidebar {
                 grid-column: 1;
                 grid-row: 2;
                 min-height: 0;
                 min-width: 0;
                 display: grid;
-                /* Inspector row: a floor plus a fraction of the sidebar. The 1fr row
-                   above it can shrink to 0, so short viewports squeeze the
-                   component list rather than overflowing the body. */
+                 
                 grid-template-rows: minmax(0, 1fr) minmax(140px, 40%);
                 background: #16213e;
                 border-right: 1px solid #0f3460;
                 overflow: hidden;
             }
 
-            /* Components panel fills remaining sidebar space */
             .components-panel {
                 min-height: 0;
                 min-width: 0;
@@ -187,9 +179,142 @@
             .component-search::placeholder {
                 color: #667799;
             }
-            /* NOTE: style.css is a legacy sheet that still carries light-theme
-               rules for the older prototypes. It loads FIRST, so every rule
-               below must match or beat its specificity, or it silently wins. */
+            .filter-row {
+                position: relative;
+                width: calc(100% - 32px);
+                margin: 8px 16px 0;
+            }
+            .ms-select {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 9px 12px;
+                background: rgba(255, 255, 255, 0.06);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 6px;
+                color: #eaeaea;
+                font-weight: 600;
+                font-size: 13px;
+                text-align: left;
+                cursor: pointer;
+                transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+            }
+            .ms-select:hover {
+                background: rgba(255, 255, 255, 0.1);
+                border-color: rgba(255, 255, 255, 0.2);
+            }
+            .ms-select.open {
+                border-color: #4dabf7;
+                box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.2);
+            }
+            .ms-select.active {
+                border-color: rgba(77, 171, 247, 0.55);
+                color: #a5d6f7;
+            }
+            .ms-select .ms-caret {
+                flex: none;
+                color: #7f93b8;
+                font-size: 10px;
+            }
+            .ms-select .ms-count-badge {
+                flex: none;
+                padding: 1px 7px;
+                border-radius: 999px;
+                background: rgba(77, 171, 247, 0.22);
+                border: 1px solid rgba(77, 171, 247, 0.4);
+                color: #a5d6f7;
+                font-size: 10px;
+                font-weight: 700;
+            }
+            .ms-menu {
+                position: absolute;
+                top: calc(100% + 4px);
+                left: 0;
+                right: 0;
+                z-index: 30;
+                max-height: 220px;
+                overflow-y: auto;
+                padding: 4px;
+                background: #16213e;
+                border: 1px solid #0f3460;
+                border-radius: 6px;
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            }
+            .ms-menu[hidden] {
+                display: none;
+            }
+            .ms-actions {
+                display: flex;
+                gap: 6px;
+                padding: 4px 4px 6px;
+                margin-bottom: 4px;
+                border-bottom: 1px solid rgba(127, 147, 184, 0.2);
+            }
+            .ms-action-btn {
+                flex: 1;
+                padding: 5px 6px;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 4px;
+                color: #cfd8ea;
+                font-size: 11px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: background 0.15s ease, color 0.15s ease;
+            }
+            .ms-action-btn:hover {
+                background: rgba(255, 255, 255, 0.12);
+                color: #fff;
+            }
+            .ms-option {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 7px 8px;
+                background: none;
+                border: none;
+                border-radius: 4px;
+                color: #eaeaea;
+                font-size: 12px;
+                text-align: left;
+                cursor: pointer;
+                transition: background 0.12s ease;
+            }
+            .ms-option:hover {
+                background: rgba(255, 255, 255, 0.08);
+            }
+            .ms-option.selected {
+                background: rgba(77, 171, 247, 0.12);
+            }
+            .ms-option:disabled {
+                opacity: 0.4;
+                cursor: default;
+            }
+            .ms-option .ms-check {
+                flex: none;
+                width: 12px;
+                color: #4dabf7;
+                font-weight: 700;
+            }
+            .ms-option .ms-name {
+                flex: 1;
+                min-width: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .ms-option .ms-count {
+                flex: none;
+                color: #7f93b8;
+                font-size: 10px;
+                font-variant-numeric: tabular-nums;
+            }
+            .ms-option .ms-count.zero {
+                color: #5a6b8c;
+            }
+             
             .selected-banner,
             #selected-component-banner {
                 width: calc(100% - 32px);
@@ -211,8 +336,7 @@
                 overflow-y: auto;
                 padding: 8px 16px 16px;
             }
-            /* Beats style.css's light-theme .component-group-label, which still
-               paints a purple pill behind these dark-theme labels. */
+             
             .component-group-label {
                 font-size: 10px;
                 font-weight: 700;
@@ -227,6 +351,31 @@
             }
             .component-group-label:first-child {
                 margin-top: 0;
+            }
+            .component-group-label.filterable {
+                cursor: pointer;
+                user-select: none;
+                -webkit-user-select: none;
+                transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+            }
+            .component-group-label.filterable:hover {
+                color: #cfe0ff;
+                background: rgba(255, 255, 255, 0.05);
+            }
+            .component-group-label.active {
+                color: #4dabf7;
+                border-bottom-color: rgba(77, 171, 247, 0.6);
+            }
+            .component-group-label.empty {
+                opacity: 0.4;
+            }
+            .component-group-label .gl-count {
+                float: right;
+                font-size: 9px;
+                letter-spacing: 0;
+                text-transform: none;
+                color: #7f93b8;
+                font-variant-numeric: tabular-nums;
             }
             .component-grid {
                 display: grid;
@@ -262,9 +411,7 @@
                 border-color: #4caf50;
                 box-shadow: 0 0 0 1px #4caf50;
             }
-            /* style.css renders a hover tooltip above the button, but the
-               list scrolls inside overflow:auto so that tooltip is clipped
-               for the top rows. Footprint is shown inline instead. */
+             
             .component-btn::before,
             .component-btn::after {
                 content: none;
@@ -286,8 +433,7 @@
             .component-btn.selected .btn-tooltip {
                 color: #a5d6a7;
             }
-            /* style.css renders this dark navy — invisible on the dark
-               sidebar. Without it, a failed search shows no feedback. */
+             
             .component-empty-msg {
                 color: #8899bb;
                 font-size: 12px;
@@ -297,7 +443,6 @@
                 line-height: 1.5;
             }
             
-            /* Canvas Area - full right side */
             .canvas-area {
                 grid-column: 2;
                 grid-row: 2;
@@ -313,12 +458,6 @@
                 height: 100%;
             }
 
-            /* =========================================================
-               COMPONENT PROPERTIES VIEWER
-               Sits inside .canvas-area (which is position:relative) and is
-               anchored to the right edge. It is hidden with display:none so it
-               never steals space from the canvas while closed.
-               ========================================================= */
             .props-panel {
                 position: absolute;
                 top: 16px;
@@ -391,7 +530,7 @@
                 border-color: rgba(255, 90, 90, 0.5);
                 color: #fff;
             }
-            /* Scrollable content area — the header and close button stay put. */
+             
             .props-body {
                 flex: 1;
                 min-height: 0;
@@ -421,11 +560,11 @@
                 border-bottom: 1px solid rgba(255, 255, 255, 0.05);
                 font-size: 11px;
             }
-            /* Child rows of a nested object/array are indented one step. */
+             
             .props-row-nested {
                 padding-left: 14px;
             }
-            /* Label-only row that names a nested object/array. */
+             
             .props-row-group {
                 justify-content: flex-start;
                 padding-bottom: 2px;
@@ -459,14 +598,61 @@
                 font-family: Consolas, Menlo, "Courier New", monospace;
                 font-size: 11px;
                 line-height: 1.5;
-                /* pre keeps the indentation from formatComponentJSON intact */
+                 
                 white-space: pre;
                 overflow-x: auto;
             }
+
+            .status-toast {
+                position: fixed;
+                max-width: min(520px, calc(100vw - 32px));
+                padding: 11px 18px;
+                background: #16213e;
+                border: 1px solid #4dabf7;
+                border-radius: 8px;
+                box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
+                color: #eaeaea;
+                font-size: 12.5px;
+                line-height: 1.45;
+                text-align: center;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.2s ease, transform 0.2s ease;
+                z-index: 50;
+            }
+            /* Import / export messages stay bottom-centre. */
+            #status-toast {
+                left: 50%;
+                bottom: 24px;
+                transform: translate(-50%, 20px);
+            }
+            #status-toast.visible {
+                transform: translate(-50%, 0);
+            }
+            /* Placement errors appear bottom-right, away from the PCB centre. */
+            #placement-toast {
+                right: 16px;
+                bottom: 16px;
+                transform: translateY(20px);
+                text-align: left;
+                max-width: min(420px, calc(100vw - 32px));
+                font-weight: 500;
+            }
+            #placement-toast.visible {
+                transform: translateY(0);
+            }
+            .status-toast.visible {
+                opacity: 1;
+            }
+            .status-toast.toast-error {
+                border-color: #ff6b6b;
+                color: #ffc9c9;
+            }
+            .status-toast.toast-success {
+                border-color: #4caf50;
+                color: #c8e6c9;
+            }
             
-            /* Inspector/BOM: bottom of LEFT sidebar only.
-               Height is fully controlled by the sidebar grid row above —
-               no min/max-height needed here. */
             .inspector-panel {
                 height: 100%;
                 min-height: 0;
@@ -482,7 +668,7 @@
                 background: rgba(0, 0, 0, 0.25);
                 flex-shrink: 0;
             }
-            /* Tab strip */
+             
             .inspector-tabs {
                 display: flex;
                 align-items: stretch;
@@ -511,13 +697,12 @@
                 border-bottom-color: #4dabf7;
                 background: rgba(77,171,247,0.06);
             }
-            /* Tab panes */
+             
             .inspector-pane {
                 display: none;
             }
             .inspector-pane.active {
-                /* flex: 1 + min-height: 0 lets the pane fill the remaining
-                   panel height without overflowing its container */
+                 
                 display: flex;
                 flex-direction: column;
                 flex: 1;
@@ -527,7 +712,7 @@
                 font-size: 12px;
                 color: #bbb;
             }
-            /* Info pane: key-value rows */
+             
             .info-row {
                 display: flex;
                 justify-content: space-between;
@@ -551,7 +736,7 @@
                 text-align: right;
                 word-break: break-word;
             }
-            /* BOM summary badges */
+             
             .bom-badges {
                 display: flex;
                 gap: 8px;
@@ -586,7 +771,7 @@
                 padding: 18px 0;
                 font-size: 12px;
             }
-            /* BOM table — slim columns to fit 340px sidebar */
+             
             .bom-table-wrap {
                 overflow-x: auto;
             }
@@ -647,7 +832,6 @@
                 max-width: 88px;
             }
             
-            /* Responsive */
             @media (max-width: 1024px) {
                 body {
                     grid-template-columns: 280px minmax(0, 1fr);
@@ -664,14 +848,13 @@
                     grid-template-columns: 1fr;
                 }
             }
-            /* Short viewports: give the inspector less of the sidebar. */
+             
             @media (max-height: 620px) {
                 .sidebar {
                     grid-template-rows: minmax(0, 1fr) minmax(120px, 34%);
                 }
             }
             
-            /* Scrollbar styling */
             ::-webkit-scrollbar {
                 width: 8px;
                 height: 8px;
@@ -686,13 +869,13 @@
             ::-webkit-scrollbar-thumb:hover {
                 background: rgba(255, 255, 255, 0.2);
             }
-        </style>
+</style>
     </head>
 
     <body>
-        <!-- Top Toolbar -->
+        
         <div class="top-toolbar">
-            <!-- PCB Dimensions -->
+            
             <div class="toolbar-section">
                 <span class="toolbar-section-title">PCB Size</span>
                 <div class="toolbar-input-group">
@@ -705,7 +888,7 @@
                 </div>
             </div>
             
-            <!-- Camera / View -->
+            
             <div class="toolbar-section">
                 <span class="toolbar-section-title">View</span>
                 <div class="toolbar-toggle">
@@ -715,7 +898,7 @@
                 </div>
             </div>
             
-            <!-- Tools -->
+            
             <div class="toolbar-section">
                 <span class="toolbar-section-title">Tools</span>
                 <div class="toolbar-toggle">
@@ -723,22 +906,39 @@
                     <button id="btn-erase" class="toolbar-btn" data-tool="erase">Eraser</button>
                 </div>
             </div>
+
+            
+            <div class="toolbar-section">
+                <span class="toolbar-section-title">File</span>
+                <div class="toolbar-toggle">
+                    <button id="btn-export" class="toolbar-btn">Export JSON</button>
+                    <button id="btn-import" class="toolbar-btn">Import JSON</button>
+                </div>
+                <input type="file" id="import-file" accept=".json,application/json" hidden />
+            </div>
         </div>
 
-        <!-- Left Sidebar -->
+        
         <aside class="sidebar">
             <div class="components-panel">
                 <div class="sidebar-header">
                     <h2>Components</h2>
                 </div>
                 <input type="text" id="component-search" class="component-search" placeholder="Search components…" />
+                <div class="filter-row">
+                    <button type="button" id="sgp-filter-btn" class="ms-select" aria-haspopup="listbox" aria-expanded="false">
+                        <span id="sgp-filter-label" class="ms-name">All sub-groups</span>
+                        <span class="ms-caret">▾</span>
+                    </button>
+                    <div id="sgp-filter-menu" class="ms-menu" role="listbox" hidden></div>
+                </div>
                 <div id="selected-component-banner" class="selected-banner"></div>
                 <div class="component-list-wrapper">
                     <div id="component-list"></div>
                 </div>
             </div>
 
-            <!-- Inspector/BOM: bottom of left sidebar -->
+            
             <div class="inspector-panel" id="inspector-panel">
                 <div class="inspector-header">
                     <div class="inspector-tabs">
@@ -746,24 +946,22 @@
                         <button class="inspector-tab" id="tab-bom" onclick="switchTab('bom')">📋 BOM</button>
                     </div>
                 </div>
-                <!-- Info pane -->
+                
                 <div class="inspector-pane active" id="pane-info">
                     <div class="bom-empty">Select a component from the list</div>
                 </div>
-                <!-- BOM pane -->
+                
                 <div class="inspector-pane" id="pane-bom">
                     <div class="bom-empty">No components placed on the PCB</div>
                 </div>
             </div>
         </aside>
 
-        <!-- Canvas Area -->
+        
         <main class="canvas-area" id="canvas-container">
             <canvas id="three-canvas"></canvas>
 
-            <!-- Component Properties Viewer: shown on double-click of a placed
-                 component. It is a sibling of the canvas (never inside it), so it
-                 does not interfere with the Three.js viewport. -->
+            
             <aside class="props-panel" id="component-props-panel">
                 <div class="props-header">
                     <div class="props-title-group">
@@ -782,50 +980,205 @@
             </aside>
         </main>
 
+        
+        <div class="status-toast" id="status-toast"></div>
+        <div class="status-toast" id="placement-toast"></div>
+
         <script src="three.min.js"></script>
         <script src="OrbitControls.js"></script>
-            
+
         <script>
             let componentData = [];
             let selectedComponent = null;
             let selectedButtonEl = null;
-
             const componentListEl = document.getElementById("component-list");
             const componentSearchEl = document.getElementById("component-search");
             const selectedBannerEl = document.getElementById("selected-component-banner");
-
+            const sgpFilterBtnEl = document.getElementById("sgp-filter-btn");
+            const sgpFilterLabelEl = document.getElementById("sgp-filter-label");
+            const sgpFilterMenuEl = document.getElementById("sgp-filter-menu");
+            function extractComponentRecords(data) {
+                if (Array.isArray(data)) return data;
+                if (data && Array.isArray(data.items)) return data.items.flat();
+                if (data && Array.isArray(data.components)) return data.components.flat();
+                return [];
+            }
+            function firstDefined(record, names) {
+                if (!record) return undefined;
+                for (const name of names) {
+                    if (record[name] !== undefined && record[name] !== null) return record[name];
+                }
+                return undefined;
+            }
+            function readFootprint(attr, key) {
+                const value = firstDefined(attr, ["PCB Footprint (" + key + ")", "pcb footprint (" + key + ")"]);
+                const num = parseFloat(value);
+                return isFinite(num) ? num : null;
+            }
+            function normalizeComponent(raw) {
+                const attr = firstDefined(raw, ["json_attr", "Json_attr"]) || {};
+                const width = readFootprint(attr, "Width");
+                const length = readFootprint(attr, "Length");
+                const height = readFootprint(attr, "Height");
+                return {
+                    partname: firstDefined(raw, ["part_name", "Part_name", "name"]) || "Unknown",
+                    group: firstDefined(raw, ["group_name", "group name"]) || "N/A",
+                    partNumber: firstDefined(raw, ["part_number", "Part_number"]) || "",
+                    vendor: firstDefined(raw, ["vendor", "Vendor"]) || "",
+                    sgpName: firstDefined(raw, ["sgp_name", "Sgp_name"]) || "",
+                    "pcb footprint (width)": width === null ? 1 : Math.max(1, Math.round(width)),
+                    "pcb footprint (length)": length === null ? 1 : Math.max(1, Math.round(length)),
+                    "pcb footprint (height)": height === null ? 0.4 : height,
+                    raw: raw,
+                };
+            }
+            function renderComponentLoadError(message) {
+                componentListEl.innerHTML =
+                    '<div class="component-empty-msg">' + escapeHTML(message) + "</div>";
+            }
             fetch("./cmplist.json")
-                .then((res) => res.json())
+                .then((res) => {
+                    if (!res.ok) throw new Error("server replied " + res.status);
+                    return res.json();
+                })
                 .then((data) => {
-                    // cmplist.json groups items as items: [[{...}, ...]]
-                    componentData = data.items.flat().map((c) => ({
-                        partname: c.Part_name,
-                        group: c["group name"],
-                        partNumber: c.Part_number,
-                        vendor: c.Vendor,
-                        "pcb footprint (width)": Math.max(1, Math.round(parseFloat(c.Json_attr && c.Json_attr["PCB Footprint (Width)"]) || 1)),
-                        "pcb footprint (length)": Math.max(1, Math.round(parseFloat(c.Json_attr && c.Json_attr["PCB Footprint (Length)"]) || 1)),
-                        "pcb footprint (height)": parseFloat(c.Json_attr && c.Json_attr["PCB Footprint (Height)"]) || 0.4,
-                        // Keep the untouched record from cmplist.json. The fields
-                        // above are a trimmed view for placement; `raw` holds every
-                        // property (Sgp_name, Comp_cd, obj_id, Json_attr, ...) so the
-                        // properties viewer can show the complete JSON.
-                        raw: c,
-                    }));
-                    renderComponentList(componentData);
+                    const records = extractComponentRecords(data);
+                    if (records.length === 0) {
+                        throw new Error("no component records found in the file");
+                    }
+                    componentData = records.map(normalizeComponent);
+                    applyFilters();
                 })
                 .catch((err) => {
                     console.error("Failed to load cmplist.json:", err);
+                    componentData = [];
+                    renderComponentLoadError(
+                        "Could not load the component library. Check that cmplist.json sits next to index.html and is valid JSON."
+                    );
+                    showStatusToast("Component library failed to load — " + err.message, "error");
                 });
-
+            const filterState = { term: "", groups: new Set(), sgps: new Set() };
+            function matchesTerm(comp) {
+                return !filterState.term || comp.partname.toLowerCase().indexOf(filterState.term) !== -1;
+            }
+            function matchesSgp(comp) {
+                return filterState.sgps.size === 0 || filterState.sgps.has(comp.sgpName);
+            }
+            function matchesGroup(comp) {
+                return filterState.groups.size === 0 || filterState.groups.has(comp.group);
+            }
+            function getFilteredComponents() {
+                return componentData.filter((c) => matchesTerm(c) && matchesSgp(c) && matchesGroup(c));
+            }
+            function getCandidateComponents() {
+                return componentData.filter((c) => matchesTerm(c) && matchesSgp(c));
+            }
+            function applyFilters() {
+                syncSgpFilterButton();
+                renderComponentList(getFilteredComponents(), getCandidateComponents());
+            }
             componentSearchEl.addEventListener("input", () => {
-                const term = componentSearchEl.value.trim().toLowerCase();
-                const filtered = term
-                    ? componentData.filter((c) => c.partname.toLowerCase().includes(term))
-                    : componentData;
-                renderComponentList(filtered);
+                filterState.term = componentSearchEl.value.trim().toLowerCase();
+                applyFilters();
             });
-
+            function syncSgpFilterButton() {
+                const n = filterState.sgps.size;
+                sgpFilterLabelEl.textContent =
+                    n === 0 ? "All sub-groups" : n === 1 ? "1 selected" : n + " selected";
+                sgpFilterBtnEl.classList.toggle("active", n > 0);
+            }
+            function toggleSgp(name) {
+                if (filterState.sgps.has(name)) filterState.sgps.delete(name);
+                else filterState.sgps.add(name);
+                applyFilters();
+            }
+            function setSgpMenuOpen(open) {
+                sgpFilterBtnEl.classList.toggle("open", open);
+                sgpFilterBtnEl.setAttribute("aria-expanded", open ? "true" : "false");
+                sgpFilterMenuEl.hidden = !open;
+            }
+            function refreshSgpFilterMenu() {
+                const totals = new Map();
+                const counts = new Map();
+                componentData.forEach((comp) => {
+                    totals.set(comp.sgpName, (totals.get(comp.sgpName) || 0) + 1);
+                });
+                componentData
+                    .filter((c) => matchesTerm(c) && matchesGroup(c))
+                    .forEach((comp) => counts.set(comp.sgpName, (counts.get(comp.sgpName) || 0) + 1));
+                Array.from(filterState.sgps).forEach((name) => {
+                    if (!totals.has(name)) filterState.sgps.delete(name);
+                });
+                const scrollTop = sgpFilterMenuEl.scrollTop;
+                sgpFilterMenuEl.innerHTML = "";
+                const actions = document.createElement("div");
+                actions.className = "ms-actions";
+                const selectAllBtn = document.createElement("button");
+                selectAllBtn.type = "button";
+                selectAllBtn.className = "ms-action-btn";
+                selectAllBtn.textContent = "Select all";
+                selectAllBtn.addEventListener("click", () => {
+                    totals.forEach((_total, name) => filterState.sgps.add(name));
+                    applyFilters();
+                });
+                const clearBtn = document.createElement("button");
+                clearBtn.type = "button";
+                clearBtn.className = "ms-action-btn";
+                clearBtn.textContent = "Clear";
+                clearBtn.addEventListener("click", () => {
+                    filterState.sgps.clear();
+                    applyFilters();
+                });
+                actions.appendChild(selectAllBtn);
+                actions.appendChild(clearBtn);
+                sgpFilterMenuEl.appendChild(actions);
+                Array.from(totals.keys())
+                    .sort((a, b) => a.localeCompare(b))
+                    .forEach((name) => {
+                        const total = totals.get(name);
+                        const count = counts.get(name) || 0;
+                        const selected = filterState.sgps.has(name);
+                        const option = document.createElement("button");
+                        option.type = "button";
+                        option.className = "ms-option";
+                        option.setAttribute("role", "option");
+                        option.setAttribute("aria-selected", selected ? "true" : "false");
+                        option.disabled = count === 0 && !selected;
+                        if (selected) option.classList.add("selected");
+                        const check = document.createElement("span");
+                        check.className = "ms-check";
+                        check.textContent = selected ? "✓" : "";
+                        option.appendChild(check);
+                        const nameEl = document.createElement("span");
+                        nameEl.className = "ms-name";
+                        nameEl.textContent = name || "N/A";
+                        option.appendChild(nameEl);
+                        const countEl = document.createElement("span");
+                        countEl.className = count === 0 ? "ms-count zero" : "ms-count";
+                        countEl.textContent = count === total ? String(total) : count + "/" + total;
+                        option.appendChild(countEl);
+                        option.addEventListener("click", () => toggleSgp(name));
+                        sgpFilterMenuEl.appendChild(option);
+                    });
+                sgpFilterMenuEl.scrollTop = scrollTop;
+            }
+            sgpFilterBtnEl.addEventListener("click", (event) => {
+                event.stopPropagation();
+                const open = sgpFilterMenuEl.hidden;
+                if (open) refreshSgpFilterMenu();
+                setSgpMenuOpen(open);
+            });
+            sgpFilterMenuEl.addEventListener("click", (event) => {
+                event.stopPropagation();
+            });
+            document.addEventListener("click", (event) => {
+                if (sgpFilterMenuEl.hidden) return;
+                if (sgpFilterMenuEl.contains(event.target)) return;
+                setSgpMenuOpen(false);
+            });
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "Escape" && !sgpFilterMenuEl.hidden) setSgpMenuOpen(false);
+            });
             function getComponentColor(comp) {
                 let hash = 0;
                 for (let i = 0; i < comp.partname.length; i++) {
@@ -837,13 +1190,11 @@
                 const hslColor = new THREE.Color(`hsl(${hue}, ${saturation}%, ${lightness}%)`);
                 return hslColor.getHex();
             }
-
             function selectComponent(comp, btnEl) {
                 selectedComponent = comp;
                 if (selectedButtonEl) selectedButtonEl.classList.remove("selected");
                 btnEl.classList.add("selected");
                 selectedButtonEl = btnEl;
-
                 selectedBannerEl.classList.add("visible");
                 selectedBannerEl.textContent =
                     "Selected: " +
@@ -853,46 +1204,67 @@
                     " × " +
                     comp["pcb footprint (length)"] +
                     " mm)";
-
                 updateInspector();
-
-                // Switch to select tool when picking a component
                 if (currentTool === "erase") {
                     setTool("select");
                 }
             }
-
-            function renderComponentList(items) {
+            function renderComponentList(items, candidates) {
+                const pool = Array.isArray(candidates) ? candidates : items;
                 componentListEl.innerHTML = "";
-
-                if (items.length === 0) {
+                selectedButtonEl = null;
+                if (pool.length === 0) {
                     const empty = document.createElement("div");
                     empty.className = "component-empty-msg";
-                    empty.textContent = "No components match your search.";
+                    empty.textContent = "No components match the current filters.";
                     componentListEl.appendChild(empty);
+                    refreshSgpFilterMenu();
                     return;
                 }
-
-                const groups = {};
-                items.forEach((comp) => {
-                    if (!groups[comp.group]) groups[comp.group] = [];
-                    groups[comp.group].push(comp);
+                if (items.length === 0) {
+                    const note = document.createElement("div");
+                    note.className = "component-empty-msg";
+                    note.textContent = "No components in the selected groups.";
+                    componentListEl.appendChild(note);
+                }
+                const groups = new Map();
+                pool.forEach((comp) => {
+                    if (!groups.has(comp.group)) groups.set(comp.group, []);
+                    groups.get(comp.group).push(comp);
                 });
-
-                Object.keys(groups).forEach((groupName) => {
+                Array.from(filterState.groups).forEach((name) => {
+                    if (!groups.has(name)) groups.set(name, []);
+                });
+                Array.from(groups.keys()).forEach((groupName) => {
+                    const total = groups.get(groupName).length;
+                    const visible = items.filter((c) => c.group === groupName);
                     const label = document.createElement("div");
-                    label.className = "component-group-label";
-                    label.textContent = groupName;
+                    label.className = "component-group-label filterable";
+                    label.title = "Click to filter by " + groupName;
+                    if (filterState.groups.size > 0) {
+                        if (filterState.groups.has(groupName)) label.classList.add("active");
+                        else label.classList.add("empty");
+                    }
+                    const labelName = document.createElement("span");
+                    labelName.textContent = groupName;
+                    label.appendChild(labelName);
+                    const labelCount = document.createElement("span");
+                    labelCount.className = "gl-count";
+                    labelCount.textContent = visible.length === total ? String(total) : visible.length + "/" + total;
+                    label.appendChild(labelCount);
+                    label.addEventListener("click", () => {
+                        if (filterState.groups.has(groupName)) filterState.groups.delete(groupName);
+                        else filterState.groups.add(groupName);
+                        applyFilters();
+                    });
                     componentListEl.appendChild(label);
-
+                    if (visible.length === 0) return;
                     const grid = document.createElement("div");
                     grid.className = "component-grid";
-
-                    groups[groupName].forEach((comp) => {
+                    visible.forEach((comp) => {
                         const btn = document.createElement("button");
                         btn.type = "button";
                         btn.className = "component-btn";
-
                         btn.dataset.tooltip =
                             comp["pcb footprint (width)"] +
                             " × " +
@@ -900,33 +1272,25 @@
                             " × " +
                             comp["pcb footprint (height)"] +
                             " mm";
-
                         const nameEl = document.createElement("span");
                         nameEl.className = "btn-label";
                         nameEl.textContent = comp.partname;
                         btn.appendChild(nameEl);
-
                         const sizeEl = document.createElement("span");
                         sizeEl.className = "btn-tooltip";
                         sizeEl.textContent = btn.dataset.tooltip;
                         btn.appendChild(sizeEl);
-
                         if (selectedComponent && selectedComponent.partname === comp.partname) {
                             btn.classList.add("selected");
                             selectedButtonEl = btn;
                         }
-
                         btn.addEventListener("click", () => selectComponent(comp, btn));
                         grid.appendChild(btn);
                     });
-
                     componentListEl.appendChild(grid);
                 });
+                refreshSgpFilterMenu();
             }
-
-            /* =========================================================
-               SCENE / CAMERA / RENDERER SETUP
-               ========================================================= */
             const scene = new THREE.Scene();
             const container = document.querySelector("#canvas-container");
             const width = container.clientWidth;
@@ -938,21 +1302,73 @@
             const inputLength = document.getElementById("input-length");
             let boardWidth = parseFloat(inputWidth.value);
             let boardLength = parseFloat(inputLength.value);
-
-            /**
-             * Calculate the camera Z distance so the board fits in view.
-             * Uses the larger board dimension and camera FOV to compute distance.
-             */
+            const MIN_BOARD_MM = 1;
+            const MAX_BOARD_MM = 1000;
             function calculateCameraDistance(boardW, boardL) {
                 const maxDim = Math.max(boardW, boardL);
                 const fovInRadians = (camera.fov * Math.PI) / 180;
                 return maxDim / (2 * Math.tan(fovInRadians / 2));
             }
-
-            function updateBoardSize() {
-                boardWidth = parseFloat(inputWidth.value);
-                boardLength = parseFloat(inputLength.value);
+            function fitsOnBoard(startX, startZ, compWidth, compLength) {
+                if (pcbGrid.length === 0) return false;
+                for (let x = startX; x < startX + compWidth; x++) {
+                    if (x < 0 || x >= pcbGrid.length) return false;
+                    for (let z = startZ; z < startZ + compLength; z++) {
+                        if (z < 0 || z >= pcbGrid[x].length) return false;
+                    }
+                }
+                return true;
+            }
+            function rebuildGridFromComponents() {
                 initializeGridSystem(Math.floor(boardWidth), Math.floor(boardLength));
+                spawnedComponents.forEach((m) => {
+                    const info = m.userData;
+                    const worldPos = gridToWorld(info.gridX, info.gridZ, info.width, info.length);
+                    worldPos.y = getComponentYOffset(info.meshHeight);
+                    m.position.copy(worldPos);
+                    placeComponent(info.gridX, info.gridZ, info.width, info.length);
+                });
+            }
+            function removeComponentMesh(mesh) {
+                scene.remove(mesh);
+                mesh.geometry.dispose();
+                mesh.material.dispose();
+                spawnedComponents = spawnedComponents.filter((m) => m !== mesh);
+                if (inspectedMesh === mesh) inspectedMesh = null;
+            }
+            function dropComponentsThatNoLongerFit() {
+                initializeGridSystem(Math.floor(boardWidth), Math.floor(boardLength));
+                const doomed = [];
+                spawnedComponents.forEach((m) => {
+                    const info = m.userData;
+                    if (!fitsOnBoard(info.gridX, info.gridZ, info.width, info.length)) {
+                        doomed.push(m);
+                    }
+                });
+                doomed.forEach((m) => removeComponentMesh(m));
+                return doomed.length;
+            }
+            function readBoardSizeInputs() {
+                let w = parseFloat(inputWidth.value);
+                let l = parseFloat(inputLength.value);
+                if (!Number.isFinite(w)) w = boardWidth;
+                if (!Number.isFinite(l)) l = boardLength;
+                w = Math.min(Math.max(w, MIN_BOARD_MM), MAX_BOARD_MM);
+                l = Math.min(Math.max(l, MIN_BOARD_MM), MAX_BOARD_MM);
+                inputWidth.value = w;
+                inputLength.value = l;
+                return { width: w, length: l };
+            }
+            function handleBoardSizeChange() {
+                const next = readBoardSizeInputs();
+                if (next.width === boardWidth && next.length === boardLength) return;
+                saveState();
+                updateBoardSize();
+            }
+            function updateBoardSize() {
+                const size = readBoardSizeInputs();
+                boardWidth = size.width;
+                boardLength = size.length;
                 pcbBase.geometry.dispose();
                 const newBoardGeo = new THREE.BoxGeometry(boardWidth, boardLength, 0.1);
                 pcbBase.geometry = newBoardGeo;
@@ -970,25 +1386,31 @@
                 customTopGrid.position.y = pcbCenterY + thickness / 2 + 0.01;
                 customBottomGrid.position.y = pcbCenterY - thickness / 2 - 0.01;
 
-                // Update camera position for current view mode
+                const removed = dropComponentsThatNoLongerFit();
+                rebuildGridFromComponents();
+                if (removed > 0) {
+                    updateInspector();
+                    showStatusToast(
+                        removed + " component" + (removed === 1 ? "" : "s") +
+                            " no longer fit the board and " + (removed === 1 ? "was" : "were") +
+                            " removed. Press Ctrl+Z to undo.",
+                        "error"
+                    );
+                }
+
                 updateCameraForCurrentView();
             }
-            inputWidth.addEventListener("input", () => { saveState(); updateBoardSize(); });
-            inputLength.addEventListener("input", () => { saveState(); updateBoardSize(); });
-
+            inputWidth.addEventListener("change", handleBoardSizeChange);
+            inputLength.addEventListener("change", handleBoardSizeChange);
             const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-
-            // Initial camera position
             const initialCameraZ = calculateCameraDistance(boardWidth, boardLength);
             camera.position.set(0, initialCameraZ * 1.2, 0);
-
             const renderer = new THREE.WebGLRenderer({
                 canvas: document.querySelector("#three-canvas"),
                 antialias: true,
                 alpha: true,
             });
             renderer.setSize(container.clientWidth, container.clientHeight);
-
             window.addEventListener("resize", () => {
                 const newwidth = container.clientWidth;
                 const newheight = container.clientHeight;
@@ -996,19 +1418,15 @@
                 camera.updateProjectionMatrix();
                 renderer.setSize(newwidth, newheight);
             });
-
             const axishelper = new THREE.AxesHelper(5);
             scene.add(axishelper);
             scene.background = null;
-
             const boardgeometry = new THREE.BoxGeometry(boardWidth, boardLength, 0.1);
-
             const ambientlight = new THREE.AmbientLight(0xffffff, 2.2);
             scene.add(ambientlight);
             const directionallight = new THREE.DirectionalLight(0xffffff, 0.4);
             directionallight.position.set(5, 10, 7);
             scene.add(directionallight);
-
             const topCanvas = document.createElement("canvas");
             const bottomCanvas = document.createElement("canvas");
             topCanvas.width = 512;
@@ -1017,7 +1435,6 @@
             bottomCanvas.height = 896;
             const ctxTop = topCanvas.getContext("2d");
             const ctxBottom = bottomCanvas.getContext("2d");
-
             ctxTop.fillStyle = "#004d1a";
             ctxTop.fillRect(0, 0, 512, 896);
             ctxTop.font = "Bold 16px monospace";
@@ -1025,7 +1442,6 @@
             ctxTop.textAlign = "left";
             ctxTop.textBaseline = "top";
             ctxTop.fillText("TOP", 5, 5);
-
             ctxBottom.fillStyle = "#004d1a";
             ctxBottom.fillRect(0, 0, 512, 896);
             ctxBottom.font = "Bold 16px monospace";
@@ -1033,10 +1449,8 @@
             ctxBottom.textAlign = "right";
             ctxBottom.textBaseline = "bottom";
             ctxBottom.fillText("BOTTOM", 507, 891);
-
             const topTexture = new THREE.CanvasTexture(topCanvas);
             const bottomTexture = new THREE.CanvasTexture(bottomCanvas);
-
             const sideMaterial = new THREE.MeshStandardMaterial({
                 color: 0x004d1a,
                 roughness: 0.2,
@@ -1055,7 +1469,6 @@
                 metalness: 0.1,
                 side: THREE.DoubleSide,
             });
-
             const pcbMaterials = [
                 sideMaterial,
                 sideMaterial,
@@ -1064,35 +1477,18 @@
                 topMaterial,
                 bottomMaterial,
             ];
-
             const pcbBase = new THREE.Mesh(boardgeometry, pcbMaterials);
             scene.add(pcbBase);
             pcbBase.rotation.x = -Math.PI / 2;
             pcbBase.position.y = -1;
-
-            // The original "angled" camera roll used for Free Orbit view.
-            // Kept as a named constant so we can always restore it.
             const defaultCameraRoll = -Math.PI / 6;
             camera.rotation.z = defaultCameraRoll;
-
             const controle = new THREE.OrbitControls(camera, renderer.domElement);
             controle.enableDamping = true;
             controle.dampingFactor = 0.4;
-
-            /* =========================================================
-               CAMERA VIEW MODES (Top / Bottom / Free Orbit)
-               --- BUG FIX: switching to Top/Bottom disabled rotate/pan
-               on the controls but Free Orbit never turned them back on.
-               ========================================================= */
-            let currentViewMode = "orbit"; // "orbit", "top", "bottom"
-
-            /**
-             * Update camera position based on current view mode and board size.
-             * Call this when board size changes or view mode changes.
-             */
+            let currentViewMode = "orbit";
             function updateCameraForCurrentView() {
                 const cameraZ = calculateCameraDistance(boardWidth, boardLength);
-
                 if (currentViewMode === "top") {
                     camera.position.set(0, cameraZ * 1.2, 0);
                     camera.lookAt(0, 0, 0);
@@ -1102,14 +1498,12 @@
                     camera.lookAt(0, 0, 0);
                     camera.rotation.z = Math.PI;
                 } else {
-                    // Free orbit - restore default tilted position
                     camera.position.set(0, cameraZ * 1.2, 0);
                     camera.rotation.z = defaultCameraRoll;
                 }
                 controle.target.set(0, 0, 0);
                 controle.update();
             }
-
             function activateTopView() {
                 currentViewMode = "top";
                 controle.enableZoom = true;
@@ -1120,7 +1514,6 @@
                 btnOrbit.classList.remove("active");
                 btnBottom.classList.remove("active");
             }
-
             function activateBottomView() {
                 currentViewMode = "bottom";
                 controle.enableZoom = true;
@@ -1131,7 +1524,6 @@
                 btnOrbit.classList.remove("active");
                 btnBottom.classList.add("active");
             }
-
             function activateFreeOrbitView() {
                 currentViewMode = "orbit";
                 controle.enabled = true;
@@ -1144,21 +1536,15 @@
                 btnOrbit.classList.add("active");
                 btnBottom.classList.remove("active");
             }
-
             btnTop.addEventListener("click", activateTopView);
             btnBottom.addEventListener("click", activateBottomView);
             btnOrbit.addEventListener("click", activateFreeOrbitView);
-
-            /* =========================================================
-               GRID LINES (visual only)
-               ========================================================= */
             const gridGeometry = new THREE.BufferGeometry();
             const points = [];
             const halfW = boardgeometry.parameters.width / 2;
             const halfL = boardgeometry.parameters.height / 2;
             const thickness = boardgeometry.parameters.depth;
             const pcbCenterY = pcbBase.position.y;
-
             for (let x = -halfW; x <= halfW; x += 1) {
                 points.push(new THREE.Vector3(x, 0, -halfL), new THREE.Vector3(x, 0, halfL));
             }
@@ -1166,7 +1552,6 @@
                 points.push(new THREE.Vector3(-halfW, 0, z), new THREE.Vector3(halfW, 0, z));
             }
             gridGeometry.setFromPoints(points);
-
             const gridMaterial = new THREE.LineBasicMaterial({
                 color: 0xffffff,
                 transparent: true,
@@ -1178,13 +1563,7 @@
             customBottomGrid.position.y = pcbCenterY - thickness / 2 - 0.01;
             scene.add(customTopGrid);
             scene.add(customBottomGrid);
-
-            /* =========================================================
-               PCB GRID DATABASE (occupancy map, one cell per
-               placed component — prevents overlap/out-of-bounds)
-               ========================================================= */
             let pcbGrid = [];
-
             function initializeGridSystem(gw, gl) {
                 pcbGrid = [];
                 for (let x = 0; x < gw; x++) {
@@ -1195,20 +1574,22 @@
                 }
             }
             initializeGridSystem(Math.floor(boardWidth), Math.floor(boardLength));
-
-            function canPlaceComponent(startX, startZ, compWidth, compLength) {
+            function getPlacementProblem(startX, startZ, compWidth, compLength) {
+                if (pcbGrid.length === 0) return "out-of-bounds";
                 for (let x = startX; x < startX + compWidth; x++) {
                     for (let z = startZ; z < startZ + compLength; z++) {
                         if (x < 0 || x >= pcbGrid.length || z < 0 || z >= pcbGrid[0].length) {
-                            return false;
+                            return "out-of-bounds";
                         } else if (pcbGrid[x][z] !== 0) {
-                            return false;
+                            return "collision";
                         }
                     }
                 }
-                return true;
+                return null;
             }
-
+            function canPlaceComponent(startX, startZ, compWidth, compLength) {
+                return getPlacementProblem(startX, startZ, compWidth, compLength) === null;
+            }
             function placeComponent(startX, startZ, compWidth, compLength) {
                 if (canPlaceComponent(startX, startZ, compWidth, compLength)) {
                     for (let x = startX; x < startX + compWidth; x++) {
@@ -1216,30 +1597,18 @@
                             pcbGrid[x][z] = 1;
                         }
                     }
-                    console.log("Component successfully locked into grid database!");
                     return true;
                 }
-                console.error("Placement rejected: Collision or Out of Bounds!");
                 return false;
             }
-
             function gridToWorld(gridX, gridZ, compWidth, compLength) {
                 const worldX = gridX + compWidth / 2 - boardWidth / 2;
                 const worldZ = gridZ + compLength / 2 - boardLength / 2;
                 return new THREE.Vector3(worldX, pcbBase.position.y + 0.05, worldZ);
             }
-
-            /* =========================================================
-               COMPONENT HEIGHT (all components sit on the top face)
-               ========================================================= */
-            // Y position of a component mesh so it rests on the board surface.
             function getComponentYOffset(meshHeight) {
                 return pcbBase.position.y + meshHeight / 2 + 0.02;
             }
-
-            /* =========================================================
-               SPAWNING COMPONENTS
-               ========================================================= */
             function spawnComponent(gridX, gridZ, compWidth, compLength, colorHex, compHeight) {
                 if (!placeComponent(gridX, gridZ, compWidth, compLength)) {
                     return null;
@@ -1248,7 +1617,6 @@
                 const compGeo = new THREE.BoxGeometry(compWidth, meshHeight, compLength);
                 const compMat = new THREE.MeshStandardMaterial({ color: colorHex, roughness: 0.5 });
                 const compMesh = new THREE.Mesh(compGeo, compMat);
-
                 compMesh.userData = {
                     gridX: gridX,
                     gridZ: gridZ,
@@ -1259,35 +1627,22 @@
                     group: selectedComponent ? selectedComponent.group : "unknown",
                     colorHex: colorHex,
                 };
-
                 spawnedComponents.push(compMesh);
                 const worldPos = gridToWorld(gridX, gridZ, compWidth, compLength);
                 worldPos.y = getComponentYOffset(meshHeight);
                 compMesh.position.copy(worldPos);
                 scene.add(compMesh);
-
-                // Update BOM inspector
                 updateInspector();
                 return compMesh;
             }
-
-            /* =========================================================
-               TOOLS: Select / Eraser Mode (Toolbar buttons)
-               ========================================================= */
             let isEraseMode = false;
-            let currentTool = "select"; // "select" or "erase"
+            let currentTool = "select";
             const btnSelect = document.getElementById("btn-select");
             const btnErase = document.getElementById("btn-erase");
             let spawnedComponents = [];
-            let inspectedMesh = null; // placed component selected from the BOM
-
-            /* =========================================================
-               UNDO / REDO (two simple stacks of JSON snapshots)
-               ========================================================= */
+            let inspectedMesh = null;
             let undoStack = [];
             let redoStack = [];
-
-            // Convert the current board into a JSON string (a frozen snapshot).
             function serialize() {
                 return JSON.stringify({
                     width: boardWidth,
@@ -1304,19 +1659,14 @@
                     })),
                 });
             }
-
-            // Call BEFORE every edit — it snapshots the state we can go back to.
             function saveState() {
                 undoStack.push(serialize());
                 if (undoStack.length > 50) undoStack.shift();
-                redoStack = []; // a new edit clears the redo stack
+                redoStack = [];
             }
-
-            // Rebuild the board from a saved JSON snapshot.
             function loadState(json) {
                 const data = JSON.parse(json);
-
-                // Remove every existing component mesh
+                let skipped = 0;
                 spawnedComponents.forEach((m) => {
                     scene.remove(m);
                     m.geometry.dispose();
@@ -1324,15 +1674,14 @@
                 });
                 spawnedComponents = [];
                 inspectedMesh = null;
-
-                // Restore board size (this also resets pcbGrid)
                 inputWidth.value = data.width;
                 inputLength.value = data.length;
                 updateBoardSize();
-
-                // Re-add each component from the snapshot
                 data.components.forEach((c) => {
-                    if (!placeComponent(c.gridX, c.gridZ, c.width, c.length)) return;
+                    if (!placeComponent(c.gridX, c.gridZ, c.width, c.length)) {
+                        skipped++;
+                        return;
+                    }
                     const compGeo = new THREE.BoxGeometry(c.width, c.meshHeight, c.length);
                     const compMat = new THREE.MeshStandardMaterial({ color: c.colorHex, roughness: 0.5 });
                     const compMesh = new THREE.Mesh(compGeo, compMat);
@@ -1343,35 +1692,238 @@
                     compMesh.position.copy(worldPos);
                     scene.add(compMesh);
                 });
-
                 updateInspector();
+                return skipped;
             }
-
             function undo() {
                 if (undoStack.length === 0) return;
-                redoStack.push(serialize()); // current state goes to redo
+                redoStack.push(serialize());
                 loadState(undoStack.pop());
             }
-
             function redo() {
                 if (redoStack.length === 0) return;
-                undoStack.push(serialize()); // current state goes back to undo
+                undoStack.push(serialize());
                 loadState(redoStack.pop());
             }
-
+            const PROJECT_FORMAT = "pcb-circuit-designer";
+            const PROJECT_VERSION = 1;
+            const MAX_SAVED_COMPONENTS = 5000;
+            const importFileEl = document.getElementById("import-file");
+            const statusToastEl = document.getElementById("status-toast");
+            const placementToastEl = document.getElementById("placement-toast");
+            const toastTimers = { status: null, placement: null };
+            function presentToast(el, key, message, kind, duration) {
+                el.textContent = message;
+                el.className = "status-toast visible" + (kind ? " toast-" + kind : "");
+                if (toastTimers[key]) clearTimeout(toastTimers[key]);
+                toastTimers[key] = setTimeout(() => {
+                    el.classList.remove("visible");
+                }, duration);
+            }
+            function showStatusToast(message, kind) {
+                presentToast(statusToastEl, "status", message, kind, 3200);
+            }
+            function placementErrorMessage(problem) {
+                return problem === "collision"
+                    ? "Something is already there — that spot is occupied."
+                    : "That part would hang off the edge of the board.";
+            }
+            function showPlacementError(message) {
+                presentToast(placementToastEl, "placement", "⚠ " + message, "error", 4000);
+            }
+            function buildProjectData() {
+                return {
+                    format: PROJECT_FORMAT,
+                    version: PROJECT_VERSION,
+                    board: {
+                        width: boardWidth,
+                        length: boardLength,
+                    },
+                    components: spawnedComponents.map((m) => ({
+                        partname: m.userData.partname,
+                        group: m.userData.group,
+                        gridX: m.userData.gridX,
+                        gridZ: m.userData.gridZ,
+                        width: m.userData.width,
+                        length: m.userData.length,
+                        meshHeight: m.userData.meshHeight,
+                        colorHex: m.userData.colorHex,
+                    })),
+                };
+            }
+            function exportProjectJSON() {
+                const project = buildProjectData();
+                const stamp = new Date().toISOString().slice(0, 16).replace(/[:T]/g, "-");
+                const blob = new Blob([JSON.stringify(project, null, 2)], {
+                    type: "application/json",
+                });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement("a");
+                link.href = url;
+                link.download =
+                    "pcb-" +
+                    Math.round(project.board.width) +
+                    "x" +
+                    Math.round(project.board.length) +
+                    "-" +
+                    stamp +
+                    ".json";
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+                URL.revokeObjectURL(url);
+                const n = project.components.length;
+                showStatusToast(
+                    "Exported " + n + " component" + (n === 1 ? "" : "s") + " to " + link.download,
+                    "success"
+                );
+            }
+            function validateProjectData(data) {
+                const fail = (error) => ({ ok: false, error: error });
+                if (data === null || typeof data !== "object" || Array.isArray(data)) {
+                    return fail("This file does not contain a PCB design.");
+                }
+                if (data.format && data.format !== PROJECT_FORMAT) {
+                    return fail('Unrecognised file format "' + data.format + '".');
+                }
+                if (!data.board || typeof data.board !== "object") {
+                    return fail("The file is missing the board size.");
+                }
+                if (!isFiniteNumber(data.board.width) || data.board.width < 1) {
+                    return fail("Board width must be a number of at least 1 mm.");
+                }   
+                if (!isFiniteNumber(data.board.length) || data.board.length < 1) {
+                    return fail("Board length must be a number of at least 1 mm.");
+                }
+                if (!Array.isArray(data.components)) {
+                    return fail("The file has no valid list of components.");
+                }
+                if (data.components.length > MAX_SAVED_COMPONENTS) {
+                    return fail(
+                        "The file holds more than " + MAX_SAVED_COMPONENTS + " components."
+                    );
+                }
+                const problems = [];
+                data.components.forEach((c, i) => {
+                    const at = "Component #" + (i + 1) + " ";
+                    if (c === null || typeof c !== "object") {
+                        problems.push(at + "is not a valid entry.");
+                        return;
+                    }
+                    if (!isFiniteNumber(c.gridX) || !isFiniteNumber(c.gridZ)) {
+                        problems.push(at + "has an invalid grid position.");
+                    } else if (c.gridX < 0 || c.gridZ < 0) {
+                        problems.push(at + "sits at a negative grid position.");
+                    }
+                    if (!isFiniteNumber(c.width) || c.width < 1) {
+                        problems.push(at + "has an invalid width.");
+                    }
+                    if (!isFiniteNumber(c.length) || c.length < 1) {
+                        problems.push(at + "has an invalid length.");
+                    }
+                    if (c.meshHeight !== undefined && !isFiniteNumber(c.meshHeight)) {
+                        problems.push(at + "has an invalid height.");
+                    }
+                    if (typeof c.partname !== "string" || c.partname.trim() === "") {
+                        problems.push(at + "is missing its part name.");
+                    }
+                });
+                if (problems.length > 0) {
+                    const shown = problems.slice(0, 3).join(" ");
+                    const more = problems.length > 3 ? " (+" + (problems.length - 3) + " more)" : "";
+                    return fail(shown + more);
+                }
+                return { ok: true };
+            }
+            function isFiniteNumber(value) {
+                return typeof value === "number" && isFinite(value);
+            }
+            function importProjectJSON(text) {
+                let data;
+                try {
+                    data = JSON.parse(text);
+                } catch (err) {
+                    showStatusToast("That file is not valid JSON — nothing changed.", "error");
+                    return false;
+                }
+                const check = validateProjectData(data);
+                if (!check.ok) {
+                    showStatusToast(check.error + " Nothing changed.", "error");
+                    return false;
+                }
+                const components = data.components.map((c) => ({
+                    gridX: Math.floor(c.gridX),
+                    gridZ: Math.floor(c.gridZ),
+                    width: Math.round(c.width),
+                    length: Math.round(c.length),
+                    meshHeight:
+                        c.meshHeight === undefined
+                            ? defaultMeshHeightFor(c.partname)
+                            : c.meshHeight,
+                    partname: c.partname,
+                    group: resolveGroup(c),
+                    colorHex: resolveColorHex(c),
+                }));
+                const total = components.length;
+                saveState();
+                const snapshot = {
+                    width: data.board.width,
+                    length: data.board.length,
+                    components: components,
+                };
+                const skipped = loadState(JSON.stringify(snapshot));
+                const restored = total - skipped;
+                let message =
+                    "Loaded " + restored + " component" + (restored === 1 ? "" : "s") + ".";
+                if (skipped > 0) {
+                    message +=
+                        " " + skipped + " skipped (outside the board or overlapping).";
+                }
+                message += " Press Ctrl+Z to undo.";
+                showStatusToast(message, skipped > 0 ? "error" : "success");
+                return true;
+            }
+            function resolveColorHex(c) {
+                if (typeof c.colorHex === "number" && isFinite(c.colorHex)) {
+                    return c.colorHex;
+                }
+                const entry = findComponentDetails(c.partname);
+                return entry ? getComponentColor(entry) : 0x8899bb;
+            }
+            function resolveGroup(c) {
+                if (typeof c.group === "string" && c.group.trim() !== "") {
+                    return c.group;
+                }
+                const entry = findComponentDetails(c.partname);
+                return entry && entry.group ? entry.group : "unknown";
+            }
+            function defaultMeshHeightFor(partname) {
+                const entry = findComponentDetails(partname);
+                const h = entry ? entry["pcb footprint (height)"] : null;
+                return isFiniteNumber(h) ? h : 0.4;
+            }
+            function handleImportFile(event) {
+                const file = event.target.files && event.target.files[0];
+                event.target.value = "";
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = () => importProjectJSON(String(reader.result));
+                reader.onerror = () =>
+                    showStatusToast("Could not read that file — nothing changed.", "error");
+                reader.readAsText(file);
+            }
+            document.getElementById("btn-export").addEventListener("click", exportProjectJSON);
+            document.getElementById("btn-import").addEventListener("click", () => importFileEl.click());
+            importFileEl.addEventListener("change", handleImportFile);
             function setTool(tool) {
                 currentTool = tool;
                 isEraseMode = tool === "erase";
                 btnSelect.classList.toggle("active", tool === "select");
                 btnErase.classList.toggle("active", tool === "erase");
-                
-                // Update cursor
                 renderer.domElement.style.cursor = tool === "erase" ? "crosshair" : "default";
             }
-
             btnSelect.addEventListener("click", () => setTool("select"));
             btnErase.addEventListener("click", () => setTool("erase"));
-
             window.addEventListener("keydown", (event) => {
                 if (!event.ctrlKey) return;
                 if (event.key.toLowerCase() === "z" && !event.shiftKey) {
@@ -1382,16 +1934,9 @@
                     redo();
                 }
             });
-
-            /* =========================================================
-               DRAG-AND-DROP FOR ALREADY-SPAWNED COMPONENTS
-               - Orbit is disabled the instant a component is grabbed and
-                 re-enabled on drop, so the camera stays perfectly steady.
-               ========================================================= */
             let isDragging = false;
             let draggedMesh = null;
             let suppressNextClick = false;
-
             function getPointerNDC(event) {
                 const rect = renderer.domElement.getBoundingClientRect();
                 return new THREE.Vector2(
@@ -1399,52 +1944,49 @@
                     -((event.clientY - rect.top) / rect.height) * 2 + 1,
                 );
             }
-
             function freeGridCells(info) {
                 for (let x = info.gridX; x < info.gridX + info.width; x++) {
+                    if (x < 0 || x >= pcbGrid.length) continue;
                     for (let z = info.gridZ; z < info.gridZ + info.length; z++) {
+                        if (z < 0 || z >= pcbGrid[x].length) continue;
                         pcbGrid[x][z] = 0;
                     }
                 }
             }
-
             function startComponentDrag(event) {
-                if (isEraseMode) return; // erase mode keeps its own click flow
-
+                if (isEraseMode) return;
                 const raycaster = new THREE.Raycaster();
                 raycaster.setFromCamera(getPointerNDC(event), camera);
                 const hits = raycaster.intersectObjects(spawnedComponents);
                 if (hits.length === 0) return;
-
                 draggedMesh = hits[0].object;
-                saveState(); // remember position before the move
-                isDragging = true;
-                suppressNextClick = true;
-
+                saveState();
                 freeGridCells(draggedMesh.userData);
-
-                controle.enabled = false; // orbit becomes steady while dragging
+                controle.enabled = false;
                 draggedMesh.material.emissive.set(0x225533);
                 renderer.domElement.style.cursor = "grabbing";
-                renderer.domElement.setPointerCapture(event.pointerId);
+                if (renderer.domElement.setPointerCapture) {
+                    try {
+                        renderer.domElement.setPointerCapture(event.pointerId);
+                    } catch (err) {
+                    }
+                }
+                isDragging = true;
+                suppressNextClick = true;
                 event.preventDefault();
             }
-
             function updateComponentDrag(event) {
                 if (!isDragging || !draggedMesh) return;
-
                 const raycaster = new THREE.Raycaster();
                 raycaster.setFromCamera(getPointerNDC(event), camera);
                 const hit = raycaster.intersectObject(pcbBase);
                 if (hit.length === 0) return;
-
                 const currentWidth = parseFloat(inputWidth.value);
                 const currentLength = parseFloat(inputLength.value);
                 const localX = hit[0].point.x + currentWidth / 2;
                 const localZ = hit[0].point.z + currentLength / 2;
                 const gridX = Math.floor(localX);
                 const gridZ = Math.floor(localZ);
-
                 const info = draggedMesh.userData;
                 if (canPlaceComponent(gridX, gridZ, info.width, info.length)) {
                     const worldPos = gridToWorld(gridX, gridZ, info.width, info.length);
@@ -1453,40 +1995,34 @@
                     info.gridX = gridX;
                     info.gridZ = gridZ;
                 }
-                // Off-board or overlapping cells are simply ignored — the
-                // component stays snapped at its last valid position.
             }
-
             function endComponentDrag(event) {
                 if (!isDragging || !draggedMesh) return;
-
                 const info = draggedMesh.userData;
-                placeComponent(info.gridX, info.gridZ, info.width, info.length);
+                if (!placeComponent(info.gridX, info.gridZ, info.width, info.length)) {
+                    showPlacementError(
+                        placementErrorMessage(
+                            getPlacementProblem(info.gridX, info.gridZ, info.width, info.length)
+                        )
+                    );
+                }
                 draggedMesh.material.emissive.set(0x000000);
-
                 if (renderer.domElement.hasPointerCapture(event.pointerId)) {
                     renderer.domElement.releasePointerCapture(event.pointerId);
                 }
-
                 isDragging = false;
                 draggedMesh = null;
-                controle.enabled = true; // orbit re-enabled after drop
+                controle.enabled = true;
                 renderer.domElement.style.cursor = currentTool === "erase" ? "crosshair" : "default";
             }
-
             renderer.domElement.addEventListener("pointerdown", startComponentDrag);
             renderer.domElement.addEventListener("pointermove", updateComponentDrag);
             renderer.domElement.addEventListener("pointerup", endComponentDrag);
-
-            /* =========================================================
-               INSPECTOR / BOM PANEL — Tab switching
-               ========================================================= */
             const paneInfo = document.getElementById("pane-info");
             const paneBom  = document.getElementById("pane-bom");
             const tabInfo  = document.getElementById("tab-info");
             const tabBom   = document.getElementById("tab-bom");
             let activeTab  = "info";
-
             function switchTab(tab) {
                 activeTab = tab;
                 tabInfo.classList.toggle("active", tab === "info");
@@ -1494,15 +2030,9 @@
                 paneInfo.classList.toggle("active", tab === "info");
                 paneBom.classList.toggle("active",  tab === "bom");
             }
-
-            /* =========================================================
-               BILL OF MATERIALS
-               ========================================================= */
-
             function findComponentDetails(partname) {
                 return componentData.find((c) => c.partname === partname) || null;
             }
-
             function generateBillOfMaterials() {
                 const groups = new Map();
                 spawnedComponents.forEach((mesh) => {
@@ -1520,8 +2050,6 @@
                 });
                 return Array.from(groups.values());
             }
-
-            // Highlight one placed component on the PCB
             function inspectPlacedComponent(mesh) {
                 inspectedMesh = mesh || null;
                 spawnedComponents.forEach((m) => {
@@ -1531,8 +2059,6 @@
                 });
                 updateInspector();
             }
-
-            /* --- Info pane renderer --- */
             function renderInfoPane(comp) {
                 if (!comp) {
                     paneInfo.innerHTML = '<div class="bom-empty">Select a component from the list</div>';
@@ -1549,16 +2075,12 @@
                     `<div class="info-row"><span class="info-key">${k}</span><span class="info-val">${v}</span></div>`
                 ).join("");
             }
-
-            /* --- BOM pane renderer --- */
             function renderBomPane() {
                 const bom = generateBillOfMaterials();
-
                 if (bom.length === 0) {
                     paneBom.innerHTML = '<div class="bom-empty">No components placed on the PCB</div>';
                     return;
                 }
-
                 let html = `
                     <div class="bom-badges">
                         <div class="bom-badge">
@@ -1581,7 +2103,6 @@
                         </thead>
                         <tbody>
                 `;
-
                 bom.forEach((entry) => {
                     const isActive = inspectedMesh &&
                         inspectedMesh.userData.partname === entry.partname;
@@ -1594,11 +2115,8 @@
                         </tr>
                     `;
                 });
-
                 html += `</tbody></table></div>`;
                 paneBom.innerHTML = html;
-
-                // Row click → highlight on PCB & switch to info pane
                 paneBom.querySelectorAll(".bom-row").forEach((row) => {
                     row.addEventListener("click", () => {
                         const mesh = spawnedComponents.find(
@@ -1611,45 +2129,29 @@
                     });
                 });
             }
-
-            /* --- Master update function --- */
             function updateInspector() {
-                // Sync inspectedMesh validity
                 if (inspectedMesh && spawnedComponents.indexOf(inspectedMesh) === -1) {
                     inspectedMesh = null;
                 }
-
-                // Info pane: show inspected placed-component OR selected library component
                 const infoComp = inspectedMesh
                     ? findComponentDetails(inspectedMesh.userData.partname)
                     : selectedComponent;
                 renderInfoPane(infoComp);
-
-                // BOM pane always refreshes
                 renderBomPane();
-
-                // Auto-switch to BOM tab when a component is placed (BOM non-empty)
                 if (spawnedComponents.length > 0 && activeTab === "info" && !selectedComponent && !inspectedMesh) {
                     switchTab("bom");
                 }
             }
-
-            /* =========================================================
-               CLICK: spawn a new component (or erase one)
-               ========================================================= */
             document.querySelector("#three-canvas").addEventListener("click", (event) => {
                 if (suppressNextClick) {
                     suppressNextClick = false;
                     return;
                 }
-
                 const rect = renderer.domElement.getBoundingClientRect();
                 const mouseX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
                 const mouseY = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-
                 const raycaster = new THREE.Raycaster();
                 raycaster.setFromCamera(new THREE.Vector2(mouseX, mouseY), camera);
-
                 if (currentTool === "erase") {
                     const intersects = raycaster.intersectObjects(spawnedComponents);
                     if (intersects.length > 0) {
@@ -1660,12 +2162,13 @@
                         clickedComponent.geometry.dispose();
                         clickedComponent.material.dispose();
                         spawnedComponents = spawnedComponents.filter((mesh) => mesh !== clickedComponent);
-                        console.log("Component vaporized and database space cleared!");
                         updateInspector();
+                    } else {
+                        showPlacementError("Nothing to erase there.");
                     }
                 } else {
                     if (!selectedComponent) {
-                        console.warn("No component selected — pick one from the Components list first.");
+                        showPlacementError("Pick a component from the list first.");
                         return;
                     }
                     const intersects = raycaster.intersectObject(pcbBase);
@@ -1677,35 +2180,31 @@
                         const localZ = hitPoint.z + currentLength / 2;
                         const gridX = Math.floor(localX);
                         const gridZ = Math.floor(localZ);
-
                         const compWidth = selectedComponent["pcb footprint (width)"];
                         const compLength = selectedComponent["pcb footprint (length)"];
                         const compHeight = selectedComponent["pcb footprint (height)"];
                         const colorHex = getComponentColor(selectedComponent);
-
                         saveState();
                         const placed = spawnComponent(gridX, gridZ, compWidth, compLength, colorHex, compHeight);
-                        if (!placed) undoStack.pop(); // placement was rejected, discard the snapshot
-                        else lastPlaceTime = Date.now();
+                        if (!placed) {
+                            undoStack.pop();
+                            showPlacementError(
+                                placementErrorMessage(
+                                    getPlacementProblem(gridX, gridZ, compWidth, compLength)
+                                )
+                            );
+                        } else {
+                            lastPlaceTime = Date.now();
+                        }
                     }
                 }
             });
-
-            /* =========================================================
-               COMPONENT PROPERTIES VIEWER
-               Double-click a placed component to inspect it.
-               ========================================================= */
             const propsPanelEl = document.getElementById("component-props-panel");
             const propsTitleEl = document.getElementById("props-title");
             const propsSubtitleEl = document.getElementById("props-subtitle");
             const propsBodyEl = document.getElementById("props-body");
             const propsCloseEl = document.getElementById("props-close");
-
-            // Remembers when the last component was placed, so a double-click
-            // that just created a component is not treated as "inspect this".
             let lastPlaceTime = 0;
-
-            // Makes any value safe to inject into innerHTML.
             function escapeHTML(value) {
                 return String(value)
                     .replace(/&/g, "&amp;")
@@ -1713,9 +2212,6 @@
                     .replace(/>/g, "&gt;")
                     .replace(/"/g, "&quot;");
             }
-
-            // Pretty-prints any JSON value — objects, arrays and primitives
-            // all come back indented so nesting is easy to read.
             function formatComponentJSON(value, indent) {
                 const spaces = typeof indent === "number" ? indent : 4;
                 try {
@@ -1725,15 +2221,12 @@
                     return "/* Could not format this data: " + err.message + " */";
                 }
             }
-
-            // Builds one "label : value" row.
             function buildPropertyRow(key, value, isNested) {
                 let shown;
                 if (value === null) shown = "null";
                 else if (value === undefined) shown = "—";
                 else if (typeof value === "object") shown = JSON.stringify(value);
                 else shown = String(value);
-
                 return (
                     '<div class="props-row' + (isNested ? " props-row-nested" : "") + '">' +
                     '<span class="props-key">' + escapeHTML(key) + "</span>" +
@@ -1741,10 +2234,6 @@
                     "</div>"
                 );
             }
-
-            // Builds a label-only row for a nested object or array, so the
-            // container's own name (e.g. "Json_attr") is never lost — only its
-            // children are indented underneath it.
             function buildGroupRow(key) {
                 return (
                     '<div class="props-row props-row-group">' +
@@ -1752,121 +2241,83 @@
                     "</div>"
                 );
             }
-
-            /* Turns a JSON value into readable rows. Objects and arrays get a
-               label row plus indented children, so nested data is shown rather
-               than hidden behind a collapsed string. */
             function buildPropertyRows(value, depth, keyName) {
                 const isNested = depth > 0;
-
                 if (value !== null && typeof value === "object") {
                     const keys = Object.keys(value);
                     const isArray = Array.isArray(value);
-
-                    // Top level has no name of its own; nested ones do.
                     let html = isNested ? buildGroupRow(keyName) : "";
-
                     return (
                         html +
                         keys
                             .map((key) => {
-                                // Array children read as parent[0], parent[1], ...
-                                // Object children are shown by their own key,
-                                // since the group row above already names them.
                                 const childName = isArray ? keyName + "[" + key + "]" : key;
                                 return buildPropertyRows(value[key], depth + 1, childName);
                             })
                             .join("")
                     );
                 }
-
                 return buildPropertyRow(keyName, value, isNested);
             }
-
-            /* Fills the panel with every property of a placed component and
-               shows it. `mesh` is the Three.js mesh that was clicked. */
             function showComponentProperties(mesh) {
                 if (!mesh) return;
-
-                /* Use the complete original record from cmplist.json. The library
-                   entry keeps it on `.raw`; if that lookup fails we fall back to
-                   the trimmed entry, then to the data on the mesh itself. */
                 const libraryEntry = findComponentDetails(mesh.userData.partname);
                 const record = (libraryEntry && libraryEntry.raw) || libraryEntry || mesh.userData;
-
-                // Header label + reference, both read straight from the data.
-                const displayName = record.Part_name || mesh.userData.partname || "Component";
-                const reference = record.Part_number || "";
+                const displayName =
+                    (libraryEntry && libraryEntry.partname) ||
+                    firstDefined(record, ["part_name", "Part_name"]) ||
+                    mesh.userData.partname ||
+                    "Component";
+                const reference =
+                    (libraryEntry && libraryEntry.partNumber) ||
+                    firstDefined(record, ["part_number", "Part_number"]) ||
+                    "";
                 propsTitleEl.textContent = displayName;
                 propsSubtitleEl.textContent = reference ? "Ref: " + reference : "";
-
-                // Section 1 — every property, nested objects/arrays expanded.
                 let html = '<div class="props-section-title">Properties</div>';
                 html += buildPropertyRows(record, 0, "value");
-
-                // Section 2 — where this instance actually sits on the board.
                 html += '<div class="props-section-title">Placement</div>';
                 html += buildPropertyRow("Grid X", mesh.userData.gridX + " mm", false);
                 html += buildPropertyRow("Grid Z", mesh.userData.gridZ + " mm", false);
                 html += buildPropertyRow("Width", mesh.userData.width + " mm", false);
                 html += buildPropertyRow("Length", mesh.userData.length + " mm", false);
                 html += buildPropertyRow("Height", mesh.userData.meshHeight + " mm", false);
-
-                // Section 3 — the complete JSON, properly indented.
                 html += '<div class="props-section-title">Raw JSON</div>';
                 html += '<pre class="props-json">' + escapeHTML(formatComponentJSON(record)) + "</pre>";
-
                 propsBodyEl.innerHTML = html;
                 propsBodyEl.scrollTop = 0;
                 propsPanelEl.classList.add("visible");
             }
-
-            // Hides the properties panel.
             function closeComponentProperties() {
                 propsPanelEl.classList.remove("visible");
             }
-
-            /* Raycasts the click against placed components only. Because the
-               bare PCB is never in `spawnedComponents`, a double-click on empty
-               board space finds no hit and simply closes the panel. */
             function handleComponentDoubleClick(event) {
-                // A double-click on empty space that just placed a component is
-                // a placement, not an inspection request.
                 if (Date.now() - lastPlaceTime < 400) {
                     closeComponentProperties();
                     return;
                 }
-
                 const raycaster = new THREE.Raycaster();
                 raycaster.setFromCamera(getPointerNDC(event), camera);
-
                 const hits = raycaster.intersectObjects(spawnedComponents, false);
                 if (hits.length === 0) {
                     closeComponentProperties();
                     return;
                 }
-
                 showComponentProperties(hits[0].object);
             }
-
             renderer.domElement.addEventListener("dblclick", handleComponentDoubleClick);
             propsCloseEl.addEventListener("click", closeComponentProperties);
-
-            // Escape closes the panel.
             window.addEventListener("keydown", (event) => {
                 if (event.key === "Escape") closeComponentProperties();
             });
-
             function animate() {
                 requestAnimationFrame(animate);
                 controle.update();
                 renderer.render(scene, camera);
             }
             animate();
-
-            // Initialize inspector
             updateInspector();
             switchTab("info");
-        </script>
+</script>
     </body>
 </html>
