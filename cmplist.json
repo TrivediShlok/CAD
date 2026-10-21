@@ -1,0 +1,2752 @@
+[
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "ADC-DAC",
+        "comp_cd": 227,
+        "part_number": "5962R0722602VZA",
+        "part_name": "DAC121S101WGRLV",
+        "vendor": "Texas Instruments",
+        "remarks": null,
+        "obj_id": "CMP0012310031118185400",
+        "json_attr": {
+            "Mass": "0.15 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "10 ",
+            "PPL Listed": "YES ",
+            "Quality": "QML V ",
+            "Space Heritage/Under Use": "GISAT , SSTM",
+            "Supply Voltage-1": "3.3 ",
+            "Supply Current-1": "3 ",
+            "PCB Footprint (Height)": "1.8",
+            "PCB Footprint (Length)": "6.86",
+            "PCB Footprint (Width)": "13.32",
+            "BS MDB Part": "DAC121S101WGRLV GDFP10 QMLV (5962R0722602VZA) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "0.15 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "10 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "YES ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML V ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "GISAT , SSTM",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "3.3 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "3 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "1.8",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "6.86",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "13.32",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "DAC121S101WGRLV GDFP10 QMLV (5962R0722602VZA) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "ADC-DAC",
+        "comp_cd": 228,
+        "part_number": "5962R0722601VXA",
+        "part_name": "DAC121S101WGRLV-1",
+        "vendor": "Texas Instruments",
+        "remarks": null,
+        "obj_id": "CMP0012310031118185437",
+        "json_attr": {
+            "Mass": "0.16 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "10 ",
+            "PPL Listed": "YES ",
+            "Quality": "QML V ",
+            "Space Heritage/Under Use": "GISAT",
+            "Supply Voltage-1": "3.3 ",
+            "Supply Current-1": "3 ",
+            "PCB Footprint (Height)": "1.8",
+            "PCB Footprint (Length)": "6.86",
+            "PCB Footprint (Width)": "13.32",
+            "BS MDB Part": "DAC121S101WGRLV-1 GDFP10 QMLV (5962R0722601VXA) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "0.16 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "10 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "YES ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML V ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "GISAT",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "3.3 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "3 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "1.8",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "6.86",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "13.32",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "DAC121S101WGRLV-1 GDFP10 QMLV (5962R0722601VXA) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "ADC-DAC",
+        "comp_cd": 229,
+        "part_number": "5962R1022301VXC",
+        "part_name": "ADC10D1000QML",
+        "vendor": "Texas Instruments",
+        "remarks": null,
+        "obj_id": "CMP0012310031118185474",
+        "json_attr": {
+            "Mass": "3.20 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "376 ",
+            "PPL Listed": "YES ",
+            "Quality": "QML V ",
+            "Space Heritage/Under Use": "RISAT-2B",
+            "Supply Voltage-1": "1.9 ",
+            "Supply Current-1": "560 ",
+            "PCB Footprint (Height)": "3.2",
+            "PCB Footprint (Length)": "27.00",
+            "PCB Footprint (Width)": "27.00",
+            "BS MDB Part": "ADC10D1000QML CGA376 QMLV (5962R1022301VXC) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "3.20 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "376 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "YES ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML V ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "RISAT-2B",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "1.9 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "560 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "3.2",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "27.00",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "27.00",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "ADC10D1000QML CGA376 QMLV (5962R1022301VXC) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "ADC-DAC",
+        "comp_cd": 230,
+        "part_number": "5962F0721801VXA",
+        "part_name": "ADS5560QML",
+        "vendor": "Texas Instruments",
+        "remarks": null,
+        "obj_id": "CMP0012310031118185511",
+        "json_attr": {
+            "Mass": "0.85 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "48 ",
+            "PPL Listed": "YES ",
+            "Quality": "QML Q ",
+            "Space Heritage/Under Use": "SSTM",
+            "Supply Voltage-1": "3.3 ",
+            "Supply Current-1": "270 ",
+            "PCB Footprint (Height)": "1.2",
+            "PCB Footprint (Length)": "9.00",
+            "PCB Footprint (Width)": "9.00",
+            "BS MDB Part": "ADS5560QML CQFP48 QMLQ (5962F0721801VXA) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "0.85 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "48 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "YES ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML Q ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "SSTM",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "3.3 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "270 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "1.2",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "9.00",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "9.00",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "ADS5560QML CQFP48 QMLQ (5962F0721801VXA) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "ADC-DAC",
+        "comp_cd": 231,
+        "part_number": "5962R0922501VXA",
+        "part_name": "DAC8568QML",
+        "vendor": "Texas Instruments",
+        "remarks": null,
+        "obj_id": "CMP0012310031118185548",
+        "json_attr": {
+            "Mass": "0.12 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "16 ",
+            "PPL Listed": "NO ",
+            "Quality": "QML V ",
+            "Space Heritage/Under Use": "SSTM",
+            "Supply Voltage-1": "5 ",
+            "Supply Current-1": "1.4 ",
+            "PCB Footprint (Height)": "1.6",
+            "PCB Footprint (Length)": "6.10",
+            "PCB Footprint (Width)": "10.00",
+            "BS MDB Part": "DAC8568QML CFP16 QMLV (5962R0922501VXA) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "0.12 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "16 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "NO ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML V ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "SSTM",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "5 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "1.4 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "1.6",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "6.10",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "10.00",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "DAC8568QML CFP16 QMLV (5962R0922501VXA) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "ADC-DAC",
+        "comp_cd": 232,
+        "part_number": "5962R1121802VZA",
+        "part_name": "AD7674QML",
+        "vendor": "Analog Devices",
+        "remarks": null,
+        "obj_id": "CMP0012310031118185585",
+        "json_attr": {
+            "Mass": "0.90 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "48 ",
+            "PPL Listed": "YES ",
+            "Quality": "QML Q ",
+            "Space Heritage/Under Use": "GISAT",
+            "Supply Voltage-1": "5 ",
+            "Supply Current-1": "7 ",
+            "PCB Footprint (Height)": "1.5",
+            "PCB Footprint (Length)": "9.00",
+            "PCB Footprint (Width)": "9.00",
+            "BS MDB Part": "AD7674QML LQFP48 QMLQ (5962R1121802VZA) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "0.90 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "48 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "YES ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML Q ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "GISAT",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "5 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "7 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "1.5",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "9.00",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "9.00",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "AD7674QML LQFP48 QMLQ (5962R1121802VZA) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "Microcontroller",
+        "comp_cd": 301,
+        "part_number": "5962R1321201VXA",
+        "part_name": "SMV320C6727QML",
+        "vendor": "Texas Instruments",
+        "remarks": null,
+        "obj_id": "CMP0012310031118185622",
+        "json_attr": {
+            "Mass": "6.50 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "256 ",
+            "PPL Listed": "YES ",
+            "Quality": "QML V ",
+            "Space Heritage/Under Use": "GISAT , RISAT",
+            "Supply Voltage-1": "1.2 ",
+            "Supply Current-1": "450 ",
+            "PCB Footprint (Height)": "3.5",
+            "PCB Footprint (Length)": "17.00",
+            "PCB Footprint (Width)": "17.00",
+            "BS MDB Part": "SMV320C6727QML CGA256 QMLV (5962R1321201VXA) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "6.50 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "256 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "YES ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML V ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "GISAT , RISAT",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "1.2 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "450 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "3.5",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "17.00",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "17.00",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "SMV320C6727QML CGA256 QMLV (5962R1321201VXA) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "Microcontroller",
+        "comp_cd": 302,
+        "part_number": "5962F1522001VYC",
+        "part_name": "UT699QML",
+        "vendor": "Cobham",
+        "remarks": null,
+        "obj_id": "CMP0012310031118185659",
+        "json_attr": {
+            "Mass": "7.80 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "272 ",
+            "PPL Listed": "YES ",
+            "Quality": "QML Q ",
+            "Space Heritage/Under Use": "SSTM",
+            "Supply Voltage-1": "3.3 ",
+            "Supply Current-1": "900 ",
+            "PCB Footprint (Height)": "3.8",
+            "PCB Footprint (Length)": "27.00",
+            "PCB Footprint (Width)": "27.00",
+            "BS MDB Part": "UT699QML CGA272 QMLQ (5962F1522001VYC) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "7.80 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "272 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "YES ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML Q ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "SSTM",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "3.3 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "900 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "3.8",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "27.00",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "27.00",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "UT699QML CGA272 QMLQ (5962F1522001VYC) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "Microcontroller",
+        "comp_cd": 303,
+        "part_number": "5962R1623401VXC",
+        "part_name": "RAD750-QML",
+        "vendor": "BAE Systems",
+        "remarks": null,
+        "obj_id": "CMP0012310031118185696",
+        "json_attr": {
+            "Mass": "9.10 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "360 ",
+            "PPL Listed": "NO ",
+            "Quality": "QML V ",
+            "Space Heritage/Under Use": "Under Evaluation",
+            "Supply Voltage-1": "3.3 ",
+            "Supply Current-1": "1200 ",
+            "PCB Footprint (Height)": "4.2",
+            "PCB Footprint (Length)": "25.00",
+            "PCB Footprint (Width)": "25.00",
+            "BS MDB Part": "RAD750-QML CGA360 QMLV (5962R1623401VXC) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "9.10 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "360 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "NO ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML V ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "Under Evaluation",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "3.3 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "1200 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "4.2",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "25.00",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "25.00",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "RAD750-QML CGA360 QMLV (5962R1623401VXC) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "Memory",
+        "comp_cd": 401,
+        "part_number": "5962R0923101VXA",
+        "part_name": "SRAM-4M-QML",
+        "vendor": "Cobham",
+        "remarks": null,
+        "obj_id": "CMP0012310031118185733",
+        "json_attr": {
+            "Mass": "2.40 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "36 ",
+            "PPL Listed": "YES ",
+            "Quality": "QML V ",
+            "Space Heritage/Under Use": "GISAT , SSTM",
+            "Supply Voltage-1": "3.3 ",
+            "Supply Current-1": "75 ",
+            "PCB Footprint (Height)": "3.0",
+            "PCB Footprint (Length)": "23.50",
+            "PCB Footprint (Width)": "14.00",
+            "BS MDB Part": "SRAM-4M-QML CFP36 QMLV (5962R0923101VXA) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "2.40 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "36 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "YES ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML V ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "GISAT , SSTM",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "3.3 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "75 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "3.0",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "23.50",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "14.00",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "SRAM-4M-QML CFP36 QMLV (5962R0923101VXA) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "Memory",
+        "comp_cd": 402,
+        "part_number": "5962F0824301VYA",
+        "part_name": "FLASH-32M-QML",
+        "vendor": "Microchip",
+        "remarks": null,
+        "obj_id": "CMP0012310031118185770",
+        "json_attr": {
+            "Mass": "2.10 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "44 ",
+            "PPL Listed": "YES ",
+            "Quality": "QML Q ",
+            "Space Heritage/Under Use": "SSTM",
+            "Supply Voltage-1": "3.3 ",
+            "Supply Current-1": "30 ",
+            "PCB Footprint (Height)": "2.9",
+            "PCB Footprint (Length)": "19.00",
+            "PCB Footprint (Width)": "11.00",
+            "BS MDB Part": "FLASH-32M-QML CFP44 QMLQ (5962F0824301VYA) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "2.10 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "44 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "YES ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML Q ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "SSTM",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "3.3 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "30 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "2.9",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "19.00",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "11.00",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "FLASH-32M-QML CFP44 QMLQ (5962F0824301VYA) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "Memory",
+        "comp_cd": 403,
+        "part_number": "5962R1224501VXA",
+        "part_name": "EEPROM-256K-QML",
+        "vendor": "Microchip",
+        "remarks": null,
+        "obj_id": "CMP0012310031118185807",
+        "json_attr": {
+            "Mass": "0.35 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "28 ",
+            "PPL Listed": "NO ",
+            "Quality": "QML V ",
+            "Space Heritage/Under Use": "Under Evaluation",
+            "Supply Voltage-1": "5 ",
+            "Supply Current-1": "10 ",
+            "PCB Footprint (Height)": "2.2",
+            "PCB Footprint (Length)": "18.00",
+            "PCB Footprint (Width)": "10.00",
+            "BS MDB Part": "EEPROM-256K-QML CFP28 QMLV (5962R1224501VXA) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "0.35 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "28 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "NO ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML V ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "Under Evaluation",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "5 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "10 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "2.2",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "18.00",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "10.00",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "EEPROM-256K-QML CFP28 QMLV (5962R1224501VXA) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "Op-Amp",
+        "comp_cd": 501,
+        "part_number": "5962R0422101VXA",
+        "part_name": "LM124AQML",
+        "vendor": "Texas Instruments",
+        "remarks": null,
+        "obj_id": "CMP0012310031118185844",
+        "json_attr": {
+            "Mass": "0.30 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "14 ",
+            "PPL Listed": "YES ",
+            "Quality": "QML V ",
+            "Space Heritage/Under Use": "GISAT , SSTM",
+            "Supply Voltage-1": "15 ",
+            "Supply Current-1": "3 ",
+            "PCB Footprint (Height)": "2.0",
+            "PCB Footprint (Length)": "9.60",
+            "PCB Footprint (Width)": "6.30",
+            "BS MDB Part": "LM124AQML CFP14 QMLV (5962R0422101VXA) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "0.30 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "14 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "YES ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML V ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "GISAT , SSTM",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "15 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "3 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "2.0",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "9.60",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "6.30",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "LM124AQML CFP14 QMLV (5962R0422101VXA) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "Op-Amp",
+        "comp_cd": 502,
+        "part_number": "5962R0522201VGA",
+        "part_name": "OP27AQML",
+        "vendor": "Analog Devices",
+        "remarks": null,
+        "obj_id": "CMP0012310031118185881",
+        "json_attr": {
+            "Mass": "1.10 ",
+            "Mounting Type": "Through-Hole",
+            "Pins": "8 ",
+            "PPL Listed": "YES ",
+            "Quality": "QML Q ",
+            "Space Heritage/Under Use": "RISAT",
+            "Supply Voltage-1": "15 ",
+            "Supply Current-1": "3.3 ",
+            "PCB Footprint (Height)": "6.60",
+            "PCB Footprint (Length)": "9.40",
+            "PCB Footprint (Width)": "9.40",
+            "BS MDB Part": "OP27AQML TO-99 QMLQ (5962R0522201VGA) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "1.10 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Through-Hole",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "8 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "YES ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML Q ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "RISAT",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "15 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "3.3 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "6.60",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "9.40",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "9.40",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "OP27AQML TO-99 QMLQ (5962R0522201VGA) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "Op-Amp",
+        "comp_cd": 503,
+        "part_number": "5962R0622301VXA",
+        "part_name": "LMP7701QML",
+        "vendor": "Texas Instruments",
+        "remarks": null,
+        "obj_id": "CMP0012310031118185918",
+        "json_attr": {
+            "Mass": "0.18 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "8 ",
+            "PPL Listed": "NO ",
+            "Quality": "QML V ",
+            "Space Heritage/Under Use": "SSTM",
+            "Supply Voltage-1": "5 ",
+            "Supply Current-1": "0.8 ",
+            "PCB Footprint (Height)": "1.7",
+            "PCB Footprint (Length)": "6.70",
+            "PCB Footprint (Width)": "6.70",
+            "BS MDB Part": "LMP7701QML CFP8 QMLV (5962R0622301VXA) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "0.18 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "8 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "NO ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML V ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "SSTM",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "5 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "0.8 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "1.7",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "6.70",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "6.70",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "LMP7701QML CFP8 QMLV (5962R0622301VXA) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "Voltage Regulator",
+        "comp_cd": 601,
+        "part_number": "5962R0522401VXA",
+        "part_name": "LM117QML",
+        "vendor": "Texas Instruments",
+        "remarks": null,
+        "obj_id": "CMP0012310031118185955",
+        "json_attr": {
+            "Mass": "0.95 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "3 ",
+            "PPL Listed": "YES ",
+            "Quality": "QML V ",
+            "Space Heritage/Under Use": "GISAT",
+            "Supply Voltage-1": "40 ",
+            "Supply Current-1": "5 ",
+            "PCB Footprint (Height)": "4.6",
+            "PCB Footprint (Length)": "10.40",
+            "PCB Footprint (Width)": "9.70",
+            "BS MDB Part": "LM117QML TO-257 QMLV (5962R0522401VXA) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "0.95 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "3 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "YES ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML V ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "GISAT",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "40 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "5 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "4.6",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "10.40",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "9.70",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "LM117QML TO-257 QMLV (5962R0522401VXA) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "Voltage Regulator",
+        "comp_cd": 602,
+        "part_number": "5962R0722501VYA",
+        "part_name": "LP2953QML",
+        "vendor": "Texas Instruments",
+        "remarks": null,
+        "obj_id": "CMP0012310031118185992",
+        "json_attr": {
+            "Mass": "0.22 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "8 ",
+            "PPL Listed": "YES ",
+            "Quality": "QML Q ",
+            "Space Heritage/Under Use": "SSTM",
+            "Supply Voltage-1": "30 ",
+            "Supply Current-1": "0.1 ",
+            "PCB Footprint (Height)": "1.8",
+            "PCB Footprint (Length)": "7.00",
+            "PCB Footprint (Width)": "6.30",
+            "BS MDB Part": "LP2953QML CFP8 QMLQ (5962R0722501VYA) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "0.22 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "8 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "YES ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML Q ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "SSTM",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "30 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "0.1 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "1.8",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "7.00",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "6.30",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "LP2953QML CFP8 QMLQ (5962R0722501VYA) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "Voltage Regulator",
+        "comp_cd": 603,
+        "part_number": "5962R0822601VZA",
+        "part_name": "RHFL4913QML",
+        "vendor": "STMicroelectronics",
+        "remarks": null,
+        "obj_id": "CMP0012310031118186029",
+        "json_attr": {
+            "Mass": "0.40 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "10 ",
+            "PPL Listed": "YES ",
+            "Quality": "QML V ",
+            "Space Heritage/Under Use": "GISAT , SSTM",
+            "Supply Voltage-1": "3.3 ",
+            "Supply Current-1": "1 ",
+            "PCB Footprint (Height)": "1.9",
+            "PCB Footprint (Length)": "6.90",
+            "PCB Footprint (Width)": "13.30",
+            "BS MDB Part": "RHFL4913QML FP10 QMLV (5962R0822601VZA) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "0.40 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "10 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "YES ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML V ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "GISAT , SSTM",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "3.3 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "1 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "1.9",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "6.90",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "13.30",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "RHFL4913QML FP10 QMLV (5962R0822601VZA) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "Interface IC",
+        "comp_cd": 701,
+        "part_number": "5962R0922701VXA",
+        "part_name": "DS26LV31QML",
+        "vendor": "Texas Instruments",
+        "remarks": null,
+        "obj_id": "CMP0012310031118186066",
+        "json_attr": {
+            "Mass": "0.32 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "16 ",
+            "PPL Listed": "YES ",
+            "Quality": "QML V ",
+            "Space Heritage/Under Use": "GISAT",
+            "Supply Voltage-1": "3.3 ",
+            "Supply Current-1": "15 ",
+            "PCB Footprint (Height)": "2.1",
+            "PCB Footprint (Length)": "10.20",
+            "PCB Footprint (Width)": "6.50",
+            "BS MDB Part": "DS26LV31QML CFP16 QMLV (5962R0922701VXA) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "0.32 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "16 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "YES ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML V ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "GISAT",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "3.3 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "15 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "2.1",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "10.20",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "6.50",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "DS26LV31QML CFP16 QMLV (5962R0922701VXA) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "Interface IC",
+        "comp_cd": 702,
+        "part_number": "5962R1022801VXA",
+        "part_name": "DS90LV048QML",
+        "vendor": "Texas Instruments",
+        "remarks": null,
+        "obj_id": "CMP0012310031118186103",
+        "json_attr": {
+            "Mass": "0.30 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "16 ",
+            "PPL Listed": "YES ",
+            "Quality": "QML V ",
+            "Space Heritage/Under Use": "SSTM",
+            "Supply Voltage-1": "3.3 ",
+            "Supply Current-1": "14 ",
+            "PCB Footprint (Height)": "2.1",
+            "PCB Footprint (Length)": "10.20",
+            "PCB Footprint (Width)": "6.50",
+            "BS MDB Part": "DS90LV048QML CFP16 QMLV (5962R1022801VXA) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "0.30 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "16 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "YES ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML V ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "SSTM",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "3.3 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "14 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "2.1",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "10.20",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "6.50",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "DS90LV048QML CFP16 QMLV (5962R1022801VXA) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "Interface IC",
+        "comp_cd": 703,
+        "part_number": "5962R1122901VXA",
+        "part_name": "ISL31491QML",
+        "vendor": "Renesas",
+        "remarks": null,
+        "obj_id": "CMP0012310031118186140",
+        "json_attr": {
+            "Mass": "0.28 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "8 ",
+            "PPL Listed": "NO ",
+            "Quality": "QML Q ",
+            "Space Heritage/Under Use": "Under Evaluation",
+            "Supply Voltage-1": "3.3 ",
+            "Supply Current-1": "5 ",
+            "PCB Footprint (Height)": "1.8",
+            "PCB Footprint (Length)": "6.50",
+            "PCB Footprint (Width)": "6.50",
+            "BS MDB Part": "ISL31491QML CFP8 QMLQ (5962R1122901VXA) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "0.28 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "8 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "NO ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML Q ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "Under Evaluation",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "3.3 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "5 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "1.8",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "6.50",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "6.50",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "ISL31491QML CFP8 QMLQ (5962R1122901VXA) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "FPGA",
+        "comp_cd": 801,
+        "part_number": "5962R1323001VXA",
+        "part_name": "RTAX2000S-CQ352",
+        "vendor": "Microchip",
+        "remarks": null,
+        "obj_id": "CMP0012310031118186177",
+        "json_attr": {
+            "Mass": "11.50 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "352 ",
+            "PPL Listed": "YES ",
+            "Quality": "QML V ",
+            "Space Heritage/Under Use": "GISAT , RISAT , SSTM",
+            "Supply Voltage-1": "1.5 ",
+            "Supply Current-1": "80 ",
+            "PCB Footprint (Height)": "3.6",
+            "PCB Footprint (Length)": "35.00",
+            "PCB Footprint (Width)": "35.00",
+            "BS MDB Part": "RTAX2000S-CQ352 CQFP352 QMLV (5962R1323001VXA) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "11.50 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "352 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "YES ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML V ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "GISAT , RISAT , SSTM",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "1.5 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "80 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "3.6",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "35.00",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "35.00",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "RTAX2000S-CQ352 CQFP352 QMLV (5962R1323001VXA) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "FPGA",
+        "comp_cd": 802,
+        "part_number": "5962R1423101VXA",
+        "part_name": "RT54SX72S-CQ256",
+        "vendor": "Microchip",
+        "remarks": null,
+        "obj_id": "CMP0012310031118186214",
+        "json_attr": {
+            "Mass": "8.20 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "256 ",
+            "PPL Listed": "YES ",
+            "Quality": "QML V ",
+            "Space Heritage/Under Use": "SSTM",
+            "Supply Voltage-1": "2.5 ",
+            "Supply Current-1": "50 ",
+            "PCB Footprint (Height)": "3.4",
+            "PCB Footprint (Length)": "30.00",
+            "PCB Footprint (Width)": "30.00",
+            "BS MDB Part": "RT54SX72S-CQ256 CQFP256 QMLV (5962R1423101VXA) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "8.20 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "256 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "YES ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML V ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "SSTM",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "2.5 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "50 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "3.4",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "30.00",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "30.00",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "RT54SX72S-CQ256 CQFP256 QMLV (5962R1423101VXA) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "Transistor",
+        "comp_cd": 901,
+        "part_number": "JANSR2N7002",
+        "part_name": "2N7002QML",
+        "vendor": "Microchip",
+        "remarks": null,
+        "obj_id": "CMP0012310031118186251",
+        "json_attr": {
+            "Mass": "0.04 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "3 ",
+            "PPL Listed": "NO ",
+            "Quality": "QML Q ",
+            "Space Heritage/Under Use": "SSTM",
+            "Supply Voltage-1": "60 ",
+            "Supply Current-1": "0.5 ",
+            "PCB Footprint (Height)": "1.1",
+            "PCB Footprint (Length)": "2.90",
+            "PCB Footprint (Width)": "1.30",
+            "BS MDB Part": "2N7002QML SOT-23 QMLQ (JANSR2N7002) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "0.04 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "3 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "NO ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML Q ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "SSTM",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "60 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "0.5 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "1.1",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "2.90",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "1.30",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "2N7002QML SOT-23 QMLQ (JANSR2N7002) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    },
+    {
+        "group_name": "ACTIVE",
+        "sgp_name": "Diode",
+        "comp_cd": 951,
+        "part_number": "JANSR1N4148UR",
+        "part_name": "1N4148URQML",
+        "vendor": "Microchip",
+        "remarks": null,
+        "obj_id": "CMP0012310031118186288",
+        "json_attr": {
+            "Mass": "0.12 ",
+            "Mounting Type": "Surface-Mount",
+            "Pins": "2 ",
+            "PPL Listed": "YES ",
+            "Quality": "QML V ",
+            "Space Heritage/Under Use": "GISAT , SSTM",
+            "Supply Voltage-1": "75 ",
+            "Supply Current-1": "0.1 ",
+            "PCB Footprint (Height)": "2.0",
+            "PCB Footprint (Length)": "5.20",
+            "PCB Footprint (Width)": "2.70",
+            "BS MDB Part": "1N4148URQML MELF QMLV (JANSR1N4148UR) RH10"
+        },
+        "json_attr3": [
+            {
+                "pn": "Mass",
+                "pv": "0.12 ",
+                "pu": "g",
+                "pc": "Physical",
+                "pr": ""
+            },
+            {
+                "pn": "Mounting Type",
+                "pv": "Surface-Mount",
+                "pu": "",
+                "pc": "Fabrication",
+                "pr": ""
+            },
+            {
+                "pn": "Pins",
+                "pv": "2 ",
+                "pu": "nos.",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "PPL Listed",
+                "pv": "YES ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Quality",
+                "pv": "QML V ",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Space Heritage/Under Use",
+                "pv": "GISAT , SSTM",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Voltage-1",
+                "pv": "75 ",
+                "pu": "V",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "Supply Current-1",
+                "pv": "0.1 ",
+                "pu": "mA",
+                "pc": "Electrical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Height)",
+                "pv": "2.0",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Length)",
+                "pv": "5.20",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "PCB Footprint (Width)",
+                "pv": "2.70",
+                "pu": "mm",
+                "pc": "Mechanical",
+                "pr": ""
+            },
+            {
+                "pn": "BS MDB Part",
+                "pv": "1N4148URQML MELF QMLV (JANSR1N4148UR) RH10",
+                "pu": "",
+                "pc": "General",
+                "pr": ""
+            }
+        ]
+    }
+]
